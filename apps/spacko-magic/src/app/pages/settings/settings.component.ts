@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { GameService } from '../../game.service';
-import { RootStoreState } from '../../root-store';
-import { loadRequest } from '../../root-store/card-store/actions';
 
 @Component({
   templateUrl: './settings.component.html',
