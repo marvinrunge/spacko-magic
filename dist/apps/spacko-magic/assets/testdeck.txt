@@ -1,0 +1,18 @@
+//Lands
+4 Darksteel Citadel
+12 Mountain
+
+//Spells
+4 Galvanic Blast
+4 Greater Gargadon
+4 Mycosynth Wellspring
+4 Shrapnel Blast
+
+//Creatures
+4 Atog
+4 Ichor Wellspring
+4 Memnite
+4 Myr Servitor
+4 Ornithopter
+4 Perilous Myr
+4 Pia's Revolution
