@@ -1,0 +1,106 @@
+.card-container {
+  height: 200px;
+}
+
+.card {
+  background-size: contain;
+  height: 200px;
+  cursor: pointer;
+}
+
+.inner-card {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
+  border-radius: 9px;
+  height: 200px;
+}
+
+.counter {
+  position: relative;
+  top: 24px;
+  left: 12px;
+  z-index: 2;
+  color: white;
+  max-height: 1.3rem;
+  max-width: 1.3rem;
+  min-height: 1.3rem;
+  min-width: 1.3rem;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5rem;
+  background-color: #222;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+.actions {
+  position: relative;
+  top: -28px;
+  height: 26px;
+  z-index: 2;
+  padding: 2px;
+}
+
+.action {
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid black;
+  background-size: contain;
+}
+
+.action:active {
+  filter: brightness(150%);
+}
+
+.tap {
+  background-image: url(../../../assets/tap.svg);
+  background-color: black;
+}
+
+.untap {
+  background-image: url(../../../assets/untap.svg);
+  background-color: black;
+}
+
+.return-to-hand {
+  background-image: url(../../../assets/hand_white.svg);
+  background-color: black;
+}
+
+.add-counter {
+  background-color: green;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.remove-counter {
+  background-color: darkred;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.2rem;
+}
+
+.kill {
+  background-color: darkred;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.2rem;
+}
+
+.inspect {
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  background-image: url(../../../assets/fullscreen_white.svg);
+}

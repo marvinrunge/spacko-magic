@@ -1,0 +1,55 @@
+<div
+  class="card-container"
+  (mouseenter)="toggleActions()"
+  (mouseleave)="toggleActions()"
+>
+  <div class="card" (click)="toggleTap()">
+    <div
+      class="inner-card"
+      fxFill
+      [style.background-image]="'url(' + card.url + ')'"
+      [@tappedUntapped]="tapped ? 'tapped' : 'untapped'"
+    >
+      <div class="counter" *ngIf="card.counter > 0">
+        {{ card.counter > 0 ? card.counter : '' }}
+      </div>
+    </div>
+  </div>
+  <div
+    [@showHide]="showActions ? 'show' : 'hide'"
+    class="actions"
+    fxLayout="row"
+    fxLayoutGap="2px"
+  >
+    <div
+      title="add a counter"
+      *ngIf="card.place === 'battlefield'"
+      class="action add-counter"
+      (click)="addCounter()"
+    >
+      +
+    </div>
+    <div
+      title="remove a counter"
+      *ngIf="card.place === 'battlefield'"
+      class="action remove-counter"
+      (click)="removeCounter()"
+    >
+      -
+    </div>
+    <div
+      title="return to hand"
+      class="action return-to-hand"
+      (click)="returnToHand()"
+    ></div>
+    <div
+      title="kill"
+      *ngIf="card.place === 'battlefield'"
+      class="action kill"
+      (click)="kill()"
+    >
+      x
+    </div>
+    <div title="zoom" class="action inspect" (click)="select()"></div>
+  </div>
+</div>

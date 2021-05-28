@@ -1,0 +1,96 @@
+.card {
+  background-size: contain;
+  height: 200px;
+  width: 144px;
+  min-width: 144px;
+  cursor: pointer;
+}
+
+.inner-card {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
+  border-radius: 9px;
+  height: 200px;
+}
+
+.grave-placeholder {
+  background-color: #0005;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 9px;
+  height: 200px;
+}
+
+.creature-container {
+  background-color: #0005;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.creature-container::-webkit-scrollbar {
+  display: none;
+}
+
+.other-container {
+  border-bottom-left-radius: 9px;
+  border-top-left-radius: 9px;
+  background-color: #0005;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.other-container::-webkit-scrollbar {
+  display: none;
+}
+
+.land-container {
+  background-color: #0005;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.land-container::-webkit-scrollbar {
+  display: none;
+}
+
+.hand-container {
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  top: calc(100vh - 100px);
+}
+
+.hand-container .card {
+  position: relative;
+  top: 0;
+  transition: 0.5s top;
+}
+
+.hand-container .card:hover{
+  top: -100px;
+}
+
+.inspect {
+  background-color: #000a;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+}
+
+.preview {
+  position: relative;
+  margin: auto;
+  border-radius: 30px;
+  width: 488px;
+  height: 680px;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  cursor: default;
+}
+

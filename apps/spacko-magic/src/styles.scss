@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background: url(https://media.magic.wizards.com/images/wallpaper/sacred-foundry_sld_1920x1080_wallpaper.jpg);
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background: #fffb;
+}
+
+.mat-form-field-appearance-fill.mat-form-field-disabled .mat-form-field-flex {
+  background: #fffb;
+}

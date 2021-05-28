@@ -1,0 +1,89 @@
+<div fxLayout="column" fxLayoutGap="8px">
+  <div
+    class="creature-container"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="8px"
+  >
+    <spacko-magic-card
+      *ngFor="let card of creatures; index as i"
+      [card]="card"
+      (cardEmitter)="updateCard($event)"
+      (selectEmitter)="selectCard($event)"
+    ></spacko-magic-card>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    fxLayoutGap="8px"
+    class="other-container"
+  >
+    <spacko-magic-card
+      *ngIf="graveyard[0]; else grave"
+      [card]="graveyard[0]"
+      (cardEmitter)="updateCard($event)"
+      (selectEmitter)="selectCard($event)"
+    ></spacko-magic-card>
+    <ng-template #grave>
+      <div class="card">
+        <div
+          class="grave-placeholder"
+          fxFill
+          [style.background-image]="
+            'url(https://img.icons8.com/ios/452/cemetery.png)'
+          "
+        ></div>
+      </div>
+    </ng-template>
+    <div class="card" (click)="draw()">
+      <div
+        class="inner-card"
+        [hidden]="deck.length <= 0"
+        fxFill
+        [style.background-image]="
+          'url(https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg)'
+        "
+      ></div>
+    </div>
+    <spacko-magic-card
+      *ngFor="let card of other; index as i"
+      [card]="card"
+      (cardEmitter)="updateCard($event)"
+      (selectEmitter)="selectCard($event)"
+    ></spacko-magic-card>
+  </div>
+  <div
+    class="land-container"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="8px"
+  >
+    <spacko-magic-card
+      *ngFor="let card of lands; index as i"
+      [card]="card"
+      (cardEmitter)="updateCard($event)"
+      (selectEmitter)="selectCard($event)"
+    ></spacko-magic-card>
+  </div>
+  <div
+    class="hand-container"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="8px"
+  >
+    <div class="card" *ngFor="let card of hand; index as i">
+      <div
+        class="inner-card"
+        (click)="play(card)"
+        fxFill
+        [style.background-image]="'url(' + card.url + ')'"
+      ></div>
+    </div>
+  </div>
+</div>
+<div class="inspect" *ngIf="selectedCard?.url" (click)="deselectCard()">
+  <div
+    class="preview"
+    [style.background-image]="'url(' + selectedCard?.url + ')'"
+  ></div>
+</div>

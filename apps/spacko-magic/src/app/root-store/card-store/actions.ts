@@ -1,0 +1,21 @@
+import { Update } from '@ngrx/entity';
+import { createAction, props } from '@ngrx/store';
+import { Card } from '../../interfaces/card';
+
+export const loadRequest = createAction('[Card] Load Request');
+export const loadFailure = createAction('[Card] Load Failure', props<{error: string}>());
+export const loadSuccess = createAction('[Card] Load Success', props<{cards: Card[]}>());
+export const addRequest = createAction('[Card] Add Request', props<{card: Card}>());
+export const addFailure = createAction('[Card] Add Failure', props<{error: string}>());
+export const addSuccess = createAction('[Card] Add Success');
+export const updateRequest = createAction('[Card] Update Request', props<{card: Card}>());
+export const updateFailure = createAction('[Card] Update Failure', props<{error: string}>());
+export const updateSuccess = createAction('[Card] Update Success', props<{card: Update<Card>}>());
+export const addUpdateSuccess = createAction('[Card] Add | Update Success', props<{card: Card}>());
+export const deleteRequest = createAction('[Card] Delete Request', props<{card: Card}>());
+export const deleteFailure = createAction('[Card] Delete Failure', props<{error: string}>());
+export const deleteSuccess = createAction('[Card] Delete Success', props<{id: string}>());
+export const resetRequest = createAction('[Card] Reset Request');
+export const resetFailure = createAction('[Card] Reset Failure', props<{error: string}>());
+export const resetSuccess = createAction('[Card] Reset Success');
+export const setSelectedCardId = createAction('[Card] Set Selected Card Id', props<{selectedCardId?: string}>());
