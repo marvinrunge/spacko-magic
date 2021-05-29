@@ -28,6 +28,13 @@ export class PlayerStoreEffects {
     ), { dispatch: false }
   );
 
+  updateManyRequestEffect$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(playerActions.updatePlayerRequest),
+      tap(action => from(this.playerService.update(action.player)))
+    ), { dispatch: false }
+  );
+
   deleteRequestEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(playerActions.deletePlayerRequest),
