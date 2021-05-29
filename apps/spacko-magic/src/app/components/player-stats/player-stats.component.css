@@ -1,0 +1,37 @@
+.player-stats-container {
+  filter: drop-shadow(5px 0px 5px #000);
+  z-index: 4;
+}
+
+.player-stats-header {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  font-size: 20px;
+  border-top-right-radius: 20px;
+  border-bottom: 1px solid #555;
+  padding: 8px;
+}
+
+.player-stats-content {
+  background-color: #222;
+  color: white;
+  font-size: 20px;
+  z-index: 3;
+  padding: 8px;
+}
+
+.player-counter-button {
+  background-color: #555;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 30%;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.player-counter-button:hover {
+  background-color: #777;
+}

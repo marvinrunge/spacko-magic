@@ -1,10 +1,8 @@
 .card-container {
-  height: 200px;
+
 }
 
 .card {
-  background-size: contain;
-  height: 200px;
   cursor: pointer;
 }
 
@@ -12,14 +10,13 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
-  border-radius: 9px;
-  height: 200px;
+  border-radius: 4%;
 }
 
 .counter {
   position: relative;
-  top: 24px;
-  left: 12px;
+  top: calc(50% - 1.3rem);
+  left: 8%;
   z-index: 2;
   color: white;
   max-height: 1.3rem;
@@ -27,8 +24,8 @@
   min-height: 1.3rem;
   min-width: 1.3rem;
   text-align: center;
-  font-size: 14px;
-  line-height: 1.5rem;
+  font-size: 13px;
+  line-height: 1.4rem;
   background-color: #222;
   border-radius: 50%;
   border: 2px solid black;
@@ -36,7 +33,7 @@
 
 .actions {
   position: relative;
-  top: -28px;
+  top: -33px;
   height: 26px;
   z-index: 2;
   padding: 2px;
@@ -55,6 +52,10 @@
 
 .action:active {
   filter: brightness(150%);
+}
+
+.action:hover {
+  filter: brightness(120%);
 }
 
 .tap {

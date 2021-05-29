@@ -2,13 +2,17 @@
   class="card-container"
   (mouseenter)="toggleActions()"
   (mouseleave)="toggleActions()"
+  (wheel)="select()"
+  [style.maxHeight.px]="height"
 >
-  <div class="card" (click)="toggleTap()">
+  <div class="card" (click)="toggleTap()"
+  [style.height.px]="height"
+  [style.min-width.px]="width">
     <div
       class="inner-card"
       fxFill
       [style.background-image]="'url(' + card.url + ')'"
-      [@tappedUntapped]="tapped ? 'tapped' : 'untapped'"
+      [@tappedUntapped]="{ value:tappedValue, params: { inWidth: width + 'px', inHeight: height + 'px' }}"
     >
       <div class="counter" *ngIf="card.counter > 0">
         {{ card.counter > 0 ? card.counter : '' }}
@@ -20,6 +24,7 @@
     class="actions"
     fxLayout="row"
     fxLayoutGap="2px"
+    fxLayoutAlign="center center"
   >
     <div
       title="add a counter"
@@ -50,6 +55,5 @@
     >
       x
     </div>
-    <div title="zoom" class="action inspect" (click)="select()"></div>
   </div>
 </div>

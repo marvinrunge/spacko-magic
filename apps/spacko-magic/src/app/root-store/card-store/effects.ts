@@ -16,42 +16,42 @@ export class CardStoreEffects {
 
   addRequestEffect$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType(cardActions.addRequest),
+      ofType(cardActions.addCardRequest),
       tap(action => from(this.cardService.add(action.card)))
     ), { dispatch: false }
   );
 
   updateRequestEffect$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType(cardActions.updateRequest),
+      ofType(cardActions.updateCardRequest),
       tap(action => from(this.cardService.update(action.card)))
     ), { dispatch: false }
   );
 
   deleteRequestEffect$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(cardActions.deleteRequest),
+      ofType(cardActions.deleteCardRequest),
       tap(action => from(this.cardService.delete(action.card)))
     ), { dispatch: false }
   );
 
   loadRequestEffect$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType(cardActions.loadRequest),
+      ofType(cardActions.loadCardsRequest),
       switchMap(() => concat(this.allCards$, this.changedCards$))
     )
   );
 
   allCards$ = this.cardService.getAll().pipe(
-    map(cards => cardActions.loadSuccess({ cards })
+    map(cards => cardActions.loadCardsSuccess({ cards })
   ));
 
   changedCards$: Observable<Action> = this.cardService.getChanges().pipe(
     map(card => {
       if (card._deleted) {
-        return cardActions.deleteSuccess({ id: String(card._id) });
+        return cardActions.deleteCardSuccess({ id: String(card._id) });
       } else {
-        return cardActions.addUpdateSuccess({ card });
+        return cardActions.addUpdateCardSuccess({ card });
       }
     })
   );

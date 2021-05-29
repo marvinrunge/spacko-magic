@@ -14,14 +14,18 @@ import { SpellsPipe } from './pipes/spells.pipe';
 import { RootStoreModule } from './root-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { BattlefieldComponent } from './pages/battlefield/battlefield.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { CardComponent } from './components/card/card.component';
+import { LaneComponent } from './components/lane/lane.component';
+import { LibraryComponent } from './components/library/library.component';
+import { GraveyardComponent } from './components/graveyard/graveyard.component';
+import { SinglePlayerComponent } from './pages/single-player/single-player.component';
+import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
 
 const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
-  { path: 'battlefield', component: BattlefieldComponent },
+  { path: 'single-player', component: SinglePlayerComponent },
   { path: '',   redirectTo: '/settings', pathMatch: 'full' }
 ];
 
@@ -32,9 +36,13 @@ const routes: Routes = [
     LandsPipe,
     CreaturesPipe,
     SpellsPipe,
-    BattlefieldComponent,
     SettingsComponent,
-    CardComponent
+    CardComponent,
+    LaneComponent,
+    LibraryComponent,
+    GraveyardComponent,
+    SinglePlayerComponent,
+    PlayerStatsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -1,0 +1,17 @@
+<div
+  class="card"
+  (click)="drawCard()"
+  [style.height.px]="height"
+  [style.width.px]="width"
+>
+  <div
+    class="inner-card"
+    [hidden]="cards.length <= 0"
+    fxFill
+    [style.height.px]="height"
+    [style.width.px]="width"
+    [style.background-image]="
+      'url(https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg)'
+    "
+  ></div>
+</div>

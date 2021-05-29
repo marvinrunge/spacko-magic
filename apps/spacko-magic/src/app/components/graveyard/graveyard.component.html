@@ -1,0 +1,22 @@
+<spacko-magic-card
+  class="snap"
+  *ngIf="cards[0]; else grave"
+  [card]="cards[0]"
+  [height]="height"
+  [width]="width"
+  (cardUpdated)="updateCard($event)"
+  (cardSelected)="selectCard($event)"
+></spacko-magic-card>
+<ng-template #grave>
+  <div class="card">
+    <div
+      class="grave-placeholder"
+      fxFill
+      [style.height.px]="height"
+      [style.width.px]="width"
+      [style.background-image]="
+        'url(https://img.icons8.com/ios/452/cemetery.png)'
+      "
+    ></div>
+  </div>
+</ng-template>

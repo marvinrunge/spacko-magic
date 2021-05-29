@@ -1,0 +1,52 @@
+spacko-magic-card {
+  scroll-snap-align: center;
+}
+
+spacko-magic-graveyard {
+  scroll-snap-align: center;
+}
+
+spacko-magic-deck {
+  scroll-snap-align: center;
+}
+
+.scroll-container {
+  overflow-y: hidden;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.scroll-container::-webkit-scrollbar {
+}
+
+.card-container {
+  width: 100%;
+  max-width: 100vw;
+}
+
+.arrow {
+  position: absolute;
+  cursor: pointer;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #0005;
+  min-width: 50px;
+  transition: 0.3s ease;
+  opacity: 0.2;
+  z-index: 2;
+}
+
+.arrow:hover {
+  opacity: 1;
+}
+
+.left {
+  background-image: url(/assets/arrow_back.svg);
+  left: 0;
+}
+
+.right {
+  background-image: url(/assets/arrow_forward.svg);
+  right: 0;
+}

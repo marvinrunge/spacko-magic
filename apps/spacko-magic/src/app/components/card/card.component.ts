@@ -1,23 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from '../../interfaces/card';
+import { tapAnimation } from './tapAnimation';
 
 @Component({
   selector: 'spacko-magic-card',
-  animations: [
-    trigger('tappedUntapped', [
-      state('untapped', style({
-        transform: 'rotate(0)',
-        width: '144px'
-      })),
-      state('tapped', style({
-        transform: 'rotate(90deg)',
-        width: '200px'
-      })),
-      transition('untapped <=> tapped', [
-        animate('0.5s ease')
-      ]),
-    ]),
+  animations: [tapAnimation,
     trigger('showHide', [
       state('show', style({
         opacity: '1'
@@ -35,34 +23,42 @@ import { Card } from '../../interfaces/card';
 })
 export class CardComponent implements OnInit {
   @Input() card: Card;
-  @Output() cardEmitter = new EventEmitter<Card>();
-  @Output() selectEmitter = new EventEmitter<Card>();
-  tapped = false;
+  @Input() height: number;
+  @Input() width: number;
+  @Input() type: string;
+  @Output() cardUpdated = new EventEmitter<Card>();
+  @Output() cardSelected = new EventEmitter<Card>();
+  tappedValue = 'untapped';
   showActions = false;
 
+  setTappedValue(tapped: boolean) {
+    this.tappedValue = tapped ? 'tapped' : 'untapped';
+  }
+
   ngOnInit(): void {
-    this.tapped = this.card.tapped;
+    this.setTappedValue(this.card.tapped);
   }
 
   toggleTap() {
-    this.tapped = !this.tapped;
-    const card = { ...this.card, tapped: this.tapped };
+    const tapped = this.tappedValue === 'tapped' ? false : true;
+    const card = { ...this.card, tapped };
+    this.setTappedValue(tapped);
     setTimeout(() => {
-      this.cardEmitter.emit(card)
-    }, 500);
+      this.cardUpdated.emit(card)
+    }, 600);
   }
 
   addCounter() {
     const counter = this.card.counter + 1;
     const card: Card = { ...this.card, counter}
-    this.cardEmitter.emit(card);
+    this.cardUpdated.emit(card);
   }
 
   removeCounter() {
     if (this.card.counter > 0) {
       const counter = this.card.counter - 1;
       const card: Card = { ...this.card, counter}
-      this.cardEmitter.emit(card);
+      this.cardUpdated.emit(card);
     }
   }
 
@@ -71,18 +67,22 @@ export class CardComponent implements OnInit {
   }
 
   select() {
-    this.selectEmitter.emit(this.card);
+    this.cardSelected.emit(this.card);
   }
 
   kill() {
     const place = "graveyard";
     const card: Card = { ...this.card, place}
-    this.cardEmitter.emit(card);
+    this.cardUpdated.emit(card);
   }
 
   returnToHand() {
     const place = "hand";
     const card: Card = { ...this.card, place}
-    this.cardEmitter.emit(card);
+    this.cardUpdated.emit(card);
+  }
+
+  scroll(event: any) {
+    console.log('scroll', event);
   }
 }

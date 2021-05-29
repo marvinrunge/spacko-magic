@@ -4,6 +4,9 @@ html,
 body {
   height: 100%;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -19,4 +22,23 @@ body {
 
 .mat-form-field-appearance-fill.mat-form-field-disabled .mat-form-field-flex {
   background: #fffb;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0005;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  height: 20px;
+  cursor: pointer;
 }

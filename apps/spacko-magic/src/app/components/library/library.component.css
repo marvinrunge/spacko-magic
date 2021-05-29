@@ -1,0 +1,12 @@
+.card {
+  background-size: contain;
+  cursor: pointer;
+  scroll-snap-align: center;
+}
+
+.inner-card {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
+  border-radius: 9px;
+}

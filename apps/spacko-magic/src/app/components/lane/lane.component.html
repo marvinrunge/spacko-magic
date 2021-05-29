@@ -1,0 +1,45 @@
+<div class="card-container" fxLayout="row" fxLayoutAlign="center center">
+  <div
+    class="arrow left"
+    [style.height.px]="cardHeight"
+    (click)="scrollLeft()"
+  ></div>
+  <div
+    #scroll
+    class="scroll-container"
+    fxLayout="row"
+    fxLayoutGap="4px"
+    [style.height.px]="cardHeight"
+  >
+    <spacko-magic-graveyard
+      *ngIf="graveyard"
+      [cards]="graveyard"
+      [height]="cardHeight"
+      [width]="cardWidth"
+      (cardUpdated)="updateCard($event)"
+      (cardSelected)="selectCard($event)"
+    >
+    </spacko-magic-graveyard>
+    <spacko-magic-library
+      *ngIf="library"
+      [cards]="library"
+      [height]="cardHeight"
+      [width]="cardWidth"
+      (cardUpdated)="updateCard($event)"
+    >
+    </spacko-magic-library>
+    <spacko-magic-card
+      *ngFor="let card of cards"
+      [card]="card"
+      [height]="cardHeight"
+      [width]="cardWidth"
+      (cardUpdated)="updateCard($event)"
+      (cardSelected)="selectCard($event)"
+    ></spacko-magic-card>
+  </div>
+  <div
+    class="arrow right"
+    [style.height.px]="cardHeight"
+    (click)="scrollRight()"
+  ></div>
+</div>

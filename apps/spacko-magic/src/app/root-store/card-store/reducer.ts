@@ -7,17 +7,17 @@ import { Card } from '../../interfaces/card';
 
 export const cardReducer = createReducer(
   initialCardState,
-  on(CardActions.loadRequest, state => ({
+  on(CardActions.loadCardsRequest, state => ({
     ...state, isLoading: true, error: undefined
   })),
-  on(CardActions.loadSuccess, (state, { cards }) => {
+  on(CardActions.loadCardsSuccess, (state, { cards }) => {
     return cardAdapter.upsertMany(cards, {
       ...state, isLoading: false, error: undefined });
   }),
-  on(CardActions.loadFailure, (state, { error }) => ({
+  on(CardActions.loadCardsFailure, (state, { error }) => ({
     ...state, isLoading: false, error
   })),
-  on(CardActions.addUpdateSuccess, (state, { card }) => {
+  on(CardActions.addUpdateCardSuccess, (state, { card }) => {
     const id = card._id as string;
     const ids = state.ids as string[];
     if (ids.includes(id)) {
@@ -32,34 +32,34 @@ export const cardReducer = createReducer(
         ...state, isLoading: false, error: undefined });
     }
   }),
-  on(CardActions.deleteRequest, state => ({
+  on(CardActions.deleteCardRequest, state => ({
     ...state, isLoading: true, error: undefined
   })),
-  on(CardActions.deleteSuccess, (state, { id }) => {
+  on(CardActions.deleteCardSuccess, (state, { id }) => {
     return cardAdapter.removeOne(id, {
       ...state, isLoading: false, error: undefined });
   }),
-  on(CardActions.deleteFailure, (state, { error }) => ({
+  on(CardActions.deleteCardFailure, (state, { error }) => ({
     ...state, isLoading: false, error
   })),
-  on(CardActions.addRequest, state => ({
+  on(CardActions.addCardRequest, state => ({
     ...state, isLoading: true, error: undefined
   })),
-  on(CardActions.addSuccess, state => ({
+  on(CardActions.addCardSuccess, state => ({
     ...state, isLoading: false, error: undefined
   })),
-  on(CardActions.addFailure, (state, { error }) => ({
+  on(CardActions.addCardFailure, (state, { error }) => ({
     ...state, isLoading: false, error
   })),
-  on(CardActions.resetRequest, state => ({
+  on(CardActions.resetCardRequest, state => ({
     ...state, isLoading: true, error: undefined
   })),
-  on(CardActions.resetSuccess, state => {
+  on(CardActions.resetCardSuccess, state => {
     return cardAdapter.removeAll({
       ...state, isLoading: false, error: undefined
     });
   }),
-  on(CardActions.resetFailure, (state, { error }) => ({
+  on(CardActions.resetCardFailure, (state, { error }) => ({
     ...state, isLoading: false, error
   })),
   on(CardActions.setSelectedCardId, (state, { selectedCardId }) => ({

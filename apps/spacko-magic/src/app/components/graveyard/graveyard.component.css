@@ -1,0 +1,20 @@
+.card {
+  background-size: contain;
+  cursor: pointer;
+  scroll-snap-align: center;
+}
+
+.inner-card {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top;
+  border-radius: 9px;
+}
+
+.grave-placeholder {
+  background-color: #0005;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 9px;
+}

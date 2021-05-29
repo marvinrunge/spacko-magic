@@ -1,0 +1,21 @@
+import { Update } from '@ngrx/entity';
+import { createAction, props } from '@ngrx/store';
+import { Player } from '../../interfaces/player';
+
+export const loadPlayersRequest = createAction('[Player] Load Player Request');
+export const loadPlayersFailure = createAction('[Player] Load Player Failure', props<{error: string}>());
+export const loadPlayersSuccess = createAction('[Player] Load Player Success', props<{players: Player[]}>());
+export const addPlayerRequest = createAction('[Player] Add Player Request', props<{player: Player}>());
+export const addPlayerFailure = createAction('[Player] Add Player Failure', props<{error: string}>());
+export const addPlayerSuccess = createAction('[Player] Add Player Success');
+export const updatePlayerRequest = createAction('[Player] Update Player Request', props<{player: Player}>());
+export const updatePlayerFailure = createAction('[Player] Update Player Failure', props<{error: string}>());
+export const updatePlayerSuccess = createAction('[Player] Update Player Success', props<{player: Update<Player>}>());
+export const addUpdatePlayerSuccess = createAction('[Player] Add | Update Player Success', props<{player: Player}>());
+export const deletePlayerRequest = createAction('[Player] Delete Player Request', props<{player: Player}>());
+export const deletePlayerFailure = createAction('[Player] Delete Player Failure', props<{error: string}>());
+export const deletePlayerSuccess = createAction('[Player] Delete Player Success', props<{id: string}>());
+export const resetPlayerRequest = createAction('[Player] Reset Player Request');
+export const resetPlayerFailure = createAction('[Player] Reset Player Failure', props<{error: string}>());
+export const resetPlayerSuccess = createAction('[Player] Reset Player Success');
+export const setSelectedPlayerId = createAction('[Player] Set Selected Player Id', props<{selectedPlayerId?: string}>());
