@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit{
 
   initDeck() {
     this.game.initDeck(this.deckList, this.username);
-    this.router.navigate(["/battlefield"]);
+    this.router.navigate(["/single-player"]);
   }
 
 }
