@@ -5,6 +5,7 @@ export interface Card extends Base {
   counter: number;
   tapped: boolean;
   marked: boolean;
+  position: number;
   type: "creature" | "land" | "spell";
   place: "deck" | "hand" | "graveyard" | "stack" | "battlefield";
 }

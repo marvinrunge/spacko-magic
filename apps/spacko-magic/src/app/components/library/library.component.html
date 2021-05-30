@@ -1,5 +1,7 @@
 <div
   class="card"
+  (mouseenter)="toggleActions()"
+  (mouseleave)="toggleActions()"
   (click)="drawCard()"
   [style.height.px]="height"
   [style.width.px]="width"
@@ -14,4 +16,17 @@
       'url(https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg)'
     "
   ></div>
+  <div
+    [@showHide]="showActions ? 'show' : 'hide'"
+    class="actions"
+    fxLayout="row"
+    fxLayoutGap="2px"
+    fxLayoutAlign="center center"
+  >
+    <div
+      title="shuffle"
+      class="action shuffle"
+      (click)="shuffle(); $event.stopPropagation()"
+    ></div>
+  </div>
 </div>

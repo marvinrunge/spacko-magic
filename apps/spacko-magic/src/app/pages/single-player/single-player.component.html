@@ -20,6 +20,7 @@
       [cardWidth]="cardWidth"
       (cardSelected)="selectCard($event)"
       (cardUpdated)="updateCard($event)"
+      (shuffleClicked)="shuffle()"
     ></spacko-magic-lane>
     <spacko-magic-lane
       [cards]="lands"
@@ -34,7 +35,8 @@
     <spacko-magic-player-stats
       *ngIf="selectedPlayer"
       [player]="selectedPlayer"
-      (playerUpdated)="updatePlayer($event)">
+      (playerUpdated)="updatePlayer($event)"
+    >
     </spacko-magic-player-stats>
     <div
       class="hand-container"

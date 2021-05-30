@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Card } from '../../interfaces/card';
 import { Player } from '../../interfaces/player';
 import { CardSelectors, PlayerSelectors, RootStoreState } from '../../root-store';
-import { setSelectedCardId, updateCardRequest } from '../../root-store/card-store/actions';
+import { setSelectedCardId, updateCardRequest, updateManyCardsRequest } from '../../root-store/card-store/actions';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
 
 @Component({
@@ -37,7 +37,7 @@ export class SinglePlayerComponent implements OnInit {
     private store$: Store<RootStoreState.State>
   ) {
     this.store$.pipe(
-      select(CardSelectors.selectByPlace("deck"))
+      select(CardSelectors.selectByPlaceAndSortByPosition("deck"))
     ).subscribe(cards => this.deck = cards);
     this.store$.pipe(
       select(CardSelectors.selectByPlace("hand"))
@@ -119,6 +119,14 @@ export class SinglePlayerComponent implements OnInit {
     const height = Math.trunc((this.innerHeight - 122) / 4);
     this.cardHeight = height;
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
+  }
+
+  shuffle() {
+    const deck: Card[] = [];
+    console.log('Before', this.deck);
+    this.deck.forEach(card => deck.push({ ...card, position: Math.random() }));
+    this.store$.dispatch(updateManyCardsRequest({ cards: deck }));
+    console.log('After', this.deck);
   }
 
   zoomIn() {

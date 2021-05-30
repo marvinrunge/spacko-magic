@@ -23,6 +23,7 @@ export class LaneComponent {
   @Input() graveyard?: Card[];
   @Output() cardUpdated = new EventEmitter<Card>();
   @Output() cardSelected = new EventEmitter<Card>();
+  @Output() shuffleClicked = new EventEmitter();
 
   scrollRight() {
     console.log('scrollRight', this.cardWidth);
@@ -41,5 +42,9 @@ export class LaneComponent {
 
   selectCard(card: Card) {
     this.cardSelected.emit(card);
+  }
+
+  shuffle() {
+    this.shuffleClicked.emit();
   }
 }

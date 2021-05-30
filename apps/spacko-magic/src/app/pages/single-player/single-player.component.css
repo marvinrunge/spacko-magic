@@ -23,6 +23,7 @@ spacko-magic-card {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   max-width: calc(100vw - 200px);
+  overflow-y: hidden;
 }
 
 .scroll-container::-webkit-scrollbar {

@@ -60,6 +60,12 @@ export const selectByPlaceAndType = (place: string, type: string) =>
     cards.filter((card) => card.type.toLowerCase().includes(type.toLowerCase()))
   );
 
+export const selectByPlaceAndSortByPosition = (place: string) =>
+  createSelector(selectByPlace(place), (cards) =>
+    cards
+      .sort((a, b) => a.position - b.position)
+  );
+
 export const selectByPlaceAndNotTypes = (
   place: string,
   type1: string,

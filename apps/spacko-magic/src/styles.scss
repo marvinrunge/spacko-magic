@@ -42,3 +42,30 @@ body {
   height: 20px;
   cursor: pointer;
 }
+
+.actions {
+  position: relative;
+  top: -33px;
+  height: 26px;
+  z-index: 2;
+  padding: 2px;
+}
+
+.action {
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid black;
+  background-size: contain;
+}
+
+.action:active {
+  filter: brightness(150%);
+}
+
+.action:hover {
+  filter: brightness(120%);
+}

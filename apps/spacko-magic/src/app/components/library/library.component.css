@@ -10,3 +10,8 @@
   background-position: top;
   border-radius: 9px;
 }
+
+.shuffle {
+  background-image: url(/assets/shuffle_white.svg);
+  background-color: black;
+}

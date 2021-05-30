@@ -28,6 +28,13 @@ export class CardStoreEffects {
     ), { dispatch: false }
   );
 
+  updateManyRequestEffect$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(cardActions.updateManyCardsRequest),
+      tap(action => from(this.cardService.addUpdateMultipleDocs(action.cards)))
+    ), { dispatch: false }
+  );
+
   deleteRequestEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(cardActions.deleteCardRequest),
