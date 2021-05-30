@@ -32,17 +32,17 @@
 }
 
 .tap {
-  background-image: url(/assets/tap.svg);
+  background-image: url(/spacko-magic/assets/tap.svg);
   background-color: black;
 }
 
 .untap {
-  background-image: url(/assets/untap.svg);
+  background-image: url(/spacko-magic/assets/untap.svg);
   background-color: black;
 }
 
 .return-to-hand {
-  background-image: url(/assets/hand_white.svg);
+  background-image: url(/spacko-magic/assets/hand_white.svg);
   background-color: black;
 }
 
@@ -76,5 +76,5 @@
   text-align: center;
   font-size: 14px;
   line-height: 20px;
-  background-image: url(/assets/fullscreen_white.svg);
+  background-image: url(/spacko-magic/assets/fullscreen_white.svg);
 }

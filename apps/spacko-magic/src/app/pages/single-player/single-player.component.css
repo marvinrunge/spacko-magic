@@ -93,13 +93,13 @@ spacko-magic-card {
 }
 
 .left {
-  background-image: url(/assets/arrow_back.svg);
+  background-image: url(/spacko-magic/assets/arrow_back.svg);
   left: 200px;
   bottom: 0;
 }
 
 .right {
-  background-image: url(/assets/arrow_forward.svg);
+  background-image: url(/spacko-magic/assets/arrow_forward.svg);
   right: 0;
   bottom: 0;
 }
