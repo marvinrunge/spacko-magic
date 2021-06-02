@@ -216,6 +216,10 @@ export class SinglePlayerComponent implements OnInit {
           }
           break;
         }
+        case 'zoom': {
+          this.selectCard(card);
+          break;
+        }
         case 'attach-to': {
           this.store$.dispatch(
             setActiveAttachCardId({ activeAttachCardId: card._id })
