@@ -24,22 +24,16 @@ export class LibraryComponent {
   @Input() cards: Card[];
   @Input() height: number;
   @Input() width: number;
-  @Output() cardUpdated = new EventEmitter<Card>();
-  @Output() shuffleClicked = new EventEmitter();
+  @Input() borderRadius: number;
+  @Input() mode?: string;
+  @Output() actionTriggered = new EventEmitter<{ card?: Card, actionType: string }>();
   showActions = false;
-
-  drawCard() {
-    if (this.cards.length > 0) {
-      const card: Card = { ...this.cards[this.cards.length - 1], place: "hand" }
-      this.cardUpdated.emit(card);
-    }
-  }
 
   toggleActions() {
     this.showActions = !this.showActions;
   }
 
-  shuffle() {
-    this.shuffleClicked.emit();
+  triggerAction(actionType: string) {
+    this.actionTriggered.emit({ card: this.cards[0], actionType });
   }
 }

@@ -7,5 +7,6 @@ export interface Card extends Base {
   marked: boolean;
   position: number;
   type: "creature" | "land" | "spell";
-  place: "deck" | "hand" | "graveyard" | "stack" | "battlefield";
+  place: "deck" | "hand" | "graveyard" | "stack" | "battlefield" | "exile";
+  attachedCards: Card[];
 }

@@ -64,6 +64,9 @@ export const cardReducer = createReducer(
   })),
   on(CardActions.setSelectedCardId, (state, { selectedCardId }) => ({
     ...state, selectedCardId
+  })),
+  on(CardActions.setActiveAttachCardId, (state, { activeAttachCardId }) => ({
+    ...state, activeAttachCardId
   }))
 );
 

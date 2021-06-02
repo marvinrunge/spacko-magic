@@ -12,6 +12,9 @@
 }
 
 .shuffle {
-  background-image: url(/spacko-magic/assets/shuffle_white.svg);
-  background-color: black;
+  background-image: url(/assets/shuffle_white.svg);
+}
+
+.search {
+  background-image: url(/assets/search_white.svg);
 }

@@ -22,3 +22,4 @@ export const resetCardRequest = createAction('[Card] Reset Card Request');
 export const resetCardFailure = createAction('[Card] Reset Card Failure', props<{error: string}>());
 export const resetCardSuccess = createAction('[Card] Reset Card Success');
 export const setSelectedCardId = createAction('[Card] Set Selected Card Id', props<{selectedCardId?: string}>());
+export const setActiveAttachCardId = createAction('[Card] Set Active Attach Card Id', props<{activeAttachCardId?: string}>());

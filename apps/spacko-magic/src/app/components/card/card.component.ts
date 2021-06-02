@@ -1,11 +1,11 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from '../../interfaces/card';
-import { tapAnimation } from './tapAnimation';
+import { tapAnimation, tapAttachmentAnimation } from './tapAnimation';
 
 @Component({
   selector: 'spacko-magic-card',
-  animations: [tapAnimation,
+  animations: [tapAnimation, tapAttachmentAnimation,
     trigger('showHide', [
       state('show', style({
         opacity: '1'
@@ -25,11 +25,14 @@ export class CardComponent implements OnInit {
   @Input() card: Card;
   @Input() height: number;
   @Input() width: number;
+  @Input() borderRadius: number;
   @Input() type: string;
-  @Output() cardUpdated = new EventEmitter<Card>();
-  @Output() cardSelected = new EventEmitter<Card>();
+  @Input() mode?: string;
+  @Output() actionTriggered = new EventEmitter<{ card?: Card, actionType: string }>();
   tappedValue = 'untapped';
   showActions = false;
+  attachments = 0;
+  marginLeft: number;
 
   setTappedValue(tapped: boolean) {
     this.tappedValue = tapped ? 'tapped' : 'untapped';
@@ -37,52 +40,21 @@ export class CardComponent implements OnInit {
 
   ngOnInit(): void {
     this.setTappedValue(this.card.tapped);
-  }
-
-  toggleTap() {
-    const tapped = this.tappedValue === 'tapped' ? false : true;
-    const card = { ...this.card, tapped };
-    this.setTappedValue(tapped);
-    setTimeout(() => {
-      this.cardUpdated.emit(card)
-    }, 600);
-  }
-
-  addCounter() {
-    const counter = this.card.counter + 1;
-    const card: Card = { ...this.card, counter}
-    this.cardUpdated.emit(card);
-  }
-
-  removeCounter() {
-    if (this.card.counter > 0) {
-      const counter = this.card.counter - 1;
-      const card: Card = { ...this.card, counter}
-      this.cardUpdated.emit(card);
-    }
+    this.attachments = this.card.attachedCards.length;
+    this.marginLeft = Math.trunc((this.height - this.width) / 2);
   }
 
   toggleActions() {
     this.showActions = !this.showActions;
   }
 
-  select() {
-    this.cardSelected.emit(this.card);
-  }
-
-  kill() {
-    const place = "graveyard";
-    const card: Card = { ...this.card, place}
-    this.cardUpdated.emit(card);
-  }
-
-  returnToHand() {
-    const place = "hand";
-    const card: Card = { ...this.card, place}
-    this.cardUpdated.emit(card);
-  }
-
-  scroll(event: any) {
-    console.log('scroll', event);
+  triggerAction(type: string) {
+    let actionType = type;
+    if (type === 'toggle-tap' && this.mode === 'attach') {
+      actionType = 'attach'
+    } else if (type === 'toggle-tap') {
+      this.setTappedValue(this.tappedValue === 'tapped' ? false : true);
+    }
+    this.actionTriggered.emit({ card: this.card, actionType });
   }
 }

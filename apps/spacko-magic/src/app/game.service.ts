@@ -47,6 +47,7 @@ export class GameService {
                       tapped: false,
                       type: card.type_line,
                       place: 'deck',
+                      attachedCards: [],
                       url: String(card.image_uris.normal),
                     },
                   })

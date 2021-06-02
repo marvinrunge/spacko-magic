@@ -1,14 +1,31 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Card } from '../../interfaces/card';
 import { Player } from '../../interfaces/player';
-import { CardSelectors, PlayerSelectors, RootStoreState } from '../../root-store';
-import { setSelectedCardId, updateCardRequest, updateManyCardsRequest } from '../../root-store/card-store/actions';
+import {
+  CardSelectors,
+  PlayerSelectors,
+  RootStoreState,
+} from '../../root-store';
+import {
+  addCardRequest,
+  deleteCardRequest,
+  setActiveAttachCardId,
+  setSelectedCardId,
+  updateCardRequest,
+  updateManyCardsRequest,
+} from '../../root-store/card-store/actions';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
 
 @Component({
   templateUrl: './single-player.component.html',
-  styleUrls: ['./single-player.component.css']
+  styleUrls: ['./single-player.component.css'],
 })
 export class SinglePlayerComponent implements OnInit {
   @ViewChild('handScroll') handScroll: ElementRef;
@@ -18,6 +35,7 @@ export class SinglePlayerComponent implements OnInit {
   hand: Card[] = [];
   stack: Card[] = [];
   graveyard: Card[] = [];
+  exile: Card[] = [];
   creatures: Card[] = [];
   lands: Card[] = [];
   other: Card[] = [];
@@ -25,44 +43,62 @@ export class SinglePlayerComponent implements OnInit {
   selectedCard?: Card;
   cardHeight = 160;
   cardWidth = 115;
+  cardBorderRadius = 10;
   innerHeight: number;
   selectedPlayer: Player;
+  activeAttachCard: Card;
+  mode?: string;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.setCardHeight();
   }
 
-  constructor(
-    private store$: Store<RootStoreState.State>
-  ) {
-    this.store$.pipe(
-      select(CardSelectors.selectByPlaceAndSortByPosition("deck"))
-    ).subscribe(cards => this.deck = cards);
-    this.store$.pipe(
-      select(CardSelectors.selectByPlace("hand"))
-    ).subscribe(cards => this.hand = cards);
-    this.store$.pipe(
-      select(CardSelectors.selectByPlaceAndType("battlefield", "creature"))
-    ).subscribe(cards => this.creatures = cards);
-    this.store$.pipe(
-      select(CardSelectors.selectByPlaceAndType("battlefield", "land"))
-    ).subscribe(cards => this.lands = cards);
-    this.store$.pipe(
-      select(CardSelectors.selectByPlaceAndNotTypes("battlefield", "creature", "land"))
-    ).subscribe(cards => this.other = cards);
-    this.store$.pipe(
-      select(CardSelectors.selectByPlace("graveyard"))
-    ).subscribe(cards => this.graveyard = cards);
-    this.store$.pipe(
-      select(CardSelectors.selectCardBySelectedId)
-    ).subscribe(card => this.selectedCard = card);
-    this.store$.pipe(
-      select(PlayerSelectors.selectPlayerBySelectedId)
-    ).subscribe(player => {
-      console.log(player)
-      this.selectedPlayer = player
-    });
+  constructor(private store$: Store<RootStoreState.State>) {
+    this.store$
+      .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('deck')))
+      .subscribe((cards) => (this.deck = cards));
+    this.store$
+      .pipe(select(CardSelectors.selectByPlace('hand')))
+      .subscribe((cards) => (this.hand = cards));
+    this.store$
+      .pipe(
+        select(CardSelectors.selectByPlaceAndType('battlefield', 'creature'))
+      )
+      .subscribe((cards) => (this.creatures = cards));
+    this.store$
+      .pipe(select(CardSelectors.selectByPlaceAndType('battlefield', 'land')))
+      .subscribe((cards) => (this.lands = cards));
+    this.store$
+      .pipe(
+        select(
+          CardSelectors.selectByPlaceAndNotTypes(
+            'battlefield',
+            'creature',
+            'land'
+          )
+        )
+      )
+      .subscribe((cards) => (this.other = cards));
+    this.store$
+      .pipe(select(CardSelectors.selectByPlace('graveyard')))
+      .subscribe((cards) => (this.graveyard = cards));
+    this.store$
+      .pipe(select(CardSelectors.selectByPlace('exile')))
+      .subscribe((cards) => (this.exile = cards));
+    this.store$
+      .pipe(select(CardSelectors.selectCardBySelectedId))
+      .subscribe((card) => (this.selectedCard = card));
+    this.store$
+      .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
+      .subscribe((player) => {
+        this.selectedPlayer = player;
+      });
+    this.store$
+      .pipe(select(CardSelectors.selectActiveAttachCardBySelectedId))
+      .subscribe((card) => {
+        this.activeAttachCard = card;
+      });
   }
 
   ngOnInit() {
@@ -71,17 +107,17 @@ export class SinglePlayerComponent implements OnInit {
 
   draw() {
     let randomCard = this.deck[Math.floor(Math.random() * this.deck.length)];
-    randomCard = { ...randomCard, place: "hand" };
+    randomCard = { ...randomCard, place: 'hand' };
     this.store$.dispatch(updateCardRequest({ card: randomCard }));
   }
 
   play(card: Card) {
-    const playedCard: Card = { ...card, place: "battlefield" }
+    const playedCard: Card = { ...card, place: 'battlefield' };
     this.store$.dispatch(updateCardRequest({ card: playedCard }));
   }
 
   sacrifice(card: Card) {
-    const playedCard: Card = { ...card, place: "graveyard" }
+    const playedCard: Card = { ...card, place: 'graveyard' };
     this.store$.dispatch(updateCardRequest({ card: playedCard }));
   }
 
@@ -111,7 +147,7 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   scrollLeft() {
-   this.handScroll.nativeElement.scrollLeft -= this.cardWidth;
+    this.handScroll.nativeElement.scrollLeft -= this.cardWidth;
   }
 
   setCardHeight() {
@@ -119,14 +155,15 @@ export class SinglePlayerComponent implements OnInit {
     const height = Math.trunc((this.innerHeight - 122) / 4);
     this.cardHeight = height;
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
+    this.cardBorderRadius = Math.trunc(this.cardHeight * 0.05);
   }
 
   shuffle() {
     const deck: Card[] = [];
-    console.log('Before', this.deck);
-    this.deck.forEach(card => deck.push({ ...card, position: Math.random() }));
+    this.deck.forEach((card) =>
+      deck.push({ ...card, position: Math.random() })
+    );
     this.store$.dispatch(updateManyCardsRequest({ cards: deck }));
-    console.log('After', this.deck);
   }
 
   zoomIn() {
@@ -137,5 +174,89 @@ export class SinglePlayerComponent implements OnInit {
   zoomOut() {
     this.cardHeight -= 25;
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
+  }
+
+  triggerAction(event: { card?: Card; actionType: string }) {
+    console.log('single-player', event.card, event.actionType);
+    const card = event.card;
+    const actionType = event.actionType;
+    if (card) {
+      let place = card.place;
+      switch (actionType) {
+        case 'toggle-tap': {
+          setTimeout(() => {
+            this.updateCard({ ...card, tapped: !card.tapped });
+          }, 600);
+          break;
+        }
+        case 'kill': {
+          place = 'graveyard';
+          this.updateCard({ ...card, place });
+          break;
+        }
+        case 'exile': {
+          place = 'exile';
+          this.updateCard({ ...card, place });
+          break;
+        }
+        case 'return-to-hand': {
+          place = 'hand';
+          this.updateCard({ ...card, place });
+          break;
+        }
+        case 'add-counter': {
+          const counter = card.counter + 1;
+          this.updateCard({ ...card, counter });
+          break;
+        }
+        case 'remove-counter': {
+          if (card.counter > 0) {
+            const counter = card.counter - 1;
+            this.updateCard({ ...card, counter });
+          }
+          break;
+        }
+        case 'attach-to': {
+          this.store$.dispatch(
+            setActiveAttachCardId({ activeAttachCardId: card._id })
+          );
+          this.mode = 'attach';
+          break;
+        }
+        case 'attach': {
+          if (card._id !== this.activeAttachCard._id) {
+            const updatedCard: Card = {
+              ...card,
+              attachedCards: card.attachedCards.concat(this.activeAttachCard),
+            };
+            this.updateCard(updatedCard);
+            this.store$.dispatch(
+              deleteCardRequest({ card: this.activeAttachCard })
+            );
+            this.mode = undefined;
+          }
+          break;
+        }
+        case 'unattach': {
+          card.attachedCards.forEach((c) => {
+            this.updateCard({ ...c, _rev: undefined });
+          });
+          const updatedCard: Card = {
+            ...card,
+            attachedCards: [],
+          };
+          this.updateCard(updatedCard);
+          break;
+        }
+      }
+    }
+    switch (actionType) {
+      case 'draw':
+        this.draw();
+        break;
+      case 'shuffle':
+        this.shuffle();
+        break;
+    }
   }
 }

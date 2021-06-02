@@ -6,6 +6,7 @@ export interface CardState extends EntityState<Card> {
   isLoading: boolean;
   error?: any;
   selectedCardId?: string;
+  activeAttachCardId?: string;
 }
 
 /** function to determine which field to use as a ID inside the store */

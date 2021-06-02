@@ -42,11 +42,11 @@ spacko-magic-deck {
 }
 
 .left {
-  background-image: url(/spacko-magic/assets/arrow_back.svg);
+  background-image: url(/assets/arrow_back.svg);
   left: 0;
 }
 
 .right {
-  background-image: url(/spacko-magic/assets/arrow_forward.svg);
+  background-image: url(/assets/arrow_forward.svg);
   right: 0;
 }

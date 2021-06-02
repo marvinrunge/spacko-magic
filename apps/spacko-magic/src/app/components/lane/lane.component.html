@@ -12,12 +12,25 @@
     [style.height.px]="cardHeight"
   >
     <spacko-magic-graveyard
+      *ngIf="exile"
+      [cards]="exile"
+      [height]="cardHeight"
+      [width]="cardWidth"
+      [borderRadius]="cardBorderRadius"
+      [type]="'exile'"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
+    >
+    </spacko-magic-graveyard>
+    <spacko-magic-graveyard
       *ngIf="graveyard"
       [cards]="graveyard"
       [height]="cardHeight"
       [width]="cardWidth"
-      (cardUpdated)="updateCard($event)"
-      (cardSelected)="selectCard($event)"
+      [borderRadius]="cardBorderRadius"
+      [type]="'graveyard'"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
     >
     </spacko-magic-graveyard>
     <spacko-magic-library
@@ -25,8 +38,9 @@
       [cards]="library"
       [height]="cardHeight"
       [width]="cardWidth"
-      (cardUpdated)="updateCard($event)"
-      (shuffleClicked)="shuffle()"
+      [borderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
     >
     </spacko-magic-library>
     <spacko-magic-card
@@ -34,8 +48,9 @@
       [card]="card"
       [height]="cardHeight"
       [width]="cardWidth"
-      (cardUpdated)="updateCard($event)"
-      (cardSelected)="selectCard($event)"
+      [borderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
     ></spacko-magic-card>
   </div>
   <div

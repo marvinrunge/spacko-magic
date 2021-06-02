@@ -2,16 +2,17 @@
   class="card"
   (mouseenter)="toggleActions()"
   (mouseleave)="toggleActions()"
-  (click)="drawCard()"
   [style.height.px]="height"
   [style.width.px]="width"
 >
   <div
     class="inner-card"
     [hidden]="cards.length <= 0"
+    (click)="triggerAction('draw')"
     fxFill
     [style.height.px]="height"
     [style.width.px]="width"
+    [style.border-radius.px]="borderRadius"
     [style.background-image]="
       'url(https://static.wikia.nocookie.net/mtgsalvation_gamepedia/images/f/f8/Magic_card_back.jpg)'
     "
@@ -26,7 +27,12 @@
     <div
       title="shuffle"
       class="action shuffle"
-      (click)="shuffle(); $event.stopPropagation()"
+      (click)="triggerAction('shuffle')"
+    ></div>
+    <div
+      title="search"
+      class="action search"
+      (click)="triggerAction('search')"
     ></div>
   </div>
 </div>

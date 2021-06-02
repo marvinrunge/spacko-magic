@@ -8,16 +8,14 @@ import { Card } from '../../interfaces/card';
 })
 export class GraveyardComponent {
   @Input() cards: Card[];
+  @Input() type: "graveyard" | "exile"
   @Input() height: number;
   @Input() width: number;
-  @Output() cardUpdated = new EventEmitter<Card>();
-  @Output() cardSelected = new EventEmitter<Card>();
+  @Input() borderRadius: number;
+  @Input() mode?: string;
+  @Output() actionTriggered = new EventEmitter<{ card?: Card, actionType: string }>();
 
-  updateCard(card: Card) {
-    this.cardUpdated.emit(card);
-  }
-
-  selectCard(card: Card) {
-    this.cardUpdated.emit(card);
+  triggerAction(event: { card?: Card, actionType: string }) {
+    this.actionTriggered.emit({ card: this.cards[0], actionType: event.actionType });
   }
 }

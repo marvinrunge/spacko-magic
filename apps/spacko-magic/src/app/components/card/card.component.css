@@ -10,14 +10,13 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
-  border-radius: 4%;
 }
 
 .counter {
   position: relative;
   top: calc(50% - 1.3rem);
   left: 8%;
-  z-index: 2;
+  z-index: 1;
   color: white;
   max-height: 1.3rem;
   max-width: 1.3rem;
@@ -32,49 +31,55 @@
 }
 
 .tap {
-  background-image: url(/spacko-magic/assets/tap.svg);
-  background-color: black;
+  background-image: url(/assets/tap.svg);
 }
 
 .untap {
-  background-image: url(/spacko-magic/assets/untap.svg);
-  background-color: black;
+  background-image: url(/assets/untap.svg);
 }
 
 .return-to-hand {
-  background-image: url(/spacko-magic/assets/hand_white.svg);
-  background-color: black;
+  background-image: url(/assets/hand_white.svg);
+  background-size: 80%;
+}
+
+.exile {
+  background-image: url(/assets/exile_white.svg);
 }
 
 .add-counter {
   background-color: green;
-  color: white;
-  text-align: center;
-  font-size: 18px;
-  line-height: 20px;
+  background-image: url(/assets/add_white.svg);
 }
 
 .remove-counter {
   background-color: darkred;
-  color: white;
-  text-align: center;
-  font-size: 18px;
-  line-height: 1.2rem;
+  background-image: url(/assets/remove_white.svg);
 }
 
 .kill {
-  background-color: darkred;
-  color: white;
-  text-align: center;
-  font-size: 18px;
-  line-height: 1.2rem;
+  background-image: url(/assets/cancel_white.svg);
 }
 
-.inspect {
-  background-color: black;
-  color: white;
-  text-align: center;
-  font-size: 14px;
-  line-height: 20px;
-  background-image: url(/spacko-magic/assets/fullscreen_white.svg);
+.attach {
+  background-image: url(/assets/layers_white.svg);
+}
+
+.unattach {
+  background-image: url(/assets/layers_clear_white.svg);
+}
+
+.search {
+  background-image: url(/assets/search_white.svg);
+}
+
+.attached-card {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.attached-card:hover {
+  position: absolute;
+  z-index: 2;
 }

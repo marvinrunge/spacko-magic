@@ -10,7 +10,7 @@ html {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background: url(https://media.magic.wizards.com/images/wallpaper/sacred-foundry_sld_1920x1080_wallpaper.jpg);
+  background: url(https://wallpapercave.com/wp/mslLgR7.jpg);
   background-position: center;
   background-size: cover;
   overflow: hidden;
@@ -45,21 +45,20 @@ body {
 
 .actions {
   position: relative;
-  top: -33px;
-  height: 26px;
-  z-index: 2;
-  padding: 2px;
+  top: -60px;
+  z-index: 1;
 }
 
 .action {
-  max-height: 20px;
-  max-width: 20px;
-  min-height: 20px;
-  min-width: 20px;
-  border-radius: 50%;
+  min-height: 22px;
+  min-width: 22px;
+  border: 1px solid black;
+  background-position-x: center;
+  background-position-y: center;
+  background-color: #555;
   cursor: pointer;
-  border: 2px solid black;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .action:active {

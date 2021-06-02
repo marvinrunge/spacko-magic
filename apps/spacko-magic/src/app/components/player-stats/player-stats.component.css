@@ -1,6 +1,5 @@
 .player-stats-container {
   filter: drop-shadow(5px 0px 5px #000);
-  z-index: 4;
 }
 
 .player-stats-header {
@@ -17,7 +16,6 @@
   background-color: #222;
   color: white;
   font-size: 20px;
-  z-index: 3;
   padding: 8px;
 }
 

@@ -45,6 +45,17 @@ export const selectCardBySelectedId = createSelector(
   (cards, selectedId) => cards.filter((card) => card._id === selectedId)[0]
 );
 
+export const selectActiveAttachCardId = createSelector(
+  selectCardState,
+  (state: fromCards.CardState) => state.activeAttachCardId
+);
+
+export const selectActiveAttachCardBySelectedId = createSelector(
+  selectAllCards,
+  selectActiveAttachCardId,
+  (cards, selectedId) => cards.filter((card) => card._id === selectedId)[0]
+);
+
 export const selectByPlace = (place: string) =>
   createSelector(selectAllCards, (cards) =>
     cards.filter((card) => card.place === place)

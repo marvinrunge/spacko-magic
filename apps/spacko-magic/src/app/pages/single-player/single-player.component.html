@@ -1,87 +1,100 @@
 <div
   class="battlefield-container"
-  fxLayout="column"
-  fxLayoutAlign="center center"
+  fxLayout="row"
+  fxLayoutAlign="center end"
 >
-  <div fxLayout="column" fxLayoutGap="8px">
+  <div fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
     <spacko-magic-lane
       [cards]="creatures"
       [cardHeight]="cardHeight"
       [cardWidth]="cardWidth"
-      (cardSelected)="selectCard($event)"
-      (cardUpdated)="updateCard($event)"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
     >
     </spacko-magic-lane>
     <spacko-magic-lane
       [cards]="other"
       [graveyard]="graveyard"
+      [exile]="exile"
       [library]="deck"
       [cardHeight]="cardHeight"
       [cardWidth]="cardWidth"
-      (cardSelected)="selectCard($event)"
-      (cardUpdated)="updateCard($event)"
-      (shuffleClicked)="shuffle()"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
     ></spacko-magic-lane>
     <spacko-magic-lane
       [cards]="lands"
       [cardHeight]="cardHeight"
       [cardWidth]="cardWidth"
-      (cardSelected)="selectCard($event)"
-      (cardUpdated)="updateCard($event)"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
     >
     </spacko-magic-lane>
-  </div>
-  <div class="player-lane" fxLayout="row" [style.height.px]="cardHeight">
-    <spacko-magic-player-stats
-      *ngIf="selectedPlayer"
-      [player]="selectedPlayer"
-      (playerUpdated)="updatePlayer($event)"
-    >
-    </spacko-magic-player-stats>
     <div
-      class="hand-container"
+      class="player-lane"
       fxLayout="row"
-      fxLayoutAlign="center center"
       [style.height.px]="cardHeight"
+      [style.z-index]="4"
     >
+      <spacko-magic-player-stats
+        *ngIf="selectedPlayer"
+        [player]="selectedPlayer"
+        (playerUpdated)="updatePlayer($event)"
+      >
+      </spacko-magic-player-stats>
       <div
-        class="arrow left"
-        [style.height.px]="cardHeight / 2"
-        (click)="scrollLeft()"
-      ></div>
-      <div
-        #handScroll
-        class="scroll-container"
+        class="hand-container"
         fxLayout="row"
-        fxLayoutGap="4px"
+        fxLayoutAlign="center center"
         [style.height.px]="cardHeight"
       >
         <div
-          class="card"
-          *ngFor="let card of hand; index as i"
+          class="arrow left"
+          [style.height.px]="cardHeight / 2"
+          (click)="scrollLeft()"
+        ></div>
+        <div
+          #handScroll
+          class="scroll-container"
+          fxLayout="row"
+          fxLayoutGap="4px"
           [style.height.px]="cardHeight"
-          [style.width.px]="cardWidth"
-          (wheel)="selectCard(card)"
         >
           <div
-            class="inner-card"
-            (click)="play(card)"
+            class="card"
+            *ngFor="let card of hand; index as i"
             [style.height.px]="cardHeight"
             [style.width.px]="cardWidth"
-            fxFill
-            [style.background-image]="'url(' + card.url + ')'"
-          ></div>
+            (wheel)="selectCard(card)"
+          >
+            <div
+              class="inner-card"
+              (click)="play(card)"
+              [style.height.px]="cardHeight"
+              [style.width.px]="cardWidth"
+              fxFill
+              [style.background-image]="'url(' + card.url + ')'"
+            ></div>
+          </div>
         </div>
+        <div
+          class="arrow right"
+          [style.height.px]="cardHeight / 2"
+          (click)="scrollRight()"
+        ></div>
       </div>
-      <div
-        class="arrow right"
-        [style.height.px]="cardHeight / 2"
-        (click)="scrollRight()"
-      ></div>
     </div>
   </div>
 </div>
-<div class="inspect" *ngIf="selectedCard?.url" (click)="deselectCard()">
+<div
+  class="inspect"
+  *ngIf="selectedCard?.url"
+  (wheel)="deselectCard()"
+  (click)="deselectCard()"
+>
   <div
     class="preview"
     [style.background-image]="'url(' + selectedCard?.url + ')'"

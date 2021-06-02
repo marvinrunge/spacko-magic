@@ -1,18 +1,53 @@
 <div
+  *ngFor="let card of card.attachedCards.slice().reverse(); index as i"
+  class="attached-card" style="position: relative; width: 0; height: 0;"
+>
+  <div
+    class="card" style="position: absolute;"
+    [style.height.px]="height"
+    [style.min-width.px]="width"
+    [style.transform]="'translate(0%, ' + 10 * i + '%)'"
+    [@attachmentTappedUntapped]="{
+      value: tappedValue,
+      params: { inWidth: width + 'px', inHeight: height + 'px', marginLeft: marginLeft + 'px' }
+    }"
+  >
+    <div
+      class="inner-card"
+      [style.border-radius.px]="borderRadius"
+      fxFill
+      [style.background-image]="'url(' + card.url + ')'"
+    >
+    </div>
+  </div>
+</div>
+
+<div
   class="card-container"
   (mouseenter)="toggleActions()"
   (mouseleave)="toggleActions()"
-  (wheel)="select()"
+  (wheel)="triggerAction('zoom')"
   [style.maxHeight.px]="height"
 >
-  <div class="card" (click)="toggleTap()"
-  [style.height.px]="height"
-  [style.min-width.px]="width">
+  <div
+    class="card"
+    (click)="triggerAction('toggle-tap')"
+    [style.transform]="attachments ? 'translate(0%, ' + 10 * attachments + '%)' : 'none'"
+    [style.height.px]="height"
+    [style.min-width.px]="width"
+  >
     <div
       class="inner-card"
       fxFill
+      [style.filter]="
+        card.place === 'exile' ? 'grayscale(100%)' : 'grayscale(0%)'
+      "
+      [style.border-radius.px]="borderRadius"
       [style.background-image]="'url(' + card.url + ')'"
-      [@tappedUntapped]="{ value:tappedValue, params: { inWidth: width + 'px', inHeight: height + 'px' }}"
+      [@tappedUntapped]="{
+        value: tappedValue,
+        params: { inWidth: width + 'px', inHeight: height + 'px' }
+      }"
     >
       <div class="counter" *ngIf="card.counter > 0">
         {{ card.counter > 0 ? card.counter : '' }}
@@ -21,39 +56,62 @@
   </div>
   <div
     [@showHide]="showActions ? 'show' : 'hide'"
+    [style.max-width.px]="width"
     class="actions"
-    fxLayout="row"
+    fxLayout="column"
     fxLayoutGap="2px"
     fxLayoutAlign="center center"
   >
-    <div
-      title="add a counter"
-      *ngIf="card.place === 'battlefield'"
-      class="action add-counter"
-      (click)="addCounter()"
-    >
-      +
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
+      <div
+        title="add a counter"
+        *ngIf="card.place === 'battlefield'"
+        class="action add-counter"
+        (click)="triggerAction('add-counter')"
+      ></div>
+      <div
+        title="remove a counter"
+        *ngIf="card.place === 'battlefield'"
+        class="action remove-counter"
+        (click)="triggerAction('remove-counter')"
+      ></div>
     </div>
-    <div
-      title="remove a counter"
-      *ngIf="card.place === 'battlefield'"
-      class="action remove-counter"
-      (click)="removeCounter()"
-    >
-      -
-    </div>
-    <div
-      title="return to hand"
-      class="action return-to-hand"
-      (click)="returnToHand()"
-    ></div>
-    <div
-      title="kill"
-      *ngIf="card.place === 'battlefield'"
-      class="action kill"
-      (click)="kill()"
-    >
-      x
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
+      <div
+        title="attach"
+        *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
+        class="action attach"
+        (click)="triggerAction('attach-to')"
+      ></div>
+      <div
+        title="unattach"
+        *ngIf="card.attachedCards.length > 0"
+        class="action unattach"
+        (click)="triggerAction('unattach')"
+      ></div>
+      <div
+        title="return to hand"
+        class="action return-to-hand"
+        (click)="triggerAction('return-to-hand')"
+      ></div>
+      <div
+        title="search"
+        class="action search"
+        *ngIf="card.place === 'graveyard' || card.place === 'exile'"
+        (click)="triggerAction('search')"
+      ></div>
+      <div
+        title="kill / sacrifice"
+        *ngIf="card.place === 'battlefield'"
+        class="action kill"
+        (click)="triggerAction('kill')"
+      ></div>
+      <div
+        title="exile"
+        *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
+        class="action exile"
+        (click)="triggerAction('exile')"
+      ></div>
     </div>
   </div>
 </div>
