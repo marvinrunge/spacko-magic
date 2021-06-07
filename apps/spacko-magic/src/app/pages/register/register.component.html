@@ -1,0 +1,58 @@
+<div class="wrapper">
+  <form
+    [formGroup]="registerForm"
+    class="registration-container"
+    fxLayoutGap="1rem"
+    fxLayout="column"
+    fxLayoutAlign="center stretch"
+  >
+    <h1>Registration</h1>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Username</mat-label>
+      <mat-icon matSuffix>person</mat-icon>
+      <input
+        matInput
+        formControlName="username"
+        autocomplete="off"
+        type="text"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Password</mat-label>
+      <mat-icon matSuffix>lock</mat-icon>
+      <input
+        matInput
+        autocomplete="off"
+        type="password"
+        formControlName="password"
+        required
+      />
+      <mat-error *ngIf="registerForm.controls.password.invalid"
+        >Password must consists of at least 8 characters and not more than 30
+        characters. There must be 1 digit, 1 lowercase and one uppercase letter.</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Confirm password</mat-label>
+      <mat-icon matSuffix>lock</mat-icon>
+      <input
+        matInput
+        autocomplete="off"
+        type="password"
+        formControlName="confirmPassword"
+        [errorStateMatcher]="matcher"
+        required
+      />
+      <mat-error *ngIf="registerForm.hasError('notSame')"
+        >Passwords do not match</mat-error
+      >
+    </mat-form-field>
+
+    <button class="register-button" mat-flat-button color="primary" (click)="register()">
+      Register
+    </button>
+  </form>
+</div>

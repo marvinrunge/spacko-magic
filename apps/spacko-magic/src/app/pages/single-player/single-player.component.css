@@ -1,3 +1,13 @@
+header {
+  width: 100%;
+  background-color: black;
+  padding: 8px;
+  color: white;
+  vertical-align: middle;
+  position: fixed;
+  z-index: 5;
+}
+
 .card {
   background-size: contain;
   cursor: pointer;
@@ -98,4 +108,18 @@ spacko-magic-card {
 
 spacko-magic-player-stats {
   width: 200px;
+}
+
+.search-container {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #000b;
+  z-index: 2;
+}
+
+.search-container spacko-magic-lane {
+  margin: auto;
+  width: 100%;
 }

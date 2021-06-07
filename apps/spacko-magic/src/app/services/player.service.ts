@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import PouchDB from 'pouchdb';
+import PouchDBAuthentication from 'pouchdb-authentication';
 import { Observable } from 'rxjs';
 import { Player } from '../interfaces/player';
-import { RootStoreState } from '../root-store';
-import { loadPlayersRequest } from '../root-store/player-store/actions';
+
+PouchDB.plugin(PouchDBAuthentication);
 
 @Injectable({
   providedIn: 'root',
@@ -13,21 +13,13 @@ export class PlayerService {
   private localPlayerDb: any;
   private remotePlayerDb: any;
 
-  constructor(private store$: Store<RootStoreState.State>) {}
-
-  ascii_to_hexa(str: string) {
-    const arr1 = [];
-    for (let n = 0, l = str.length; n < l; n++) {
-      const hex = Number(str.charCodeAt(n)).toString(16);
-      arr1.push(hex);
-    }
-    return arr1.join('');
-  }
-
   initDb(username: string) {
-    this.localPlayerDb = new PouchDB(username + '_players', {
+    const dbPrefix = username.toLocaleLowerCase();
+    this.localPlayerDb = new PouchDB(dbPrefix + '_players', {
       auto_compaction: true,
     });
+    this.remotePlayerDb = new PouchDB('http://18.192.3.168:5984/' + dbPrefix + '_players', { skip_setup: true });
+    this.localPlayerDb.sync(this.remotePlayerDb, {live: true, retry: true});
   }
 
   resetDB(username: string): Promise<any> {
@@ -50,7 +42,7 @@ export class PlayerService {
   }
 
   update(player: Player): Promise<any> {
-    return this.localPlayerDb.put(player);
+    return this.localPlayerDb.put({ ...player, _rev: undefined });
   }
 
   delete(player: Player): Promise<any> {

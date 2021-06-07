@@ -1,3 +1,12 @@
+<header fxLayout="row" fxLayoutAlign="space-between center">
+  <span>Spacko Magic</span>
+  <button mat-raised-button routerLink="/single-player" color="primary">
+    Single Player
+  </button>
+  <button mat-raised-button routerLink="/settings" color="primary">
+    Settings
+  </button>
+</header>
 <div
   class="battlefield-container"
   fxLayout="row"
@@ -99,4 +108,46 @@
     class="preview"
     [style.background-image]="'url(' + selectedCard?.url + ')'"
   ></div>
+</div>
+<div
+  class="search-container"
+  *ngIf="mode === 'search'"
+  (click)="toggleSearchMode()"
+>
+  <spacko-magic-lane
+    *ngIf="searchMode === 'deck'"
+    [style.position]="'absolute'"
+    [style.top]="'calc(50% - ' + cardHeight/2 + 'px)'"
+    [cards]="deck"
+    [cardHeight]="cardHeight"
+    [cardWidth]="cardWidth"
+    [cardBorderRadius]="cardBorderRadius"
+    [mode]="mode"
+    (actionTriggered)="triggerAction($event)"
+  >
+  </spacko-magic-lane>
+  <spacko-magic-lane
+    *ngIf="searchMode === 'graveyard'"
+    [style.position]="'absolute'"
+    [style.top]="'calc(50% - ' + cardHeight/2 + 'px)'"
+    [cards]="graveyard"
+    [cardHeight]="cardHeight"
+    [cardWidth]="cardWidth"
+    [cardBorderRadius]="cardBorderRadius"
+    [mode]="mode"
+    (actionTriggered)="triggerAction($event)"
+  >
+  </spacko-magic-lane>
+  <spacko-magic-lane
+    *ngIf="searchMode === 'exile'"
+    [style.position]="'absolute'"
+    [style.top]="'calc(50% - ' + cardHeight/2 + 'px)'"
+    [cards]="exile"
+    [cardHeight]="cardHeight"
+    [cardWidth]="cardWidth"
+    [cardBorderRadius]="cardBorderRadius"
+    [mode]="mode"
+    (actionTriggered)="triggerAction($event)"
+  >
+  </spacko-magic-lane>
 </div>

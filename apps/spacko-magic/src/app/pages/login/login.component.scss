@@ -1,0 +1,48 @@
+.input {
+    width: 100%;
+}
+
+.login-button {
+    color: #fff !important;
+    margin: 0;
+}
+
+.register-button {
+    margin: 0;
+}
+
+.login-container {
+    padding: 1rem;
+}
+
+.logo {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    animation: fadeIn 1s ease;
+}
+
+.wrapper {
+    height: 50%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.links {
+    height: 10%;
+    text-align: center;
+}
+
+.link {
+    color: var(--primary-color)
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: scale(0);
+    }
+  
+    100% {
+        transform: scale(1);
+    }
+}
+  

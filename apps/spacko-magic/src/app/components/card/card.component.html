@@ -31,7 +31,7 @@
 >
   <div
     class="card"
-    (click)="triggerAction('toggle-tap')"
+    (click)="triggerAction('toggle-tap'); $event.stopPropagation();"
     [style.transform]="attachments ? 'translate(0%, ' + 10 * attachments + '%)' : 'none'"
     [style.height.px]="height"
     [style.min-width.px]="width"
@@ -67,13 +67,13 @@
         title="add a counter"
         *ngIf="card.place === 'battlefield'"
         class="action add-counter"
-        (click)="triggerAction('add-counter')"
+        (click)="triggerAction('add-counter'); $event.stopPropagation();"
       ></div>
       <div
         title="remove a counter"
         *ngIf="card.place === 'battlefield'"
         class="action remove-counter"
-        (click)="triggerAction('remove-counter')"
+        (click)="triggerAction('remove-counter'); $event.stopPropagation();"
       ></div>
     </div>
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
@@ -81,36 +81,36 @@
         title="attach"
         *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
         class="action attach"
-        (click)="triggerAction('attach-to')"
+        (click)="triggerAction('attach-to'); $event.stopPropagation();"
       ></div>
       <div
         title="unattach"
         *ngIf="card.attachedCards.length > 0"
         class="action unattach"
-        (click)="triggerAction('unattach')"
+        (click)="triggerAction('unattach'); $event.stopPropagation();"
       ></div>
       <div
         title="return to hand"
         class="action return-to-hand"
-        (click)="triggerAction('return-to-hand')"
+        (click)="triggerAction('return-to-hand'); $event.stopPropagation();"
       ></div>
       <div
         title="search"
         class="action search"
-        *ngIf="card.place === 'graveyard' || card.place === 'exile'"
-        (click)="triggerAction('search')"
+        *ngIf="(card.place === 'graveyard' || card.place === 'exile') && mode != 'search'"
+        (click)="triggerAction('search'); $event.stopPropagation();"
       ></div>
       <div
         title="kill / sacrifice"
-        *ngIf="card.place === 'battlefield'"
+        *ngIf="card.place === 'battlefield' || card.place === 'deck'"
         class="action kill"
-        (click)="triggerAction('kill')"
+        (click)="triggerAction('kill'); $event.stopPropagation();"
       ></div>
       <div
         title="exile"
         *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
         class="action exile"
-        (click)="triggerAction('exile')"
+        (click)="triggerAction('exile'); $event.stopPropagation();"
       ></div>
     </div>
   </div>

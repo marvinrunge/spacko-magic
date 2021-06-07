@@ -1,27 +1,24 @@
+<header fxLayout="row" fxLayoutAlign="space-between center">
+  <span>Spacko Magic</span>
+  <button mat-raised-button routerLink="/single-player" color="primary">
+    Single Player
+  </button>
+  <button mat-raised-button routerLink="/settings" color="primary">
+    Settings
+  </button>
+</header>
 <div class="settings">
   <div fxLayout="column" fxLayoutAlign="center stretch">
-    <mat-form-field fxFill appearance="fill">
-      <mat-label>Username</mat-label>
-      <input
-        [disabled]="userIsReady"
-        [(ngModel)]="username"
-        matInput
-        placeholder="Username"
-      />
-    </mat-form-field>
-    <button
-    mat-raised-button
-      (click)="addUser()"
-      color="primary"
-      *ngIf="!userIsReady"
-    >
-      Add User
-    </button>
     <mat-form-field appearance="fill">
       <mat-label>Decklist</mat-label>
       <textarea [(ngModel)]="deckList" class="deck-list" matInput></textarea>
     </mat-form-field>
-    <button mat-raised-button [disabled]="!userIsReady" (click)="initDeck()" color="primary">
+    <button
+      mat-raised-button
+      [disabled]="!userIsReady"
+      (click)="initDeck()"
+      color="primary"
+    >
       Init Deck
     </button>
   </div>

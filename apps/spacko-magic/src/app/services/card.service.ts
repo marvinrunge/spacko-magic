@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-//import PouchDBAuthentication from 'pouchdb-authentication';
+import PouchDBAuthentication from 'pouchdb-authentication';
 import PouchDB from 'pouchdb';
 import { Card } from '../interfaces/card';
-import { loadCardsRequest } from '../root-store/card-store/actions';
-import { Store } from '@ngrx/store';
-import { RootStoreState } from '../root-store';
 
-//PouchDB.plugin(PouchDBAuthentication);
+PouchDB.plugin(PouchDBAuthentication);
 
 @Injectable({
   providedIn: 'root',
@@ -16,21 +13,13 @@ export class CardService {
   private localCardDb: any;
   private remoteCardDb: any;
 
-  constructor(private store$: Store<RootStoreState.State>) {}
-
-  ascii_to_hexa(str: string) {
-    const arr1 = [];
-    for (let n = 0, l = str.length; n < l; n++) {
-      const hex = Number(str.charCodeAt(n)).toString(16);
-      arr1.push(hex);
-    }
-    return arr1.join('');
-  }
-
   initDb(username: string) {
-    this.localCardDb = new PouchDB(username + '_cards', {
+    const dbPrefix = username.toLocaleLowerCase();
+    this.localCardDb = new PouchDB(dbPrefix + '_cards', {
       auto_compaction: true,
     });
+    this.remoteCardDb = new PouchDB('http://18.192.3.168:5984/' + dbPrefix + '_cards', { skip_setup: true });
+    this.localCardDb.sync(this.remoteCardDb, {live: true, retry: true});
   }
 
   resetDB(username: string): Promise<any> {

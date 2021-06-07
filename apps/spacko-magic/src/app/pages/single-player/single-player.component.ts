@@ -14,7 +14,6 @@ import {
   RootStoreState,
 } from '../../root-store';
 import {
-  addCardRequest,
   deleteCardRequest,
   setActiveAttachCardId,
   setSelectedCardId,
@@ -48,6 +47,7 @@ export class SinglePlayerComponent implements OnInit {
   selectedPlayer: Player;
   activeAttachCard: Card;
   mode?: string;
+  searchMode?: string;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -138,7 +138,6 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   updatePlayer(player: Player) {
-    console.log(player);
     this.store$.dispatch(updatePlayerRequest({ player }));
   }
 
@@ -176,8 +175,11 @@ export class SinglePlayerComponent implements OnInit {
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
   }
 
+  toggleSearchMode() {
+    this.mode === 'search' ? (this.mode = undefined) : (this.mode = 'search');
+  }
+
   triggerAction(event: { card?: Card; actionType: string }) {
-    console.log('single-player', event.card, event.actionType);
     const card = event.card;
     const actionType = event.actionType;
     if (card) {
@@ -252,15 +254,28 @@ export class SinglePlayerComponent implements OnInit {
           this.updateCard(updatedCard);
           break;
         }
+        case 'search': {
+          if (card.place === 'deck') {
+            this.searchMode = 'deck';
+          } else if (card.place === 'graveyard') {
+            this.searchMode = 'graveyard';
+          } else if (card.place === 'exile') {
+            this.searchMode = 'exile';
+          }
+          this.toggleSearchMode();
+          break;
+        }
       }
     }
     switch (actionType) {
-      case 'draw':
+      case 'draw': {
         this.draw();
         break;
-      case 'shuffle':
+      }
+      case 'shuffle': {
         this.shuffle();
         break;
+      }
     }
   }
 }

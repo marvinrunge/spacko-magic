@@ -24,14 +24,6 @@ export class SettingsComponent implements OnInit{
     private router: Router
   ) {}
 
-  addUser() {
-    this.game.initUser(this.username);
-    if (this.username) {
-      this.userIsReady = true;
-    }
-    localStorage.setItem('current-user', this.username);
-  }
-
   initDeck() {
     this.game.initDeck(this.deckList, this.username);
     this.router.navigate(["/single-player"]);
