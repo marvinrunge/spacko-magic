@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from './game.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'spacko-magic-root',
@@ -7,12 +8,9 @@ import { GameService } from './game.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private game: GameService) {}
+  constructor(private authService: AuthService, private game: GameService) {}
 
   ngOnInit() {
-    const username = localStorage.getItem('current-user');
-    if (username) {
-      this.game.initUser(username);
-    }
+    this.authService.checkSession();
   }
 }
