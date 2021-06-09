@@ -18,6 +18,7 @@ import { GraveyardComponent } from './components/graveyard/graveyard.component';
 import { LaneComponent } from './components/lane/lane.component';
 import { LibraryComponent } from './components/library/library.component';
 import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
+import { EnemyStatsComponent } from './components/enemy-stats/enemy-stats.component';
 import { CreaturesPipe } from './creatures.pipe';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -26,11 +27,14 @@ import { SinglePlayerComponent } from './pages/single-player/single-player.compo
 import { LandsPipe } from './pipes/lands.pipe';
 import { SpellsPipe } from './pipes/spells.pipe';
 import { RootStoreModule } from './root-store';
+import { HeaderComponent } from './components/header/header.component';
+import { TwoPlayerComponent } from './pages/two-player/two-player.component';
 
 
 const routes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'single-player', component: SinglePlayerComponent },
+  { path: 'two-player', component: TwoPlayerComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'login',
@@ -55,9 +59,12 @@ const routes: Routes = [
     LibraryComponent,
     GraveyardComponent,
     SinglePlayerComponent,
+    TwoPlayerComponent,
     PlayerStatsComponent,
+    EnemyStatsComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,

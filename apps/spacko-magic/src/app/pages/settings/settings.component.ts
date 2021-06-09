@@ -9,6 +9,7 @@ import { GameService } from '../../game.service';
 export class SettingsComponent implements OnInit{
   username = '';
   deckList = '';
+  enemyUsername = '';
   userIsReady = false;
 
   ngOnInit() {
@@ -29,4 +30,7 @@ export class SettingsComponent implements OnInit{
     this.router.navigate(["/single-player"]);
   }
 
+  addEnemy() {
+    this.game.addEnemy(this.enemyUsername);
+  }
 }

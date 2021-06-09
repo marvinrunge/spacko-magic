@@ -20,24 +20,36 @@ import {
   updateCardRequest,
   updateManyCardsRequest,
 } from '../../root-store/card-store/actions';
+import { EnemyCardSelectors } from '../../root-store/enemy-card-store';
+import { setSelectedEnemyCardId } from '../../root-store/enemy-card-store/actions';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
 
 @Component({
-  templateUrl: './single-player.component.html',
-  styleUrls: ['./single-player.component.css'],
+  templateUrl: './two-player.component.html',
+  styleUrls: ['./two-player.component.css'],
 })
-export class SinglePlayerComponent implements OnInit {
+export class TwoPlayerComponent implements OnInit {
   @ViewChild('handScroll') handScroll: ElementRef;
 
   title = 'spacko-magic';
   deck: Card[] = [];
   hand: Card[] = [];
-  stack: Card[] = [];
   graveyard: Card[] = [];
   exile: Card[] = [];
   creatures: Card[] = [];
   lands: Card[] = [];
   other: Card[] = [];
+
+  enemyDeck: Card[] = [];
+  enemyHand: Card[] = [];
+  enemyGraveyard: Card[] = [];
+  enemyExile: Card[] = [];
+  enemyCreatures: Card[] = [];
+  enemyLands: Card[] = [];
+  enemyOther: Card[] = [];
+  selectedEnemyPlayer: Player;
+  selectedEnemyCard?: Card;
+
   settingsOpen = true;
   selectedCard?: Card;
   cardHeight = 160;
@@ -99,6 +111,50 @@ export class SinglePlayerComponent implements OnInit {
       .subscribe((card) => {
         this.activeAttachCard = card;
       });
+
+    this.store$
+      .pipe(select(EnemyCardSelectors.selectByPlaceAndSortByPosition('deck')))
+      .subscribe((cards) => (this.enemyDeck = cards));
+    this.store$
+      .pipe(select(EnemyCardSelectors.selectByPlace('hand')))
+      .subscribe((cards) => (this.enemyHand = cards));
+    this.store$
+      .pipe(
+        select(
+          EnemyCardSelectors.selectByPlaceAndType('battlefield', 'creature')
+        )
+      )
+      .subscribe((cards) => (this.enemyCreatures = cards));
+    this.store$
+      .pipe(
+        select(EnemyCardSelectors.selectByPlaceAndType('battlefield', 'land'))
+      )
+      .subscribe((cards) => (this.enemyLands = cards));
+    this.store$
+      .pipe(
+        select(
+          EnemyCardSelectors.selectByPlaceAndNotTypes(
+            'battlefield',
+            'creature',
+            'land'
+          )
+        )
+      )
+      .subscribe((cards) => (this.enemyOther = cards));
+    this.store$
+      .pipe(select(EnemyCardSelectors.selectByPlace('graveyard')))
+      .subscribe((cards) => (this.enemyGraveyard = cards));
+    this.store$
+      .pipe(select(EnemyCardSelectors.selectByPlace('exile')))
+      .subscribe((cards) => (this.enemyExile = cards));
+    this.store$
+      .pipe(select(PlayerSelectors.selectEnemyPlayerBySelectedId))
+      .subscribe((player) => {
+        this.selectedEnemyPlayer = player;
+      });
+    this.store$
+      .pipe(select(EnemyCardSelectors.selectCardBySelectedId))
+      .subscribe((card) => (this.selectedEnemyCard = card));
   }
 
   ngOnInit() {
@@ -130,11 +186,20 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   selectCard(card: Card) {
-    this.store$.dispatch(setSelectedCardId({ selectedCardId: card._id }));
+    if (card.isEnemyCard) {
+      this.store$.dispatch(
+        setSelectedEnemyCardId({ selectedCardId: card._id })
+      );
+    } else {
+      this.store$.dispatch(setSelectedCardId({ selectedCardId: card._id }));
+    }
   }
 
   deselectCard() {
     this.store$.dispatch(setSelectedCardId({ selectedCardId: undefined }));
+    this.store$.dispatch(
+      setSelectedEnemyCardId({ selectedCardId: undefined })
+    );
   }
 
   updatePlayer(player: Player) {
@@ -151,10 +216,10 @@ export class SinglePlayerComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    const height = Math.trunc((this.innerHeight - 122) / 4);
+    const height = Math.trunc((this.innerHeight - 254) / 6);
     this.cardHeight = height;
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
-    this.cardBorderRadius = Math.trunc(this.cardHeight * 0.05);
+    this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }
 
   shuffle() {
@@ -230,7 +295,11 @@ export class SinglePlayerComponent implements OnInit {
           break;
         }
         case 'attach': {
-          if (card._id !== this.activeAttachCard._id && !card.isEnemyCard && card.place !== 'hand') {
+          if (
+            card._id !== this.activeAttachCard._id &&
+            !card.isEnemyCard &&
+            card.place !== 'hand'
+          ) {
             const updatedCard: Card = {
               ...card,
               attachedCards: card.attachedCards.concat(this.activeAttachCard),

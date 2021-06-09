@@ -13,6 +13,7 @@
   >
     <spacko-magic-graveyard
       *ngIf="exile"
+      [isEnemyCard]="isEnemyLane"
       [cards]="exile"
       [height]="cardHeight"
       [width]="cardWidth"
@@ -24,6 +25,7 @@
     </spacko-magic-graveyard>
     <spacko-magic-graveyard
       *ngIf="graveyard"
+      [isEnemyCard]="isEnemyLane"
       [cards]="graveyard"
       [height]="cardHeight"
       [width]="cardWidth"
@@ -35,6 +37,7 @@
     </spacko-magic-graveyard>
     <spacko-magic-library
       *ngIf="library"
+      [isEnemyCard]="isEnemyLane"
       [cards]="library"
       [height]="cardHeight"
       [width]="cardWidth"
@@ -45,6 +48,7 @@
     </spacko-magic-library>
     <spacko-magic-card
       *ngFor="let card of cards"
+      [isEnemyCard]="isEnemyLane"
       [card]="card"
       [height]="cardHeight"
       [width]="cardWidth"

@@ -6,6 +6,7 @@ export interface PlayerState extends EntityState<Player> {
   isLoading: boolean;
   error?: any;
   selectedPlayerId?: string;
+  selectedEnemyPlayerId?: string;
 }
 
 /** function to determine which field to use as a ID inside the store */
@@ -21,7 +22,8 @@ export const initialPlayerState: PlayerState = playerAdapter.getInitialState(
   {
     isLoading: false,
     error: undefined,
-    selectedPlayerId: undefined
+    selectedPlayerId: undefined,
+    selectedEnemyPlayerId: undefined
   }
 );
 

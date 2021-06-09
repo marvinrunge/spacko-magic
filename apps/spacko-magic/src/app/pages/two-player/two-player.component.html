@@ -4,7 +4,43 @@
   fxLayout="row"
   fxLayoutAlign="center end"
 >
-  <div fxLayout="column" fxLayoutGap="8px" fxFlex="grow">
+  <div fxLayout="column" fxLayoutGap="4px" fxFlex="grow">
+    <spacko-magic-enemy-stats
+      *ngIf="selectedEnemyPlayer"
+      [player]="selectedEnemyPlayer"
+    >
+    </spacko-magic-enemy-stats>
+    <spacko-magic-lane
+      [cards]="enemyLands"
+      [isEnemyLane]="true"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
+    >
+    </spacko-magic-lane>
+    <spacko-magic-lane
+      [cards]="enemyOther"
+      [isEnemyLane]="true"
+      [graveyard]="enemyGraveyard"
+      [exile]="enemyExile"
+      [library]="enemyDeck"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
+    ></spacko-magic-lane>
+    <spacko-magic-lane
+      [cards]="enemyCreatures"
+      [isEnemyLane]="true"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      (actionTriggered)="triggerAction($event)"
+    ></spacko-magic-lane>
     <spacko-magic-lane
       [cards]="creatures"
       [cardHeight]="cardHeight"
@@ -37,7 +73,7 @@
     <div
       class="player-lane"
       fxLayout="row"
-      [style.height.px]="cardHeight"
+      [style.height.px]="200"
       [style.z-index]="4"
     >
       <spacko-magic-player-stats
@@ -50,11 +86,11 @@
         class="hand-container"
         fxLayout="row"
         fxLayoutAlign="center center"
-        [style.height.px]="cardHeight"
+        [style.height.px]="200"
       >
         <div
           class="arrow left"
-          [style.height.px]="cardHeight / 2"
+          [style.height.px]="200 / 2"
           (click)="scrollLeft()"
         ></div>
         <div
@@ -62,20 +98,20 @@
           class="scroll-container"
           fxLayout="row"
           fxLayoutGap="4px"
-          [style.height.px]="cardHeight"
+          [style.height.px]="200"
         >
           <div
             class="card"
             *ngFor="let card of hand; index as i"
-            [style.height.px]="cardHeight"
-            [style.width.px]="cardWidth"
+            [style.height.px]="200"
+            [style.width.px]="143"
             (wheel)="selectCard(card)"
           >
             <div
               class="inner-card"
               (click)="play(card)"
-              [style.height.px]="cardHeight"
-              [style.width.px]="cardWidth"
+              [style.height.px]="200"
+              [style.width.px]="143"
               fxFill
               [style.background-image]="'url(' + card.url + ')'"
             ></div>
@@ -83,7 +119,7 @@
         </div>
         <div
           class="arrow right"
-          [style.height.px]="cardHeight / 2"
+          [style.height.px]="200 / 2"
           (click)="scrollRight()"
         ></div>
       </div>
@@ -102,6 +138,17 @@
   ></div>
 </div>
 <div
+  class="inspect"
+  *ngIf="selectedEnemyCard?.url"
+  (wheel)="deselectCard()"
+  (click)="deselectCard()"
+>
+  <div
+    class="preview"
+    [style.background-image]="'url(' + selectedEnemyCard?.url + ')'"
+  ></div>
+</div>
+<div
   class="search-container"
   *ngIf="mode === 'search'"
   (click)="toggleSearchMode()"
@@ -109,10 +156,10 @@
   <spacko-magic-lane
     *ngIf="searchMode === 'deck'"
     [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + cardHeight/2 + 'px)'"
+    [style.top]="'calc(50% - ' + 200/2 + 'px)'"
     [cards]="deck"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
+    [cardHeight]="200"
+    [cardWidth]="143"
     [cardBorderRadius]="cardBorderRadius"
     [mode]="mode"
     (actionTriggered)="triggerAction($event)"
@@ -121,10 +168,10 @@
   <spacko-magic-lane
     *ngIf="searchMode === 'graveyard'"
     [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + cardHeight/2 + 'px)'"
+    [style.top]="'calc(50% - ' + 200/2 + 'px)'"
     [cards]="graveyard"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
+    [cardHeight]="200"
+    [cardWidth]="143"
     [cardBorderRadius]="cardBorderRadius"
     [mode]="mode"
     (actionTriggered)="triggerAction($event)"
@@ -133,10 +180,10 @@
   <spacko-magic-lane
     *ngIf="searchMode === 'exile'"
     [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + cardHeight/2 + 'px)'"
+    [style.top]="'calc(50% - ' + 200/2 + 'px)'"
     [cards]="exile"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
+    [cardHeight]="200"
+    [cardWidth]="143"
     [cardBorderRadius]="cardBorderRadius"
     [mode]="mode"
     (actionTriggered)="triggerAction($event)"

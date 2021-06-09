@@ -64,6 +64,9 @@ export const playerReducer = createReducer(
   })),
   on(PlayerActions.setSelectedPlayerId, (state, { selectedPlayerId }) => ({
     ...state, selectedPlayerId
+  })),
+  on(PlayerActions.setSelectedEnemyPlayerId, (state, { selectedPlayerId }) => ({
+    ...state, selectedEnemyPlayerId: selectedPlayerId
   }))
 );
 

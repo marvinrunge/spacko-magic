@@ -18,13 +18,12 @@ export class PlayerService {
     this.localPlayerDb = new PouchDB(dbPrefix + '_players', {
       auto_compaction: true,
     });
-    this.remotePlayerDb = new PouchDB('http://18.192.3.168:5984/' + dbPrefix + '_players', { skip_setup: true });
+    this.remotePlayerDb = new PouchDB('http://18.192.3.168:5984/players', { skip_setup: true });
     this.localPlayerDb.sync(this.remotePlayerDb, {live: true, retry: true});
   }
 
   resetDB(username: string): Promise<any> {
     return this.localPlayerDb.allDocs().then((result: any) => {
-      // Promise isn't supported by all browsers; you may want to use bluebird
       return Promise.all(
         result.rows.map((row: any) => {
           return this.localPlayerDb.remove(row.id, row.value.rev);
@@ -42,7 +41,7 @@ export class PlayerService {
   }
 
   update(player: Player): Promise<any> {
-    return this.localPlayerDb.put({ ...player, _rev: undefined });
+    return this.localPlayerDb.put(player);
   }
 
   delete(player: Player): Promise<any> {
@@ -52,7 +51,6 @@ export class PlayerService {
   getAll(): Observable<any> {
     return new Observable((observer) => {
       this.localPlayerDb.allDocs({ include_docs: true }).then((docs: any) => {
-        console.log(docs);
         const players = docs.rows.map((element: any) => element.doc);
         observer.next(players);
         observer.complete();

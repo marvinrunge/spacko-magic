@@ -19,3 +19,4 @@ export const resetPlayerRequest = createAction('[Player] Reset Player Request');
 export const resetPlayerFailure = createAction('[Player] Reset Player Failure', props<{error: string}>());
 export const resetPlayerSuccess = createAction('[Player] Reset Player Success');
 export const setSelectedPlayerId = createAction('[Player] Set Selected Player Id', props<{selectedPlayerId?: string}>());
+export const setSelectedEnemyPlayerId = createAction('[Player] Set Selected Enemy Player Id', props<{selectedPlayerId?: string}>());

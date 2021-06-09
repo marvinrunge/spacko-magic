@@ -4,18 +4,27 @@ import { Card } from '../../interfaces/card';
 @Component({
   selector: 'spacko-magic-graveyard',
   templateUrl: './graveyard.component.html',
-  styleUrls: ['./graveyard.component.css']
+  styleUrls: ['./graveyard.component.css'],
 })
 export class GraveyardComponent {
   @Input() cards: Card[];
-  @Input() type: "graveyard" | "exile"
+  @Input() type: 'graveyard' | 'exile';
+  @Input() isEnemyCard = false;
   @Input() height: number;
   @Input() width: number;
   @Input() borderRadius: number;
   @Input() mode?: string;
-  @Output() actionTriggered = new EventEmitter<{ card?: Card, actionType: string }>();
+  @Output() actionTriggered = new EventEmitter<{
+    card?: Card;
+    actionType: string;
+  }>();
 
-  triggerAction(event: { card?: Card, actionType: string }) {
-    this.actionTriggered.emit({ card: this.cards[0], actionType: event.actionType });
+  triggerAction(event: { card?: Card; actionType: string }) {
+    if (!this.isEnemyCard) {
+      this.actionTriggered.emit({
+        card: this.cards[0],
+        actionType: event.actionType,
+      });
+    }
   }
 }

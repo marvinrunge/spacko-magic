@@ -9,4 +9,5 @@ export interface Card extends Base {
   type: "creature" | "land" | "spell";
   place: "deck" | "hand" | "graveyard" | "stack" | "battlefield" | "exile";
   attachedCards: Card[];
+  isEnemyCard?: boolean;
 }

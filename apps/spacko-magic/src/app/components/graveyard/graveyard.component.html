@@ -1,5 +1,6 @@
 <spacko-magic-card
   class="snap"
+  [isEnemyCard]="isEnemyCard"
   *ngIf="cards[0]; else grave"
   [card]="cards[0]"
   [height]="height"

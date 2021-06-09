@@ -1,14 +1,18 @@
-<header fxLayout="row" fxLayoutAlign="space-between center">
-  <span>Spacko Magic</span>
-  <button mat-raised-button routerLink="/single-player" color="primary">
-    Single Player
-  </button>
-  <button mat-raised-button routerLink="/settings" color="primary">
-    Settings
-  </button>
-</header>
+<spacko-magic-header></spacko-magic-header>
 <div class="settings">
   <div fxLayout="column" fxLayoutAlign="center stretch">
+    <mat-form-field appearance="fill">
+      <mat-label>Enemy Player Name</mat-label>
+      <input [(ngModel)]="enemyUsername" matInput>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      [disabled]="!userIsReady"
+      (click)="addEnemy()"
+      color="primary" [style.margin-bottom.px]="18"
+    >
+      Add
+    </button>
     <mat-form-field appearance="fill">
       <mat-label>Decklist</mat-label>
       <textarea [(ngModel)]="deckList" class="deck-list" matInput></textarea>

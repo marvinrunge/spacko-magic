@@ -1,0 +1,20 @@
+.player-stats-container {
+  filter: drop-shadow(0px 0px 5px #000);
+}
+
+.player-stats-header {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  font-size: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 8px;
+  line-height: 20px;
+}
+
+.player-stats-content {
+  background-color: #222;
+  color: white;
+  font-size: 20px;
+  padding: 8px;
+}

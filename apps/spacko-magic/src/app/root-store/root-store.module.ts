@@ -6,12 +6,14 @@ import { StoreModule } from '@ngrx/store';
 
 import { CardStoreModule } from './card-store';
 import { PlayerStoreModule } from './player-store';
+import { EnemyCardStoreModule } from './enemy-card-store';
 
 @NgModule({
   imports: [
     CommonModule,
     CardStoreModule,
     PlayerStoreModule,
+    EnemyCardStoreModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([])
   ],

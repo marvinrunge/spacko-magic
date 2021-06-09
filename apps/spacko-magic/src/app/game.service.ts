@@ -1,11 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { delay } from 'rxjs/operators';
 import { RootStoreState } from './root-store';
 import {
   addCardRequest
 } from './root-store/card-store/actions';
+import { loadEnemyCardsRequest } from './root-store/enemy-card-store/actions';
+import { setSelectedEnemyPlayerId } from './root-store/player-store/actions';
 import { CardService } from './services/card.service';
+import { EnemyCardService } from './services/enemy-card.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +18,8 @@ export class GameService {
   public constructor(
     private http: HttpClient,
     private store$: Store<RootStoreState.State>,
-    private cardService: CardService
+    private cardService: CardService,
+    private enemyCardService: EnemyCardService
   ) {}
 
   initDeck(deckList: string, username: string) {
@@ -31,6 +36,7 @@ export class GameService {
           const name = entry.slice(2);
           this.http
             .get('https://api.scryfall.com/cards/named?exact=' + name)
+            .pipe(delay(50))
             .subscribe((card: any) => {
               for (let i = 1; i <= count; i++) {
                 this.store$.dispatch(
@@ -50,9 +56,17 @@ export class GameService {
                   })
                 );
               }
+            }, error => {
+              console.log(error);
             });
         }
       });
     });
+  }
+
+  addEnemy(username: string) {
+    this.enemyCardService.initDb(username);
+    this.store$.dispatch(setSelectedEnemyPlayerId({ selectedPlayerId: username }));
+    this.store$.dispatch(loadEnemyCardsRequest());
   }
 }

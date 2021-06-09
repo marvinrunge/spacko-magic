@@ -1,0 +1,20 @@
+header {
+  width: 100%;
+  padding: 8px;
+  color: white;
+  vertical-align: middle;
+  transition: background 0.2s ease;
+}
+
+mat-icon {
+  height: 36px;
+  width: 36px;
+  filter: drop-shadow(0px 0px 3px black);
+  font-size: 36px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+mat-icon:active {
+  transform: scale(0.8);
+}

@@ -39,8 +39,19 @@ export const selectSelectedPlayerId = createSelector(
   (state: fromPlayers.PlayerState) => state.selectedPlayerId
 );
 
+export const selectSelectedEnemyPlayerId = createSelector(
+  selectPlayerState,
+  (state: fromPlayers.PlayerState) => state.selectedEnemyPlayerId
+);
+
 export const selectPlayerBySelectedId = createSelector(
   selectAllPlayers,
   selectSelectedPlayerId,
+  (players, selectedId) => players.filter((player) => player._id === selectedId)[0]
+);
+
+export const selectEnemyPlayerBySelectedId = createSelector(
+  selectAllPlayers,
+  selectSelectedEnemyPlayerId,
   (players, selectedId) => players.filter((player) => player._id === selectedId)[0]
 );

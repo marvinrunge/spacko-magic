@@ -1,12 +1,3 @@
-header {
-  width: 100%;
-  background-color: black;
-  padding: 8px;
-  color: white;
-  vertical-align: middle;
-  z-index: 5;
-}
-
 .deck-list {
   height: 300px;
 }

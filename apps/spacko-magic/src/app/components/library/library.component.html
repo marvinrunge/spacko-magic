@@ -18,6 +18,7 @@
     "
   ></div>
   <div
+    *ngIf="!isEnemyCard"
     [@showHide]="showActions ? 'show' : 'hide'"
     class="actions"
     fxLayout="row"

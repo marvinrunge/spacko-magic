@@ -9,7 +9,7 @@ PouchDB.plugin(PouchDBAuthentication);
 @Injectable({
   providedIn: 'root',
 })
-export class CardService {
+export class EnemyCardService {
   private localCardDb: any;
   private remoteCardDb: any;
 
@@ -51,6 +51,7 @@ export class CardService {
   getAll(): Observable<any> {
     return new Observable((observer) => {
       this.localCardDb.allDocs({ include_docs: true }).then((docs: any) => {
+        console.log(docs);
         const cards = docs.rows.map((element: any) => element.doc);
         observer.next(cards);
         observer.complete();

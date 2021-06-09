@@ -1,18 +1,9 @@
 <div fxLayout="column" class="player-stats-container" fxFill>
   <div
-    class="player-stats-header"
-    fxLayoutAlign="center center"
-    fxFlex="25"
-    fxLayout="column"
-  >
-    <span>{{ player.name }}</span>
-  </div>
-  <div
     class="player-stats-content"
     fxFlex
     fxLayout="row"
     fxLayoutAlign="space-between"
-    fxLayoutGap="8px"
   >
     <div
       class="life-counter"
@@ -23,13 +14,7 @@
       <div fxFlex fxLayoutAlign="center center">
         <img src="/assets/life.svg" width="30px" height="30px" />
       </div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="addLife()">
-        +
-      </div>
       <div fxFlex fxLayoutAlign="center center">{{ player.life }}</div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="removeLife()">
-        -
-      </div>
     </div>
     <div
       class="poison-counter"
@@ -40,13 +25,7 @@
       <div fxFlex fxLayoutAlign="center center">
         <img src="/assets/poison_counter.svg" width="30px" height="30px" />
       </div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="addPoison()">
-        +
-      </div>
       <div fxFlex fxLayoutAlign="center center">{{ player.poison }}</div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="removePoison()">
-        -
-      </div>
     </div>
     <div
       class="energy-counter"
@@ -57,13 +36,7 @@
       <div fxFlex fxLayoutAlign="center center">
         <img src="/assets/energy_counter.svg" width="30px" height="30px" />
       </div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="addEnergy()">
-        +
-      </div>
       <div fxFlex fxLayoutAlign="center center">{{ player.energy }}</div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="removeEnergy()">
-        -
-      </div>
     </div>
     <div
       class="other-counter"
@@ -74,13 +47,15 @@
       <div fxFlex fxLayoutAlign="center center">
         <img src="/assets/other_counter.svg" width="30px" height="30px" />
       </div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="addOther()">
-        +
-      </div>
       <div fxFlex fxLayoutAlign="center center">{{ player.other }}</div>
-      <div fxFlex fxLayoutAlign="center center" class="player-counter-button" (click)="removeOther()">
-        -
-      </div>
     </div>
+  </div>
+  <div
+    class="player-stats-header"
+    fxLayoutAlign="center center"
+    fxFlex="25"
+    fxLayout="column"
+  >
+    <span>{{ player.name }}</span>
   </div>
 </div>

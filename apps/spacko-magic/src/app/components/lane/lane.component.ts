@@ -17,6 +17,7 @@ export class LaneComponent {
   @ViewChild('scroll') scroll: ElementRef;
   @Input() cards: Card[];
   @Input() isMiddleLane = false;
+  @Input() isEnemyLane = false;
   @Input() cardHeight: number;
   @Input() cardWidth: number;
   @Input() cardBorderRadius: number;
