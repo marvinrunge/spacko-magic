@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import PouchDBAuthentication from 'pouchdb-authentication';
 import PouchDB from 'pouchdb';
 import { Card } from '../interfaces/card';
+import { environment } from '../../environments/environment';
 
 PouchDB.plugin(PouchDBAuthentication);
 
@@ -18,7 +19,7 @@ export class CardService {
     this.localCardDb = new PouchDB(dbPrefix + '_cards', {
       auto_compaction: true,
     });
-    this.remoteCardDb = new PouchDB('http://18.192.3.168:5984/' + dbPrefix + '_cards', { skip_setup: true });
+    this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', { skip_setup: true });
     this.localCardDb.sync(this.remoteCardDb, {live: true, retry: true});
   }
 

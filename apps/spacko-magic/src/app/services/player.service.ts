@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import PouchDB from 'pouchdb';
 import PouchDBAuthentication from 'pouchdb-authentication';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { Player } from '../interfaces/player';
 
 PouchDB.plugin(PouchDBAuthentication);
@@ -18,7 +19,7 @@ export class PlayerService {
     this.localPlayerDb = new PouchDB(dbPrefix + '_players', {
       auto_compaction: true,
     });
-    this.remotePlayerDb = new PouchDB('http://18.192.3.168:5984/players', { skip_setup: true });
+    this.remotePlayerDb = new PouchDB(environment.db + 'players', { skip_setup: true });
     this.localPlayerDb.sync(this.remotePlayerDb, {live: true, retry: true});
   }
 
