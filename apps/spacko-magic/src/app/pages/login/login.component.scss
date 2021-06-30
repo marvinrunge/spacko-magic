@@ -16,8 +16,8 @@
 }
 
 .logo {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
     animation: fadeIn 1s ease;
 }
 
@@ -40,9 +40,8 @@
     0% {
         transform: scale(0);
     }
-  
+
     100% {
         transform: scale(1);
     }
 }
-  

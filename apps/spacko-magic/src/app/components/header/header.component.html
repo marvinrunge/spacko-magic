@@ -1,14 +1,14 @@
-<header fxLayout="row" [style.background]="isActive ? 'black' : 'none'" fxLayoutGap="8px" fxLayoutAlign="space-between center">
+<header fxLayout="row" [style.background]="isActive ? '#00000077' : 'none'" fxLayoutGap="8px" fxLayoutAlign="space-between center">
   <mat-icon (click)="toggleMenu()">menu</mat-icon>
   <div fxFill *ngIf="isActive" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="8px">
-    <button mat-raised-button routerLink="/single-player" color="primary">
+    <div class="nav-item" routerLink="/single-player">
       Single Player
-    </button>
-    <button mat-raised-button routerLink="/two-player" color="primary">
+    </div>
+    <div class="nav-item" routerLink="/two-player">
       Two Player
-    </button>
-    <button mat-raised-button routerLink="/settings" color="primary">
+    </div>
+    <div class="nav-item" routerLink="/settings">
       Settings
-    </button>
+    </div>
   </div>
 </header>

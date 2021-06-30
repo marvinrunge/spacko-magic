@@ -109,7 +109,7 @@
         class="action search"
         *ngIf="
           (card.place === 'graveyard' || card.place === 'exile') &&
-          mode != 'search'
+          mode !== 'search'
         "
         (click)="triggerAction('search'); $event.stopPropagation()"
       ></div>

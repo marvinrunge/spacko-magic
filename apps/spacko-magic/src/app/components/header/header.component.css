@@ -18,3 +18,23 @@ mat-icon {
 mat-icon:active {
   transform: scale(0.8);
 }
+
+.nav-item {
+  font-family: 'magic';
+  height: max-content;
+  color: white;
+  font-size: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  cursor: pointer;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.nav-item:hover {
+  filter: drop-shadow(0 0 5px white)
+}
+
+.nav-item:active {
+  transform: scale(0.9);
+}

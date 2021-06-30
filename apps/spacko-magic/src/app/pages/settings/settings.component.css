@@ -8,3 +8,12 @@
   padding: 18px;
 }
 
+h2 {
+  font-family: 'magic';
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  padding: 0 0 0 0;
+  margin: 1rem 0 2rem 0;
+}

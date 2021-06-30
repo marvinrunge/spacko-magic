@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: "magic";
+  src: url("/assets/fonts/MAGIC.TTF") format("opentype");
+}
+
 html,
 body {
   height: 100%;
