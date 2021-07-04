@@ -1,4 +1,4 @@
-name: Upload Spacko Magic to AWS S3 Bucket
+name: Upload to AWS S3 Bucket
 
 on:
   push:
