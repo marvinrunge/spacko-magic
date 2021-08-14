@@ -48,6 +48,7 @@ export class SinglePlayerComponent implements OnInit {
   activeAttachCard: Card;
   mode?: string;
   searchMode?: string;
+  minPosition?: number = 0;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -99,6 +100,9 @@ export class SinglePlayerComponent implements OnInit {
       .subscribe((card) => {
         this.activeAttachCard = card;
       });
+    this.store$
+      .pipe(select(CardSelectors.selectMinPosition))
+      .subscribe((min) => (this.minPosition = min));
   }
 
   ngOnInit() {
@@ -106,9 +110,11 @@ export class SinglePlayerComponent implements OnInit {
   }
 
   draw() {
-    let randomCard = this.deck[Math.floor(Math.random() * this.deck.length)];
-    randomCard = { ...randomCard, place: 'hand' };
-    this.store$.dispatch(updateCardRequest({ card: randomCard }));
+    if (this.deck.length > 0) {
+      let randomCard = this.deck[0];
+      randomCard = { ...randomCard, place: 'hand' };
+      this.store$.dispatch(updateCardRequest({ card: randomCard }));
+    }
   }
 
   play(card: Card) {
@@ -160,7 +166,7 @@ export class SinglePlayerComponent implements OnInit {
   shuffle() {
     const deck: Card[] = [];
     this.deck.forEach((card) =>
-      deck.push({ ...card, position: Math.random() })
+      deck.push({ ...card, position: Math.floor(Math.random() * 1000) + 1 })
     );
     this.store$.dispatch(updateManyCardsRequest({ cards: deck }));
   }
@@ -230,7 +236,11 @@ export class SinglePlayerComponent implements OnInit {
           break;
         }
         case 'attach': {
-          if (card._id !== this.activeAttachCard._id && !card.isEnemyCard && card.place !== 'hand') {
+          if (
+            card._id !== this.activeAttachCard._id &&
+            !card.isEnemyCard &&
+            card.place !== 'hand'
+          ) {
             const updatedCard: Card = {
               ...card,
               attachedCards: card.attachedCards.concat(this.activeAttachCard),
@@ -263,6 +273,12 @@ export class SinglePlayerComponent implements OnInit {
             this.searchMode = 'exile';
           }
           this.toggleSearchMode();
+          break;
+        }
+        case 'putOnTopOfDeck': {
+          const place = 'deck';
+          const position = this.minPosition ? this.minPosition - 1 : 0;
+          this.updateCard({ ...card, place, position });
           break;
         }
       }

@@ -56,6 +56,14 @@ export const selectActiveAttachCardBySelectedId = createSelector(
   (cards, selectedId) => cards.filter((card) => card._id === selectedId)[0]
 );
 
+export const selectMinPosition = createSelector(
+  selectAllCards,
+  (cards) => {
+    const positions = cards.map(card => card.position);
+    return Math.min(...positions);
+  }
+);
+
 export const selectByPlace = (place: string) =>
   createSelector(selectAllCards, (cards) =>
     cards.filter((card) => card.place === place)

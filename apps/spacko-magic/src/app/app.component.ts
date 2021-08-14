@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from './game.service';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -8,7 +7,7 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService, private game: GameService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.authService.checkSession();

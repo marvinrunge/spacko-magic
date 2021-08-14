@@ -72,6 +72,14 @@
   >
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
       <div
+        title="put on top of deck"
+        *ngIf="card.place === 'battlefield'"
+        class="action put-on-top"
+        (click)="triggerAction('putOnTopOfDeck'); $event.stopPropagation()"
+      ></div>
+    </div>
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
+      <div
         title="add a counter"
         *ngIf="card.place === 'battlefield'"
         class="action add-counter"

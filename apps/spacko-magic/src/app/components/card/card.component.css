@@ -73,6 +73,10 @@
   background-image: url(/assets/search_white.svg);
 }
 
+.put-on-top {
+  background-image: url(/assets/on_top.svg);
+}
+
 .attached-card {
   position: relative;
   width: 0;
