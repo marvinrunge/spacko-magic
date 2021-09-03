@@ -1,14 +1,19 @@
-<div class="card-container" fxLayout="row" fxLayoutAlign="center center">
+<div class="card-container">
   <div
     class="arrow left"
-    [style.height.px]="cardHeight"
+    [style.height.px]="cardHeight*1.5"
     (click)="scrollLeft()"
+  ></div>
+  <div
+    class="arrow right"
+    [style.height.px]="cardHeight*1.5"
+    (click)="scrollRight()"
   ></div>
   <div
     #scroll
     class="scroll-container"
-    fxLayout="row"
-    fxLayoutGap="4px"
+    [style.paddingTop.px]="cardHeight*0.5"
+    [style.paddingBottom.px]="cardHeight*0.05"
     [style.height.px]="cardHeight"
   >
     <spacko-magic-graveyard
@@ -54,12 +59,8 @@
       [width]="cardWidth"
       [borderRadius]="cardBorderRadius"
       [mode]="mode"
+      [showOnlyArt]="showOnlyArt"
       (actionTriggered)="triggerAction($event)"
     ></spacko-magic-card>
   </div>
-  <div
-    class="arrow right"
-    [style.height.px]="cardHeight"
-    (click)="scrollRight()"
-  ></div>
 </div>

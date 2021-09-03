@@ -9,9 +9,11 @@ html,
 body {
   height: 100%;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
   margin: 0;
   font-family: 'Ramaraja', serif;
@@ -50,17 +52,19 @@ body {
 
 .actions {
   position: relative;
-  top: -90px;
+  transform: translate(0px, -180%);
   z-index: 1;
 }
 
 .action {
   min-height: 22px;
   min-width: 22px;
-  border: 1px solid black;
+  margin-bottom: 2px;
+  border-radius: 10%;
+  border: 2px solid black;
   background-position-x: center;
   background-position-y: center;
-  background-color: #555;
+  background-color: #333;
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;

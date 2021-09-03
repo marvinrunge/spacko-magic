@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { delay } from 'rxjs/operators';
+import { ScryFallCard } from './interfaces/scryFallCard';
 import { RootStoreState } from './root-store';
 import {
   addCardRequest
@@ -35,23 +36,27 @@ export class GameService {
         if (count > 0) {
           const name = entry.slice(2);
           this.http
-            .get('https://api.scryfall.com/cards/named?exact=' + name)
+            .get<ScryFallCard>('https://api.scryfall.com/cards/named?exact=' + name)
             .pipe(delay(50))
-            .subscribe((card: any) => {
+            .subscribe((card: ScryFallCard) => {
               for (let i = 1; i <= count; i++) {
                 this.store$.dispatch(
                   addCardRequest({
                     card: {
                       _id: String(card.name) + i,
                       _deleted: false,
+                      name: card.name,
+                      power: card.power,
+                      toughness: card.toughness,
                       counter: 0,
                       marked: false,
                       position: 0,
                       tapped: false,
-                      type: card.type_line,
+                      type: card.type_line as "creature" | "land" | "spell",
                       place: 'deck',
                       attachedCards: [],
-                      url: String(card.image_uris.normal),
+                      borderCrop: String(card.image_uris.border_crop),
+                      artCrop: String(card.image_uris.art_crop),
                     },
                   })
                 );

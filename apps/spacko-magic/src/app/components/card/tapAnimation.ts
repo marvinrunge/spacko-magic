@@ -6,11 +6,11 @@ export const tapAnimation = trigger('tappedUntapped', [
       minWidth: '{{ inWidth }}'
     }), { params: { inWidth: '143px' }}),
     state('tapped', style({
-      transform: 'rotate(90deg)',
+      transform: 'rotate(5deg)',
       minWidth: '{{ inHeight }}'
     }), { params: { inHeight: '200px' }}),
     transition('untapped <=> tapped', [
-      animate('0.5s ease')
+      animate('0.2s ease')
     ]),
   ]);
 
@@ -24,6 +24,6 @@ export const tapAttachmentAnimation = trigger('attachmentTappedUntapped', [
       minWidth: '{{ inWidth }}'
     }), { params: { inWidth: '143px', marginLeft: '31px' }}),
     transition('untapped <=> tapped', [
-      animate('0.5s ease')
+      animate('0.2s ease')
     ]),
   ]);

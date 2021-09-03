@@ -16,7 +16,6 @@ import { Card } from '../../interfaces/card';
 export class LaneComponent {
   @ViewChild('scroll') scroll: ElementRef;
   @Input() cards: Card[];
-  @Input() isMiddleLane = false;
   @Input() isEnemyLane = false;
   @Input() cardHeight: number;
   @Input() cardWidth: number;
@@ -25,14 +24,15 @@ export class LaneComponent {
   @Input() graveyard?: Card[];
   @Input() exile?: Card[];
   @Input() mode?: string;
+  @Input() showOnlyArt = false;
   @Output() actionTriggered = new EventEmitter<{ card?: Card, actionType: string }>();
 
   scrollRight() {
-    this.scroll.nativeElement.scrollLeft += this.cardWidth;
+    this.scroll.nativeElement.scrollLeft += this.cardWidth * 3;
   }
 
   scrollLeft() {
-    this.scroll.nativeElement.scrollLeft -= this.cardWidth;
+    this.scroll.nativeElement.scrollLeft -= this.cardWidth * 3;
   }
 
   triggerAction(event: { card?: Card, actionType: string }) {

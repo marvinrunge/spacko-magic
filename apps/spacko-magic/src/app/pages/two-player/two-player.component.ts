@@ -216,9 +216,9 @@ export class TwoPlayerComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    const height = Math.trunc((this.innerHeight - 254) / 6);
-    this.cardHeight = height;
-    this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
+    const height = Math.trunc((this.innerHeight - 254) / 5);
+    this.cardHeight = Math.trunc(height*0.91);
+    this.cardWidth = height;
     this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }
 
@@ -253,7 +253,7 @@ export class TwoPlayerComponent implements OnInit {
         case 'toggle-tap': {
           setTimeout(() => {
             this.updateCard({ ...card, tapped: !card.tapped });
-          }, 600);
+          }, 200);
           break;
         }
         case 'kill': {

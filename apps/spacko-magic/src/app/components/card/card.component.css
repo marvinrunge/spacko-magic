@@ -1,20 +1,40 @@
 .card-container {
-
+  font-family: 'Ramaraja', serif;
 }
 
 .card {
   cursor: pointer;
+  border: solid #18130f;
+  border-bottom: 6px solid #18130f;
+  background-color: #18130f;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .inner-card {
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.stats {
+  position: absolute;
+  background-color: #fffc;
+  border: 2px solid black;
+  font-weight: bold;
+  line-height: 1rem;
+  font-size: 1.2rem;
+  padding: 6px 5px 0px 8px;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  transform: translateY(1px);
 }
 
 .counter {
   position: relative;
-  top: calc(50% - 1.3rem);
+  top: 16%;
   left: 8%;
   z-index: 1;
   color: white;
@@ -23,11 +43,10 @@
   min-height: 1.3rem;
   min-width: 1.3rem;
   text-align: center;
-  font-size: 13px;
-  line-height: 1.4rem;
+  font-size: 16px;
+  line-height: 1.7rem;
   background-color: #222;
   border-radius: 50%;
-  border: 2px solid black;
 }
 
 .tap {

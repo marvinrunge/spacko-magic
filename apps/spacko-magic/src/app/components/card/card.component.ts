@@ -37,10 +37,12 @@ export class CardComponent implements OnInit {
   @Input() card: Card;
   @Input() height: number;
   @Input() width: number;
+  @Input() imageHeight: number;
   @Input() borderRadius: number;
   @Input() type: string;
   @Input() mode?: string;
   @Input() isEnemyCard = false;
+  @Input() showOnlyArt = false;
   @Output() actionTriggered = new EventEmitter<{
     card?: Card;
     actionType: string;
@@ -49,6 +51,9 @@ export class CardComponent implements OnInit {
   showActions = false;
   attachments = 0;
   marginLeft: number;
+  statsBottom: number;
+  statsRight: number;
+  borderWidth: number;
 
   setTappedValue(tapped: boolean) {
     this.tappedValue = tapped ? 'tapped' : 'untapped';
@@ -58,6 +63,9 @@ export class CardComponent implements OnInit {
     this.setTappedValue(this.card.tapped);
     this.attachments = this.card.attachedCards.length;
     this.marginLeft = Math.trunc((this.height - this.width) / 2);
+    this.statsBottom = Math.trunc(this.height * 0.2);
+    this.statsRight = Math.trunc(this.height * 0.09);
+    this.borderWidth = Math.trunc(this.width / 40);
   }
 
   toggleActions() {

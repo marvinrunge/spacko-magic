@@ -78,7 +78,7 @@
               [style.height.px]="cardHeight"
               [style.width.px]="cardWidth"
               fxFill
-              [style.background-image]="'url(' + card.url + ')'"
+              [style.background-image]="'url(' + card.borderCrop + ')'"
             ></div>
           </div>
         </div>
@@ -93,13 +93,13 @@
 </div>
 <div
   class="inspect"
-  *ngIf="selectedCard?.url"
+  *ngIf="selectedCard?.borderCrop"
   (wheel)="deselectCard()"
   (click)="deselectCard()"
 >
   <div
     class="preview"
-    [style.background-image]="'url(' + selectedCard?.url + ')'"
+    [style.background-image]="'url(' + selectedCard?.borderCrop + ')'"
   ></div>
 </div>
 <div

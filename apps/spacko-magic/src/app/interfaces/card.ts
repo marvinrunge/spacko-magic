@@ -1,7 +1,11 @@
 import { Base } from "./base";
 
 export interface Card extends Base {
-  url: string;
+  borderCrop: string,
+  artCrop: string,
+  name: string,
+  power: string,
+  toughness: string,
   counter: number;
   tapped: boolean;
   marked: boolean;

@@ -1,14 +1,19 @@
 <div
-  *ngFor="let card of card.attachedCards.slice().reverse(); index as i"
+  *ngFor="let card of card.attachedCards; index as i; let length = count;"
   class="attached-card"
   style="position: relative; width: 0; height: 0"
+  [style.top]="'-' + 16 * (length - i) + '%'"
 >
   <div
     class="card"
     style="position: absolute"
-    [style.height.px]="height"
+    [style.border-radius.px]="borderRadius"
+    [style.borderWidth.px]="borderWidth"
+    [style.borderBottomWidth.px]="borderWidth * 2"
+    [style.min-height.px]="height"
+    [style.max-height.px]="height"
+    [style.max-width.px]="width"
     [style.min-width.px]="width"
-    [style.transform]="'translate(0%, ' + 10 * i + '%)'"
     [@attachmentTappedUntapped]="{
       value: tappedValue,
       params: {
@@ -20,9 +25,9 @@
   >
     <div
       class="inner-card"
-      [style.border-radius.px]="borderRadius"
+      [style.height.px]="height"
       fxFill
-      [style.background-image]="'url(' + card.url + ')'"
+      [style.background-image]="'url(' + card.borderCrop + ')'"
     ></div>
   </div>
 </div>
@@ -34,28 +39,45 @@
   (mouseleave)="toggleActions()"
   (wheel)="triggerAction('zoom')"
   [style.maxHeight.px]="height"
+  [style.max-width.px]="width"
+  [style.min-width.px]="width"
 >
   <div
     class="card"
+    [style.borderWidth.px]="borderWidth"
+    [style.borderBottomWidth.px]="borderWidth * 2"
     [style.transform]="
       attachments ? 'translate(0%, ' + 10 * attachments + '%)' : 'none'
     "
     [style.height.px]="height"
+    [style.max-width.px]="width"
     [style.min-width.px]="width"
+    [style.border-radius.px]="borderRadius"
+    [@tappedUntapped]="{
+      value: tappedValue,
+      params: { inWidth: width + 'px', inHeight: height + 'px' }
+    }"
   >
     <div
       class="inner-card"
-      fxFill
+      [style.height.px]="height"
       [style.filter]="
         card.place === 'exile' ? 'grayscale(100%)' : 'grayscale(0%)'
       "
-      [style.border-radius.px]="borderRadius"
-      [style.background-image]="'url(' + card.url + ')'"
-      [@tappedUntapped]="{
-        value: tappedValue,
-        params: { inWidth: width + 'px', inHeight: height + 'px' }
-      }"
+      [style.background-image]="
+        showOnlyArt
+          ? 'url(' + card.borderCrop + ')'
+          : 'url(' + card.borderCrop + ')'
+      "
     >
+      <div
+        class="stats"
+        [style.bottom.px]="statsBottom"
+        [style.right.px]="statsRight"
+        *ngIf="card.power || card.toughness"
+      >
+        {{ card.power }}/{{ card.toughness }}
+      </div>
       <div class="counter" *ngIf="card.counter > 0">
         {{ card.counter > 0 ? card.counter : '' }}
       </div>
@@ -66,73 +88,83 @@
     [@showHide]="showActions ? 'show' : 'hide'"
     [style.max-width.px]="width"
     class="actions"
-    fxLayout="column"
+    fxLayout="row wrap"
     fxLayoutGap="2px"
     fxLayoutAlign="center center"
   >
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
-      <div
-        title="put on top of deck"
-        *ngIf="card.place === 'battlefield'"
-        class="action put-on-top"
-        (click)="triggerAction('putOnTopOfDeck'); $event.stopPropagation()"
-      ></div>
-    </div>
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
-      <div
-        title="add a counter"
-        *ngIf="card.place === 'battlefield'"
-        class="action add-counter"
-        (click)="triggerAction('add-counter'); $event.stopPropagation()"
-      ></div>
-      <div
-        title="remove a counter"
-        *ngIf="card.place === 'battlefield'"
-        class="action remove-counter"
-        (click)="triggerAction('remove-counter'); $event.stopPropagation()"
-      ></div>
-    </div>
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
-      <div
-        title="attach"
-        *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
-        class="action attach"
-        (click)="triggerAction('attach-to'); $event.stopPropagation()"
-      ></div>
-      <div
-        title="unattach"
-        *ngIf="card.attachedCards.length > 0"
-        class="action unattach"
-        (click)="triggerAction('unattach'); $event.stopPropagation()"
-      ></div>
-      <div
-        title="return to hand"
-        class="action return-to-hand"
-        (click)="triggerAction('return-to-hand'); $event.stopPropagation()"
-      ></div>
-    </div>
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
-      <div
-        title="search"
-        class="action search"
-        *ngIf="
-          (card.place === 'graveyard' || card.place === 'exile') &&
-          mode !== 'search'
-        "
-        (click)="triggerAction('search'); $event.stopPropagation()"
-      ></div>
-      <div
-        title="kill / sacrifice"
-        *ngIf="card.place === 'battlefield' || card.place === 'deck'"
-        class="action kill"
-        (click)="triggerAction('kill'); $event.stopPropagation()"
-      ></div>
-      <div
-        title="exile"
-        *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
-        class="action exile"
-        (click)="triggerAction('exile'); $event.stopPropagation()"
-      ></div>
-    </div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="put on top of deck"
+      *ngIf="card.place === 'battlefield'"
+      class="action put-on-top"
+      (click)="triggerAction('putOnTopOfDeck'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="add a counter"
+      *ngIf="card.place === 'battlefield'"
+      class="action add-counter"
+      (click)="triggerAction('add-counter'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="remove a counter"
+      *ngIf="card.place === 'battlefield'"
+      class="action remove-counter"
+      (click)="triggerAction('remove-counter'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="attach"
+      *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
+      class="action attach"
+      (click)="triggerAction('attach-to'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="unattach"
+      *ngIf="card.attachedCards.length > 0"
+      class="action unattach"
+      (click)="triggerAction('unattach'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="return to hand"
+      class="action return-to-hand"
+      (click)="triggerAction('return-to-hand'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="search"
+      class="action search"
+      *ngIf="
+        (card.place === 'graveyard' || card.place === 'exile') &&
+        mode !== 'search'
+      "
+      (click)="triggerAction('search'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="kill / sacrifice"
+      *ngIf="card.place === 'battlefield' || card.place === 'deck'"
+      class="action kill"
+      (click)="triggerAction('kill'); $event.stopPropagation()"
+    ></div>
+    <div
+      [style.height.px]="height / 5"
+      [style.width.px]="height / 5"
+      title="exile"
+      *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
+      class="action exile"
+      (click)="triggerAction('exile'); $event.stopPropagation()"
+    ></div>
   </div>
 </div>

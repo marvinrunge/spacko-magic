@@ -1,5 +1,8 @@
 spacko-magic-card {
+  align-self: center;
   scroll-snap-align: center;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
 }
 
 spacko-magic-graveyard {
@@ -15,14 +18,18 @@ spacko-magic-deck {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  flex-direction: row;
+  display: flex;
 }
 
 .scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
 .card-container {
-  width: 100%;
   max-width: 100vw;
+  margin: auto;
+  width: fit-content;
 }
 
 .arrow {
