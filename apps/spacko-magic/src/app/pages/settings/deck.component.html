@@ -19,19 +19,5 @@
     >
       Process
     </button>
-    <br />
-    <mat-form-field appearance="fill">
-      <mat-label>Enemy Player Name</mat-label>
-      <input [(ngModel)]="enemyUsername" matInput />
-    </mat-form-field>
-    <button
-      mat-raised-button
-      [disabled]="!userIsReady"
-      (click)="addEnemy()"
-      color="primary"
-      [style.margin-bottom.px]="18"
-    >
-      Add Enemy
-    </button>
   </div>
 </div>

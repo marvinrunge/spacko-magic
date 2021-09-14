@@ -70,7 +70,7 @@ export class CardComponent implements OnInit {
       if (type === 'toggle-tap' && this.mode === 'attach') {
         actionType = 'attach';
       } else if (type === 'toggle-tap') {
-        this.setTappedValue(this.tappedValue === 'tapped' ? false : true);
+        this.setTappedValue(this.tappedValue !== 'tapped');
       }
       this.actionTriggered.emit({ card: this.card, actionType });
     }

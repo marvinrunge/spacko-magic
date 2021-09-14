@@ -14,13 +14,22 @@ export class EnemyCardService {
   private localCardDb: any;
   private remoteCardDb: any;
 
-  initDb(username: string) {
+  initDb(username: string): Promise<boolean> {
     const dbPrefix = username.toLocaleLowerCase();
-    this.localCardDb = new PouchDB(dbPrefix + '_cards', {
-      auto_compaction: true,
+    return this.isDbAvailable(dbPrefix).then(response => {
+      if (!response.error) {
+        this.localCardDb = new PouchDB(dbPrefix + '_cards', {
+          auto_compaction: true,
+        });
+        this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', {skip_setup: true});
+        this.localCardDb.sync(this.remoteCardDb, {live: true, retry: true});
+        return Promise.resolve(true);
+      } else {
+        return Promise.resolve(false);
+      }
+    }).catch(() => {
+      return Promise.reject(false);
     });
-    this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', { skip_setup: true });
-    this.localCardDb.sync(this.remoteCardDb, {live: true, retry: true});
   }
 
   resetDB(username: string): Promise<any> {
@@ -52,12 +61,15 @@ export class EnemyCardService {
   getAll(): Observable<any> {
     return new Observable((observer) => {
       this.localCardDb.allDocs({ include_docs: true }).then((docs: any) => {
-        console.log(docs);
         const cards = docs.rows.map((element: any) => element.doc);
         observer.next(cards);
         observer.complete();
       });
     });
+  }
+
+  isDbAvailable(username: string): Promise<any> {
+    return new PouchDB(environment.db + username + '_cards', {skip_setup: true}).info();
   }
 
   getChanges(): Observable<Card> {

@@ -46,8 +46,11 @@
     <div
       class="inner-card"
       fxFill
+      [style.opacity]="
+        card.place === 'exile' ? '0.5' : '1'
+      "
       [style.filter]="
-        card.place === 'exile' ? 'grayscale(100%)' : 'grayscale(0%)'
+        (card.place === 'exile' || card.place === 'graveyard') ? 'grayscale(100%)' : 'grayscale(0%)'
       "
       [style.border-radius.px]="borderRadius"
       [style.background-image]="'url(' + card.url + ')'"
@@ -72,14 +75,6 @@
   >
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
       <div
-        title="put on top of deck"
-        *ngIf="card.place === 'battlefield'"
-        class="action put-on-top"
-        (click)="triggerAction('putOnTopOfDeck'); $event.stopPropagation()"
-      ></div>
-    </div>
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
-      <div
         title="add a counter"
         *ngIf="card.place === 'battlefield'"
         class="action add-counter"
@@ -90,6 +85,20 @@
         *ngIf="card.place === 'battlefield'"
         class="action remove-counter"
         (click)="triggerAction('remove-counter'); $event.stopPropagation()"
+      ></div>
+    </div>
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
+      <div
+        title="put on top of deck"
+        *ngIf="card.place === 'battlefield'"
+        class="action put-on-top"
+        (click)="triggerAction('put-on-top'); $event.stopPropagation()"
+      ></div>
+      <div
+        title="put on bottom of deck"
+        *ngIf="card.place === 'battlefield'"
+        class="action put-on-bottom"
+        (click)="triggerAction('put-on-bottom'); $event.stopPropagation()"
       ></div>
     </div>
     <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">

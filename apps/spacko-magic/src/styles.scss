@@ -15,7 +15,7 @@ html {
 body {
   margin: 0;
   font-family: 'Ramaraja', serif;
-  background: url(https://wallpapercave.com/wp/mslLgR7.jpg);
+  background: url(https://initiate.alphacoders.com/images/265/cropped-1920-1080-265693.png?6466);
   background-position: center;
   background-size: cover;
   overflow: hidden;
@@ -30,8 +30,8 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -39,18 +39,18 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555b;
+  background: #777;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-  height: 20px;
-  cursor: pointer;
+  background: #999;
 }
 
 .actions {
   position: relative;
-  top: -90px;
+  top: -110px;
   z-index: 1;
 }
 

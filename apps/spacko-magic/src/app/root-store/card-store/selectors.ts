@@ -56,11 +56,11 @@ export const selectActiveAttachCardBySelectedId = createSelector(
   (cards, selectedId) => cards.filter((card) => card._id === selectedId)[0]
 );
 
-export const selectMinPosition = createSelector(
-  selectAllCards,
+export const selectMinMaxPosition = (place: string) => createSelector(
+  selectByPlace(place),
   (cards) => {
     const positions = cards.map(card => card.position);
-    return Math.min(...positions);
+    return { min: Math.min(...positions), max: Math.max(...positions) };
   }
 );
 
@@ -74,8 +74,8 @@ export const selectTopByPlace = (place: string) =>
     cards[0]
   );
 
-export const selectByPlaceAndType = (place: string, type: string) =>
-  createSelector(selectByPlace(place), (cards) =>
+export const selectByPlaceAndTypeAndSortByPosition = (place: string, type: string) =>
+  createSelector(selectByPlaceAndSortByPosition(place), (cards) =>
     cards.filter((card) => card.type.toLowerCase().includes(type.toLowerCase()))
   );
 

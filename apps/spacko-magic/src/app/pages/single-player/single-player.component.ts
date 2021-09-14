@@ -49,6 +49,7 @@ export class SinglePlayerComponent implements OnInit {
   mode?: string;
   searchMode?: string;
   minPosition?: number = 0;
+  maxPosition?: number = 0;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -64,11 +65,11 @@ export class SinglePlayerComponent implements OnInit {
       .subscribe((cards) => (this.hand = cards));
     this.store$
       .pipe(
-        select(CardSelectors.selectByPlaceAndType('battlefield', 'creature'))
+        select(CardSelectors.selectByPlaceAndTypeAndSortByPosition('battlefield', 'creature'))
       )
       .subscribe((cards) => (this.creatures = cards));
     this.store$
-      .pipe(select(CardSelectors.selectByPlaceAndType('battlefield', 'land')))
+      .pipe(select(CardSelectors.selectByPlaceAndTypeAndSortByPosition('battlefield', 'land')))
       .subscribe((cards) => (this.lands = cards));
     this.store$
       .pipe(
@@ -101,8 +102,11 @@ export class SinglePlayerComponent implements OnInit {
         this.activeAttachCard = card;
       });
     this.store$
-      .pipe(select(CardSelectors.selectMinPosition))
-      .subscribe((min) => (this.minPosition = min));
+      .pipe(select(CardSelectors.selectMinMaxPosition('deck')))
+      .subscribe((result) => {
+        this.maxPosition = result.max;
+        this.minPosition = result.min;
+      });
   }
 
   ngOnInit() {
@@ -275,9 +279,9 @@ export class SinglePlayerComponent implements OnInit {
           this.toggleSearchMode();
           break;
         }
-        case 'putOnTopOfDeck': {
+        case 'put-on-top': {
           const place = 'deck';
-          const position = this.minPosition ? this.minPosition - 1 : 0;
+          const position = this.minPosition !== undefined ? this.minPosition - 1 : 0;
           this.updateCard({ ...card, place, position });
           break;
         }

@@ -22,19 +22,21 @@ import { EnemyStatsComponent } from './components/enemy-stats/enemy-stats.compon
 import { CreaturesPipe } from './creatures.pipe';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { SettingsComponent } from './pages/settings/settings.component';
+import { DeckComponent } from './pages/settings/deck.component';
 import { SinglePlayerComponent } from './pages/single-player/single-player.component';
 import { LandsPipe } from './pipes/lands.pipe';
 import { SpellsPipe } from './pipes/spells.pipe';
 import { RootStoreModule } from './root-store';
 import { HeaderComponent } from './components/header/header.component';
-import { TwoPlayerComponent } from './pages/two-player/two-player.component';
+import { BattlefieldComponent } from './pages/battlefield/battlefield.component';
+import {MAT_SNACK_BAR_DATA} from "@angular/material/snack-bar";
+import {AddEnemyModalComponent} from "./components/add-enemy-modal/add-enemy-modal.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 const routes: Routes = [
-  { path: 'settings', component: SettingsComponent },
-  { path: 'single-player', component: SinglePlayerComponent },
-  { path: 'two-player', component: TwoPlayerComponent },
+  { path: 'deck', component: DeckComponent },
+  { path: 'battlefield', component: BattlefieldComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'login',
@@ -53,18 +55,19 @@ const routes: Routes = [
     LandsPipe,
     CreaturesPipe,
     SpellsPipe,
-    SettingsComponent,
+    DeckComponent,
     CardComponent,
     LaneComponent,
     LibraryComponent,
     GraveyardComponent,
     SinglePlayerComponent,
-    TwoPlayerComponent,
+    BattlefieldComponent,
     PlayerStatsComponent,
     EnemyStatsComponent,
     RegisterComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddEnemyModalComponent
   ],
   imports: [
     CommonModule,
@@ -84,8 +87,12 @@ const routes: Routes = [
       maxAge: 25,
       logOnly: environment.production,
     }),
+    MatDialogModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_SNACK_BAR_DATA, useValue: { duration: 4000 } }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

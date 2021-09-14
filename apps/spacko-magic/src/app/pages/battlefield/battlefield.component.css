@@ -8,6 +8,9 @@ spacko-magic-header {
   background-size: contain;
   cursor: pointer;
   scroll-snap-align: center;
+  pointer-events: auto;
+  padding: 4px;
+  filter: drop-shadow(0px 0px 2px black);
 }
 
 .inner-card {
@@ -28,8 +31,12 @@ spacko-magic-card {
 .scroll-container {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  max-width: calc(100vw - 200px);
-  overflow-y: hidden;
+  max-width: calc(100vw - 210px);
+  overflow-y: visible;
+  padding-top: 86px;
+  transform: translateY(-50px);
+  pointer-events: none;
+  scroll-behavior: smooth;
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -38,17 +45,23 @@ spacko-magic-card {
 
 .hand-container {
   width: 100%;
-  max-width: calc(100vw - 200px);
+  max-width: calc(100vw - 210px);
+  padding-top: 100px;
+  pointer-events: none;
+}
+
+.player-lane {
+  pointer-events: none;
 }
 
 .hand-container .card {
   position: relative;
-  top: 50%;
-  transition: 0.5s top;
+  transform: translateY(0);
+  transition: 0.5s transform;
 }
 
 .hand-container .card:hover{
-  top: 0;
+  transform: translateY(-86px);
 }
 
 .inspect {
@@ -84,15 +97,22 @@ spacko-magic-card {
   transition: 0.3s ease;
   opacity: 0.2;
   z-index: 10;
+  pointer-events: auto;
 }
 
 .arrow:hover {
   opacity: 1;
 }
 
+.player-lane {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
 .left {
   background-image: url(/assets/arrow_back.svg);
-  left: 200px;
+  left: 210px;
   bottom: 0;
 }
 
@@ -103,7 +123,9 @@ spacko-magic-card {
 }
 
 spacko-magic-player-stats {
-  width: 200px;
+  width: 210px;
+  margin-top: 90px;
+  pointer-events: auto;
 }
 
 spacko-magic-enemy-stats {
@@ -111,6 +133,8 @@ spacko-magic-enemy-stats {
   top: 0;
   right: 0;
   position: absolute;
+  height: 110px;
+  z-index: 1;
 }
 
 .search-container {

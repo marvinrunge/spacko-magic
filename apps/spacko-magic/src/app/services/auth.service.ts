@@ -39,7 +39,7 @@ export class AuthService {
     private store$: Store<RootStoreState.State>
   ) {}
 
-  checkSession() {
+  checkSession(fromLogin?: boolean) {
     const username = localStorage.getItem('current-user');
     if (username) {
       this.playerService.initDb(username);
@@ -52,21 +52,10 @@ export class AuthService {
         } else {
           this.store$.dispatch(loadCardsRequest());
           this.store$.dispatch(loadPlayersRequest());
-          this.store$.dispatch(updatePlayerRequest({
-            player: {
-              _id: username,
-              _rev: undefined,
-              _deleted: false,
-              name: username,
-              activeDeck: "",
-              life: 20,
-              energy: 0,
-              other: 0,
-              poison: 0
-            }
-          }));
           this.store$.dispatch(setSelectedPlayerId({ selectedPlayerId: username }));
-          this.router.navigate(['settings']);
+          if (fromLogin) {
+            this.router.navigate(['settings']);
+          }
         }
       });
     }
@@ -85,9 +74,9 @@ export class AuthService {
               loginData.name + ' already exists, choose another username'
             );
           } else if (err.name === 'forbidden') {
-            this.snackBar.open('Invalid username');
+            this.snackBar.open('Invalid user credentials');
           } else {
-            this.snackBar.open('No connection to Server');
+            this.snackBar.open('Ooops something went wrong...');
           }
         } else {
           this.login(loginData);
@@ -108,12 +97,12 @@ export class AuthService {
       .logIn(loginData.name, loginData.password, (err: any) => {
         if (err) {
           if (err.name === 'unauthorized' || err.name === 'forbidden') {
-            this.snackBar.open('Name or password incorrect');
+            this.snackBar.open('Invalid user credentials');
           } else {
-            this.snackBar.open('Network error');
+            this.snackBar.open('Ooops something went wrong...');
           }
         } else {
-          this.checkSession();
+          this.checkSession(true);
         }
       });
   }

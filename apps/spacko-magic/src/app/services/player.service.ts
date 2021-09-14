@@ -42,7 +42,10 @@ export class PlayerService {
   }
 
   update(player: Player): Promise<any> {
-    return this.localPlayerDb.put(player);
+    return this.localPlayerDb.put(player, (error: any, response: { _rev: any; }) => {
+      if (error) return;
+      return { ...player, _rev: response._rev };
+    });
   }
 
   delete(player: Player): Promise<any> {

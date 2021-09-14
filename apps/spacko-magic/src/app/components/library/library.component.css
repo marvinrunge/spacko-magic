@@ -5,7 +5,7 @@
 }
 
 .inner-card {
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
   border-radius: 9px;

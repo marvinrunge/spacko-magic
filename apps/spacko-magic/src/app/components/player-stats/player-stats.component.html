@@ -2,17 +2,16 @@
   <div
     class="player-stats-header"
     fxLayoutAlign="center center"
-    fxFlex="25"
+    fxFlex="30"
     fxLayout="column"
   >
-    <span>{{ player.name }}</span>
+    <span class="text">{{ player.name }}</span>
   </div>
   <div
     class="player-stats-content"
     fxFlex
     fxLayout="row"
     fxLayoutAlign="space-between"
-    fxLayoutGap="8px"
   >
     <div
       class="life-counter"
@@ -23,23 +22,9 @@
       <div fxFlex fxLayoutAlign="center center" title="Life">
         <img src="/assets/life.svg" width="30px" height="30px" />
       </div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="addLife()"
-      >
-        +
-      </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player.life }}</div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="removeLife()"
-      >
-        -
-      </div>
+      <input type="number" id="life" fxFlex fxLayoutAlign="center center"
+             [ngModel]="player.life"
+             (ngModelChange)="changeLife($event)"/>
     </div>
     <div
       class="poison-counter"
@@ -50,23 +35,7 @@
       <div fxFlex fxLayoutAlign="center center" title="Poison Counter">
         <img src="/assets/poison_counter.svg" width="30px" height="30px" />
       </div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="addPoison()"
-      >
-        +
-      </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player.poison }}</div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="removePoison()"
-      >
-        -
-      </div>
+      <input type="number" (ngModelChange)="changePoison($event)" fxFlex fxLayoutAlign="center center" [ngModel]="player.poison"/>
     </div>
     <div
       class="energy-counter"
@@ -77,23 +46,7 @@
       <div fxFlex fxLayoutAlign="center center" title="Energy Counter">
         <img src="/assets/energy_counter.svg" width="30px" height="30px" />
       </div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="addEnergy()"
-      >
-        +
-      </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player.energy }}</div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="removeEnergy()"
-      >
-        -
-      </div>
+      <input type="number" (ngModelChange)="changeEnergy($event)" fxFlex fxLayoutAlign="center center" [ngModel]="player.energy"/>
     </div>
     <div
       class="other-counter"
@@ -104,23 +57,7 @@
       <div fxFlex fxLayoutAlign="center center" title="Other Counter">
         <img src="/assets/other_counter.svg" width="30px" height="30px" />
       </div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="addOther()"
-      >
-        +
-      </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player.other }}</div>
-      <div
-        fxFlex
-        fxLayoutAlign="center center"
-        class="player-counter-button"
-        (click)="removeOther()"
-      >
-        -
-      </div>
+      <input type="number" (ngModelChange)="changeOther($event)" fxFlex fxLayoutAlign="center center" [ngModel]="player.other"/>
     </div>
   </div>
 </div>

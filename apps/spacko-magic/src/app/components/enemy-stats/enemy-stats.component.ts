@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { Player } from '../../interfaces/player';
 
 @Component({
@@ -8,4 +8,10 @@ import { Player } from '../../interfaces/player';
 })
 export class EnemyStatsComponent {
   @Input() player: Player;
+  @Input() cards = 0;
+  @Output() addEnemy = new EventEmitter();
+
+  onClick() {
+    this.addEnemy.emit();
+  }
 }

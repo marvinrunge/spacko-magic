@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { GameService } from '../../game.service';
 
 @Component({
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  templateUrl: './deck.component.html',
+  styleUrls: ['./deck.component.css']
 })
-export class SettingsComponent implements OnInit{
+export class DeckComponent implements OnInit{
   username = '';
   deckList = '';
   enemyUsername = '';
@@ -27,10 +27,6 @@ export class SettingsComponent implements OnInit{
 
   initDeck() {
     this.game.initDeck(this.deckList, this.username);
-    this.router.navigate(["/single-player"]);
-  }
-
-  addEnemy() {
-    this.game.addEnemy(this.enemyUsername);
+    this.router.navigate(["/battlefield"]);
   }
 }

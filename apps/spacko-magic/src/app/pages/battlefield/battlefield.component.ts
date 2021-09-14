@@ -1,18 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Card } from '../../interfaces/card';
-import { Player } from '../../interfaces/player';
-import {
-  CardSelectors,
-  PlayerSelectors,
-  RootStoreState,
-} from '../../root-store';
+import {Component, ElementRef, HostListener, OnInit, ViewChild,} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {Card} from '../../interfaces/card';
+import {Player} from '../../interfaces/player';
+import {CardSelectors, PlayerSelectors, RootStoreState,} from '../../root-store';
 import {
   deleteCardRequest,
   setActiveAttachCardId,
@@ -20,15 +10,19 @@ import {
   updateCardRequest,
   updateManyCardsRequest,
 } from '../../root-store/card-store/actions';
-import { EnemyCardSelectors } from '../../root-store/enemy-card-store';
-import { setSelectedEnemyCardId } from '../../root-store/enemy-card-store/actions';
-import { updatePlayerRequest } from '../../root-store/player-store/actions';
+import {EnemyCardSelectors} from '../../root-store/enemy-card-store';
+import {setSelectedEnemyCardId} from '../../root-store/enemy-card-store/actions';
+import {updatePlayerRequest} from '../../root-store/player-store/actions';
+import {MatDialog} from "@angular/material/dialog";
+import {AddEnemyModalComponent} from "../../components/add-enemy-modal/add-enemy-modal.component";
+import {GameService} from "../../game.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
-  templateUrl: './two-player.component.html',
-  styleUrls: ['./two-player.component.css'],
+  templateUrl: './battlefield.component.html',
+  styleUrls: ['./battlefield.component.css'],
 })
-export class TwoPlayerComponent implements OnInit {
+export class BattlefieldComponent implements OnInit {
   @ViewChild('handScroll') handScroll: ElementRef;
 
   title = 'spacko-magic';
@@ -48,16 +42,18 @@ export class TwoPlayerComponent implements OnInit {
   enemyLands: Card[] = [];
   enemyOther: Card[] = [];
   selectedEnemyPlayer: Player;
-  selectedEnemyCard?: Card;
 
-  settingsOpen = true;
+  minPosition?: number = 0;
+  maxPosition?: number = 0;
+
+  selectedPlayer: Player;
   selectedCard?: Card;
+  activeAttachCard: Card;
+  settingsOpen = true;
   cardHeight = 160;
   cardWidth = 115;
   cardBorderRadius = 10;
   innerHeight: number;
-  selectedPlayer: Player;
-  activeAttachCard: Card;
   mode?: string;
   searchMode?: string;
 
@@ -66,7 +62,7 @@ export class TwoPlayerComponent implements OnInit {
     this.setCardHeight();
   }
 
-  constructor(private store$: Store<RootStoreState.State>) {
+  constructor(private store$: Store<RootStoreState.State>, private dialog: MatDialog, private game: GameService, private snackBar: MatSnackBar) {
     this.store$
       .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('deck')))
       .subscribe((cards) => (this.deck = cards));
@@ -75,11 +71,11 @@ export class TwoPlayerComponent implements OnInit {
       .subscribe((cards) => (this.hand = cards));
     this.store$
       .pipe(
-        select(CardSelectors.selectByPlaceAndType('battlefield', 'creature'))
+        select(CardSelectors.selectByPlaceAndTypeAndSortByPosition('battlefield', 'creature'))
       )
       .subscribe((cards) => (this.creatures = cards));
     this.store$
-      .pipe(select(CardSelectors.selectByPlaceAndType('battlefield', 'land')))
+      .pipe(select(CardSelectors.selectByPlaceAndTypeAndSortByPosition('battlefield', 'land')))
       .subscribe((cards) => (this.lands = cards));
     this.store$
       .pipe(
@@ -98,9 +94,6 @@ export class TwoPlayerComponent implements OnInit {
     this.store$
       .pipe(select(CardSelectors.selectByPlace('exile')))
       .subscribe((cards) => (this.exile = cards));
-    this.store$
-      .pipe(select(CardSelectors.selectCardBySelectedId))
-      .subscribe((card) => (this.selectedCard = card));
     this.store$
       .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
       .subscribe((player) => {
@@ -153,18 +146,43 @@ export class TwoPlayerComponent implements OnInit {
         this.selectedEnemyPlayer = player;
       });
     this.store$
-      .pipe(select(EnemyCardSelectors.selectCardBySelectedId))
-      .subscribe((card) => (this.selectedEnemyCard = card));
+      .pipe(select(CardSelectors.selectMinMaxPosition('deck')))
+      .subscribe((result) => {
+        this.maxPosition = result.max;
+        this.minPosition = result.min;
+      });
   }
 
   ngOnInit() {
     this.setCardHeight();
+    this.loadEnemy();
+  }
+
+  loadEnemy() {
+    const enemyUsername= localStorage.getItem('current-enemy');
+    if (enemyUsername) {
+      this.game.addEnemy(enemyUsername);
+    }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddEnemyModalComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.game.addEnemy(result);
+    });
   }
 
   draw() {
-    let randomCard = this.deck[Math.floor(Math.random() * this.deck.length)];
-    randomCard = { ...randomCard, place: 'hand' };
-    this.store$.dispatch(updateCardRequest({ card: randomCard }));
+    if (this.deck.length > 0) {
+      let card = this.deck[0];
+      card = { ...card, place: 'hand' };
+      this.store$.dispatch(updateCardRequest({ card: card }));
+    } else {
+      this.snackBar.open('Deck is empty');
+    }
   }
 
   play(card: Card) {
@@ -186,20 +204,11 @@ export class TwoPlayerComponent implements OnInit {
   }
 
   selectCard(card: Card) {
-    if (card.isEnemyCard) {
-      this.store$.dispatch(
-        setSelectedEnemyCardId({ selectedCardId: card._id })
-      );
-    } else {
-      this.store$.dispatch(setSelectedCardId({ selectedCardId: card._id }));
-    }
+    this.selectedCard = card;
   }
 
   deselectCard() {
-    this.store$.dispatch(setSelectedCardId({ selectedCardId: undefined }));
-    this.store$.dispatch(
-      setSelectedEnemyCardId({ selectedCardId: undefined })
-    );
+    this.selectedCard = undefined;
   }
 
   updatePlayer(player: Player) {
@@ -216,8 +225,7 @@ export class TwoPlayerComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    const height = Math.trunc((this.innerHeight - 254) / 6);
-    this.cardHeight = height;
+    this.cardHeight = Math.trunc((this.innerHeight - 126) / 4);
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
     this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }
@@ -248,39 +256,37 @@ export class TwoPlayerComponent implements OnInit {
     const card = event.card;
     const actionType = event.actionType;
     if (card) {
-      let place = card.place;
       switch (actionType) {
         case 'toggle-tap': {
-          setTimeout(() => {
-            this.updateCard({ ...card, tapped: !card.tapped });
-          }, 600);
+          this.toggleTap(card);
           break;
         }
         case 'kill': {
-          place = 'graveyard';
-          this.updateCard({ ...card, place });
+          this.kill(card);
           break;
         }
         case 'exile': {
-          place = 'exile';
-          this.updateCard({ ...card, place });
+          this.exileCard(card);
           break;
         }
         case 'return-to-hand': {
-          place = 'hand';
-          this.updateCard({ ...card, place });
+          this.returnToHand(card);
+          break;
+        }
+        case 'put-on-top': {
+          this.putOnTop(card);
+          break;
+        }
+        case 'put-on-bottom': {
+          this.putOnBottom(card);
           break;
         }
         case 'add-counter': {
-          const counter = card.counter + 1;
-          this.updateCard({ ...card, counter });
+          this.addCounter(card);
           break;
         }
         case 'remove-counter': {
-          if (card.counter > 0) {
-            const counter = card.counter - 1;
-            this.updateCard({ ...card, counter });
-          }
+          this.removeCounter(card);
           break;
         }
         case 'zoom': {
@@ -288,50 +294,19 @@ export class TwoPlayerComponent implements OnInit {
           break;
         }
         case 'attach-to': {
-          this.store$.dispatch(
-            setActiveAttachCardId({ activeAttachCardId: card._id })
-          );
-          this.mode = 'attach';
+          this.attachTo(card);
           break;
         }
         case 'attach': {
-          if (
-            card._id !== this.activeAttachCard._id &&
-            !card.isEnemyCard &&
-            card.place !== 'hand'
-          ) {
-            const updatedCard: Card = {
-              ...card,
-              attachedCards: card.attachedCards.concat(this.activeAttachCard),
-            };
-            this.updateCard(updatedCard);
-            this.store$.dispatch(
-              deleteCardRequest({ card: this.activeAttachCard })
-            );
-            this.mode = undefined;
-          }
+          this.attach(card);
           break;
         }
         case 'unattach': {
-          card.attachedCards.forEach((c) => {
-            this.updateCard({ ...c, _rev: undefined });
-          });
-          const updatedCard: Card = {
-            ...card,
-            attachedCards: [],
-          };
-          this.updateCard(updatedCard);
+          this.updateCard(this.unattach(card));
           break;
         }
         case 'search': {
-          if (card.place === 'deck') {
-            this.searchMode = 'deck';
-          } else if (card.place === 'graveyard') {
-            this.searchMode = 'graveyard';
-          } else if (card.place === 'exile') {
-            this.searchMode = 'exile';
-          }
-          this.toggleSearchMode();
+          this.search(card);
           break;
         }
       }
@@ -346,5 +321,94 @@ export class TwoPlayerComponent implements OnInit {
         break;
       }
     }
+  }
+
+  private exileCard(card: Card) {
+    this.updateCard({...this.unattach(card), place: 'exile'});
+  }
+
+  private returnToHand(card: Card) {
+    this.updateCard({...this.unattach(card), place: 'hand'});
+  }
+
+  private kill(card: Card) {
+    this.updateCard({...this.unattach(card), place: 'graveyard'});
+  }
+
+  private putOnBottom(card: Card) {
+    const place = 'deck';
+    const position = this.maxPosition !== undefined ? this.maxPosition + 1 : 0;
+    this.updateCard({...this.unattach({...card, place, position})});
+  }
+
+  private putOnTop(card: Card) {
+    const place = 'deck';
+    const position = this.minPosition !== undefined ? this.minPosition - 1 : 0;
+    this.updateCard({...this.unattach({...card, place, position})});
+  }
+
+  private search(card: Card) {
+    if (card.place === 'deck') {
+      this.searchMode = 'deck';
+    } else if (card.place === 'graveyard') {
+      this.searchMode = 'graveyard';
+    } else if (card.place === 'exile') {
+      this.searchMode = 'exile';
+    }
+    this.toggleSearchMode();
+  }
+
+  private toggleTap(card: Card) {
+    setTimeout(() => {
+      this.updateCard({...card, tapped: !card.tapped});
+    }, 600);
+  }
+
+  private addCounter(card: Card) {
+    const counter = card.counter + 1;
+    this.updateCard({...card, counter});
+  }
+
+  private removeCounter(card: Card) {
+    if (card.counter > 0) {
+      const counter = card.counter - 1;
+      this.updateCard({...card, counter});
+    }
+  }
+
+  private attachTo(card: Card) {
+    this.store$.dispatch(
+      setActiveAttachCardId({activeAttachCardId: card._id})
+    );
+    this.mode = 'attach';
+  }
+
+  private attach(card: Card) {
+    if (
+      card._id !== this.activeAttachCard._id &&
+      !card.isEnemyCard &&
+      card.place !== 'hand'
+    ) {
+      const updatedCard: Card = {
+        ...card,
+        attachedCards: card.attachedCards.concat(this.activeAttachCard),
+      };
+      this.updateCard(updatedCard);
+      this.store$.dispatch(
+        deleteCardRequest({card: this.activeAttachCard})
+      );
+      this.mode = undefined;
+    }
+  }
+
+  private unattach(card: Card): Card {
+    card.attachedCards.forEach((c) => {
+      this.updateCard({...c, position: card.position, _rev: undefined});
+    });
+    const updatedCard: Card = {
+      ...card,
+      attachedCards: [],
+    };
+    return updatedCard;
   }
 }
