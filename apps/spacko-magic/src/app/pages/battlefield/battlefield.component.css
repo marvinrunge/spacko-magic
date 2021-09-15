@@ -9,7 +9,8 @@ spacko-magic-header {
   cursor: pointer;
   scroll-snap-align: center;
   pointer-events: auto;
-  padding: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
   filter: drop-shadow(0px 0px 2px black);
 }
 
@@ -17,7 +18,7 @@ spacko-magic-header {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-  border-radius: 4%;
+  border-radius: 5%;
 }
 
 spacko-magic-card {
@@ -33,8 +34,6 @@ spacko-magic-card {
   scroll-snap-type: x mandatory;
   max-width: calc(100vw - 210px);
   overflow-y: visible;
-  padding-top: 86px;
-  transform: translateY(-50px);
   pointer-events: none;
   scroll-behavior: smooth;
 }
@@ -46,7 +45,6 @@ spacko-magic-card {
 .hand-container {
   width: 100%;
   max-width: calc(100vw - 210px);
-  padding-top: 100px;
   pointer-events: none;
 }
 
@@ -60,8 +58,8 @@ spacko-magic-card {
   transition: 0.5s transform;
 }
 
-.hand-container .card:hover{
-  transform: translateY(-86px);
+.hand-container .card:hover {
+  transform: translateY(calc(-100% + 110px));
 }
 
 .inspect {
@@ -124,7 +122,8 @@ spacko-magic-card {
 
 spacko-magic-player-stats {
   width: 210px;
-  margin-top: 90px;
+  margin-top: auto;
+  height: 110px;
   pointer-events: auto;
 }
 

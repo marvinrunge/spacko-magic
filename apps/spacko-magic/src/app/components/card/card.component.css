@@ -78,8 +78,7 @@
 }
 
 .put-on-bottom {
-  background-image: url(/assets/on_top.svg);
-  transform: rotate(180deg);
+  background-image: url(/assets/on_bottom.svg);
 }
 
 .attached-card {

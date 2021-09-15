@@ -15,7 +15,7 @@ html {
 body {
   margin: 0;
   font-family: 'Ramaraja', serif;
-  background: url(https://initiate.alphacoders.com/images/265/cropped-1920-1080-265693.png?6466);
+  background: url(https://miro.medium.com/max/3840/1*_HhnCWCrqDSt__s5wFrKqQ.jpeg);
   background-position: center;
   background-size: cover;
   overflow: hidden;
@@ -41,7 +41,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #777;
   border-radius: 4px;
-  cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -50,26 +49,27 @@ body {
 
 .actions {
   position: relative;
-  top: -110px;
+  margin: auto;
   z-index: 1;
 }
 
 .action {
-  min-height: 22px;
-  min-width: 22px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0);
   background-position-x: center;
   background-position-y: center;
-  background-color: #555;
+  border-radius: 20%;
+  background-color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
+  margin-bottom: 4px;
+  box-sizing: border-box;
 }
 
 .action:active {
-  filter: brightness(150%);
+  background-color: rgba(68, 68, 68, 0.7);
 }
 
 .action:hover {
-  filter: brightness(120%);
+  background-color: rgba(34, 34, 34, 0.7);
 }

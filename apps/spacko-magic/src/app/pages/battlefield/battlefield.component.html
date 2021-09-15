@@ -1,9 +1,5 @@
 <spacko-magic-header></spacko-magic-header>
-<div
-  class="battlefield-container"
-  fxLayout="row"
-  fxLayoutAlign="center start"
->
+<div class="battlefield-container" fxLayout="row" fxLayoutAlign="center start">
   <div fxLayout="column" fxLayoutGap="4px" fxFlex="grow">
     <spacko-magic-enemy-stats
       [player]="selectedEnemyPlayer"
@@ -60,7 +56,7 @@
 <div
   class="player-lane"
   fxLayout="row"
-  [style.height.px]="200"
+  [style.height.px]="cardHeight"
   [style.z-index]="4"
 >
   <spacko-magic-player-stats
@@ -73,31 +69,33 @@
     class="hand-container"
     fxLayout="row"
     fxLayoutAlign="center center"
-    [style.height.px]="200"
+    [style.height.px]="cardHeight"
   >
     <div
       class="arrow left"
-      [style.height.px]="200 / 2"
+      [style.height.px]="110"
       (click)="scrollLeft()"
     ></div>
     <div
       #handScroll
       class="scroll-container"
       fxLayout="row"
-      [style.height.px]="200"
+      [style.height.px]="cardHeight"
+      [style.paddingTop.px]="cardHeight-110"
     >
       <div
         class="card"
         *ngFor="let card of hand; index as i"
-        [style.height.px]="200"
-        [style.width.px]="143"
+        [style.height.px]="cardHeight"
+        [style.width.px]="cardWidth"
+        [style]
         (wheel)="selectCard(card)"
       >
         <div
           class="inner-card"
           (click)="play(card)"
-          [style.height.px]="200"
-          [style.width.px]="143"
+          [style.height.px]="cardHeight"
+          [style.width.px]="cardWidth"
           fxFill
           [style.background-image]="'url(' + card.url + ')'"
         ></div>
@@ -105,7 +103,7 @@
     </div>
     <div
       class="arrow right"
-      [style.height.px]="200 / 2"
+      [style.height.px]="110"
       (click)="scrollRight()"
     ></div>
   </div>
@@ -129,7 +127,7 @@
   <spacko-magic-lane
     *ngIf="searchMode === 'deck'"
     [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + 200/2 + 'px)'"
+    [style.top]="'calc(50% - ' + 200 / 2 + 'px)'"
     [cards]="deck"
     [cardHeight]="200"
     [cardWidth]="143"
@@ -141,7 +139,7 @@
   <spacko-magic-lane
     *ngIf="searchMode === 'graveyard'"
     [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + 200/2 + 'px)'"
+    [style.top]="'calc(50% - ' + 200 / 2 + 'px)'"
     [cards]="graveyard"
     [cardHeight]="200"
     [cardWidth]="143"
@@ -153,7 +151,7 @@
   <spacko-magic-lane
     *ngIf="searchMode === 'exile'"
     [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + 200/2 + 'px)'"
+    [style.top]="'calc(50% - ' + 200 / 2 + 'px)'"
     [cards]="exile"
     [cardHeight]="200"
     [cardWidth]="143"

@@ -52,7 +52,7 @@ export class GameService {
                       _deleted: false,
                       counter: 0,
                       marked: false,
-                      position: 0,
+                      position: Math.random(),
                       tapped: false,
                       type: card.type_line,
                       place: 'deck',

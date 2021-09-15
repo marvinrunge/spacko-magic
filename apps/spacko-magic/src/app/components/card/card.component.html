@@ -46,11 +46,11 @@
     <div
       class="inner-card"
       fxFill
-      [style.opacity]="
-        card.place === 'exile' ? '0.5' : '1'
-      "
+      [style.opacity]="card.place === 'exile' ? '0.5' : '1'"
       [style.filter]="
-        (card.place === 'exile' || card.place === 'graveyard') ? 'grayscale(100%)' : 'grayscale(0%)'
+        card.place === 'exile' || card.place === 'graveyard'
+          ? 'grayscale(100%)'
+          : 'grayscale(0%)'
       "
       [style.border-radius.px]="borderRadius"
       [style.background-image]="'url(' + card.url + ')'"
@@ -67,61 +67,53 @@
   <div
     *ngIf="!isEnemyCard"
     [@showHide]="showActions ? 'show' : 'hide'"
-    [style.max-width.px]="width"
+    [style.width.px]="height * 0.5"
+    [style.top.px]="-height * 0.5"
     class="actions"
-    fxLayout="column"
-    fxLayoutGap="2px"
-    fxLayoutAlign="center center"
   >
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
       <div
-        title="add a counter"
-        *ngIf="card.place === 'battlefield'"
-        class="action add-counter"
-        (click)="triggerAction('add-counter'); $event.stopPropagation()"
-      ></div>
-      <div
-        title="remove a counter"
-        *ngIf="card.place === 'battlefield'"
-        class="action remove-counter"
-        (click)="triggerAction('remove-counter'); $event.stopPropagation()"
-      ></div>
-    </div>
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
-      <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="put on top of deck"
         *ngIf="card.place === 'battlefield'"
         class="action put-on-top"
         (click)="triggerAction('put-on-top'); $event.stopPropagation()"
       ></div>
       <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="put on bottom of deck"
         *ngIf="card.place === 'battlefield'"
         class="action put-on-bottom"
         (click)="triggerAction('put-on-bottom'); $event.stopPropagation()"
       ></div>
-    </div>
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
       <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="attach"
         *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
         class="action attach"
         (click)="triggerAction('attach-to'); $event.stopPropagation()"
       ></div>
       <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="unattach"
         *ngIf="card.attachedCards.length > 0"
         class="action unattach"
         (click)="triggerAction('unattach'); $event.stopPropagation()"
       ></div>
       <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="return to hand"
         class="action return-to-hand"
         (click)="triggerAction('return-to-hand'); $event.stopPropagation()"
       ></div>
-    </div>
-    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="2px">
       <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="search"
         class="action search"
         *ngIf="
@@ -131,16 +123,36 @@
         (click)="triggerAction('search'); $event.stopPropagation()"
       ></div>
       <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="kill / sacrifice"
         *ngIf="card.place === 'battlefield' || card.place === 'deck'"
         class="action kill"
         (click)="triggerAction('kill'); $event.stopPropagation()"
       ></div>
       <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
         title="exile"
         *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
         class="action exile"
         (click)="triggerAction('exile'); $event.stopPropagation()"
+      ></div>
+      <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
+        title="add a counter"
+        *ngIf="card.place === 'battlefield'"
+        class="action add-counter"
+        (click)="triggerAction('add-counter'); $event.stopPropagation()"
+      ></div>
+      <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
+        title="remove a counter"
+        *ngIf="card.place === 'battlefield'"
+        class="action remove-counter"
+        (click)="triggerAction('remove-counter'); $event.stopPropagation()"
       ></div>
     </div>
   </div>

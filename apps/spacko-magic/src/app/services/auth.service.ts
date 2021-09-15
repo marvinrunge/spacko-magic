@@ -54,7 +54,7 @@ export class AuthService {
           this.store$.dispatch(loadPlayersRequest());
           this.store$.dispatch(setSelectedPlayerId({ selectedPlayerId: username }));
           if (fromLogin) {
-            this.router.navigate(['settings']);
+            this.router.navigate(['deck']);
           }
         }
       });
