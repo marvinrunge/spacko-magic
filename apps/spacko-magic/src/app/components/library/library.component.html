@@ -7,33 +7,36 @@
 >
   <div
     class="inner-card"
-    [hidden]="cards.length <= 0"
+    [hidden]="cards.length === 0"
     (click)="triggerAction('draw')"
     fxFill
     [style.height.px]="height"
     [style.width.px]="width"
     [style.border-radius.px]="borderRadius"
-    [style.background-image]="
-      'url(assets/spackomagiccard.svg)'
-    "
+    [style.background-image]="'url(assets/spackomagiccard.svg)'"
   ></div>
   <div
     *ngIf="!isEnemyCard"
     [@showHide]="showActions ? 'show' : 'hide'"
+    [style.width.px]="height * 0.5"
+    [style.top.px]="-height * 0.5"
     class="actions"
-    fxLayout="row"
-    fxLayoutGap="2px"
-    fxLayoutAlign="center center"
   >
-    <div
-      title="shuffle"
-      class="action shuffle"
-      (click)="triggerAction('shuffle')"
-    ></div>
-    <div
-      title="search"
-      class="action search"
-      (click)="triggerAction('search')"
-    ></div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+      <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
+        title="shuffle"
+        class="action shuffle"
+        (click)="triggerAction('shuffle')"
+      ></div>
+      <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
+        title="search"
+        class="action search"
+        (click)="triggerAction('search')"
+      ></div>
+    </div>
   </div>
 </div>

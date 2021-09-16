@@ -68,7 +68,7 @@
     *ngIf="!isEnemyCard"
     [@showHide]="showActions ? 'show' : 'hide'"
     [style.width.px]="height * 0.5"
-    [style.top.px]="-height * 0.5"
+    [style.top.px]="-height * 0.5 - 8"
     class="actions"
   >
     <div fxLayout="row wrap" fxLayoutAlign="space-between center">
@@ -76,7 +76,6 @@
         [style.width.px]="height * 0.15"
         [style.height.px]="height * 0.15"
         title="put on top of deck"
-        *ngIf="card.place === 'battlefield'"
         class="action put-on-top"
         (click)="triggerAction('put-on-top'); $event.stopPropagation()"
       ></div>
@@ -84,7 +83,6 @@
         [style.width.px]="height * 0.15"
         [style.height.px]="height * 0.15"
         title="put on bottom of deck"
-        *ngIf="card.place === 'battlefield'"
         class="action put-on-bottom"
         (click)="triggerAction('put-on-bottom'); $event.stopPropagation()"
       ></div>

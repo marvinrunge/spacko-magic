@@ -44,7 +44,7 @@ export class AuthService {
     if (username) {
       this.playerService.initDb(username);
       this.cardService.initDb(username);
-      this.playerService.getDb().getSession((err: any, response: any) => {
+      this.cardService.getDb().getSession((err: any, response: any) => {
         if (err) {
           this.snackBar.open(err);
         } else if (!response.userCtx.name) {
