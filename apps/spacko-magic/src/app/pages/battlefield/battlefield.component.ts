@@ -1,22 +1,30 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild,} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {Card} from '../../interfaces/card';
-import {Player} from '../../interfaces/player';
-import {CardSelectors, PlayerSelectors, RootStoreState,} from '../../root-store';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Card } from '../../interfaces/card';
+import { Player } from '../../interfaces/player';
+import {
+  CardSelectors,
+  PlayerSelectors,
+  RootStoreState,
+} from '../../root-store';
 import {
   deleteCardRequest,
   setActiveAttachCardId,
-  setSelectedCardId,
   updateCardRequest,
   updateManyCardsRequest,
 } from '../../root-store/card-store/actions';
-import {EnemyCardSelectors} from '../../root-store/enemy-card-store';
-import {setSelectedEnemyCardId} from '../../root-store/enemy-card-store/actions';
-import {updatePlayerRequest} from '../../root-store/player-store/actions';
-import {MatDialog} from "@angular/material/dialog";
-import {AddEnemyModalComponent} from "../../components/add-enemy-modal/add-enemy-modal.component";
-import {GameService} from "../../game.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { EnemyCardSelectors } from '../../root-store/enemy-card-store';
+import { updatePlayerRequest } from '../../root-store/player-store/actions';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEnemyModalComponent } from '../../components/add-enemy-modal/add-enemy-modal.component';
+import { GameService } from '../../game.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './battlefield.component.html',
@@ -43,8 +51,12 @@ export class BattlefieldComponent implements OnInit {
   enemyOther: Card[] = [];
   selectedEnemyPlayer: Player;
 
-  minPosition?: number = 0;
-  maxPosition?: number = 0;
+  minPositionDeck?: number = 0;
+  maxPositionDeck?: number = 0;
+  minPositionGraveyard?: number = 0;
+  maxPositionGraveyard?: number = 0;
+  minPositionExile?: number = 0;
+  maxPositionExile?: number = 0;
 
   selectedPlayer: Player;
   selectedCard?: Card;
@@ -62,7 +74,12 @@ export class BattlefieldComponent implements OnInit {
     this.setCardHeight();
   }
 
-  constructor(private store$: Store<RootStoreState.State>, private dialog: MatDialog, private game: GameService, private snackBar: MatSnackBar) {
+  constructor(
+    private store$: Store<RootStoreState.State>,
+    private dialog: MatDialog,
+    private game: GameService,
+    private snackBar: MatSnackBar
+  ) {
     this.store$
       .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('deck')))
       .subscribe((cards) => (this.deck = cards));
@@ -71,11 +88,23 @@ export class BattlefieldComponent implements OnInit {
       .subscribe((cards) => (this.hand = cards));
     this.store$
       .pipe(
-        select(CardSelectors.selectByPlaceAndTypeAndSortByPosition('battlefield', 'creature'))
+        select(
+          CardSelectors.selectByPlaceAndTypeAndSortByPosition(
+            'battlefield',
+            'creature'
+          )
+        )
       )
       .subscribe((cards) => (this.creatures = cards));
     this.store$
-      .pipe(select(CardSelectors.selectByPlaceAndTypeAndSortByPosition('battlefield', 'land')))
+      .pipe(
+        select(
+          CardSelectors.selectByPlaceAndTypeAndSortByPosition(
+            'battlefield',
+            'land'
+          )
+        )
+      )
       .subscribe((cards) => (this.lands = cards));
     this.store$
       .pipe(
@@ -89,10 +118,10 @@ export class BattlefieldComponent implements OnInit {
       )
       .subscribe((cards) => (this.other = cards));
     this.store$
-      .pipe(select(CardSelectors.selectByPlace('graveyard')))
+      .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('graveyard')))
       .subscribe((cards) => (this.graveyard = cards));
     this.store$
-      .pipe(select(CardSelectors.selectByPlace('exile')))
+      .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('exile')))
       .subscribe((cards) => (this.exile = cards));
     this.store$
       .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
@@ -135,10 +164,12 @@ export class BattlefieldComponent implements OnInit {
       )
       .subscribe((cards) => (this.enemyOther = cards));
     this.store$
-      .pipe(select(EnemyCardSelectors.selectByPlace('graveyard')))
+      .pipe(
+        select(EnemyCardSelectors.selectByPlaceAndSortByPosition('graveyard'))
+      )
       .subscribe((cards) => (this.enemyGraveyard = cards));
     this.store$
-      .pipe(select(EnemyCardSelectors.selectByPlace('exile')))
+      .pipe(select(EnemyCardSelectors.selectByPlaceAndSortByPosition('exile')))
       .subscribe((cards) => (this.enemyExile = cards));
     this.store$
       .pipe(select(PlayerSelectors.selectEnemyPlayerBySelectedId))
@@ -148,8 +179,20 @@ export class BattlefieldComponent implements OnInit {
     this.store$
       .pipe(select(CardSelectors.selectMinMaxPosition('deck')))
       .subscribe((result) => {
-        this.maxPosition = result.max;
-        this.minPosition = result.min;
+        this.maxPositionDeck = result.max;
+        this.minPositionDeck = result.min;
+      });
+    this.store$
+      .pipe(select(CardSelectors.selectMinMaxPosition('graveyard')))
+      .subscribe((result) => {
+        this.maxPositionGraveyard = result.max;
+        this.minPositionGraveyard = result.min;
+      });
+    this.store$
+      .pipe(select(CardSelectors.selectMinMaxPosition('exile')))
+      .subscribe((result) => {
+        this.maxPositionExile = result.max;
+        this.minPositionExile = result.min;
       });
   }
 
@@ -159,7 +202,7 @@ export class BattlefieldComponent implements OnInit {
   }
 
   loadEnemy() {
-    const enemyUsername= localStorage.getItem('current-enemy');
+    const enemyUsername = localStorage.getItem('current-enemy');
     if (enemyUsername) {
       this.game.addEnemy(enemyUsername);
     }
@@ -167,10 +210,10 @@ export class BattlefieldComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddEnemyModalComponent, {
-      width: '250px'
+      width: '250px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       this.game.addEnemy(result);
     });
   }
@@ -324,27 +367,49 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private exileCard(card: Card) {
-    this.updateCard({...this.unattach(card), place: 'exile'});
+    this.updateCard({
+      ...this.unattach({
+        ...card,
+        place: 'exile',
+        tapped: false,
+        position: (this.minPositionExile && Number.isFinite(this.minPositionExile)) ? this.minPositionExile - 1 : card.position,
+      }),
+    });
   }
 
   private returnToHand(card: Card) {
-    this.updateCard({...this.unattach(card), place: 'hand'});
+    this.updateCard({ ...this.unattach(card), place: 'hand', tapped: false });
   }
 
   private kill(card: Card) {
-    this.updateCard({...this.unattach(card), place: 'graveyard'});
+    console.log(this.graveyard);
+    console.log('min', this.minPositionGraveyard);
+    this.updateCard({
+      ...this.unattach({
+        ...card,
+        place: 'graveyard',
+        tapped: false,
+        position: (this.minPositionGraveyard && Number.isFinite(this.minPositionGraveyard)) ? this.minPositionGraveyard - 1 : card.position,
+      }),
+    });
   }
 
   private putOnBottom(card: Card) {
     const place = 'deck';
-    const position = this.maxPosition !== undefined ? this.maxPosition + 1 : 0;
-    this.updateCard({...this.unattach({...card, place, position})});
+    const position =
+      this.maxPositionDeck !== undefined ? this.maxPositionDeck + 1 : 0;
+    this.updateCard({
+      ...this.unattach({ ...card, place, position, tapped: false }),
+    });
   }
 
   private putOnTop(card: Card) {
     const place = 'deck';
-    const position = this.minPosition !== undefined ? this.minPosition - 1 : 0;
-    this.updateCard({...this.unattach({...card, place, position})});
+    const position =
+      this.minPositionDeck !== undefined ? this.minPositionDeck - 1 : 0;
+    this.updateCard({
+      ...this.unattach({ ...card, place, position, tapped: false }),
+    });
   }
 
   private search(card: Card) {
@@ -359,26 +424,28 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private toggleTap(card: Card) {
-    setTimeout(() => {
-      this.updateCard({...card, tapped: !card.tapped});
-    }, 600);
+    if (card.place === 'battlefield') {
+      setTimeout(() => {
+        this.updateCard({ ...card, tapped: !card.tapped });
+      }, 600);
+    }
   }
 
   private addCounter(card: Card) {
     const counter = card.counter + 1;
-    this.updateCard({...card, counter});
+    this.updateCard({ ...card, counter });
   }
 
   private removeCounter(card: Card) {
     if (card.counter > 0) {
       const counter = card.counter - 1;
-      this.updateCard({...card, counter});
+      this.updateCard({ ...card, counter });
     }
   }
 
   private attachTo(card: Card) {
     this.store$.dispatch(
-      setActiveAttachCardId({activeAttachCardId: card._id})
+      setActiveAttachCardId({ activeAttachCardId: card._id })
     );
     this.mode = 'attach';
   }
@@ -394,16 +461,14 @@ export class BattlefieldComponent implements OnInit {
         attachedCards: card.attachedCards.concat(this.activeAttachCard),
       };
       this.updateCard(updatedCard);
-      this.store$.dispatch(
-        deleteCardRequest({card: this.activeAttachCard})
-      );
+      this.store$.dispatch(deleteCardRequest({ card: this.activeAttachCard }));
       this.mode = undefined;
     }
   }
 
   private unattach(card: Card): Card {
     card.attachedCards.forEach((c) => {
-      this.updateCard({...c, position: card.position, _rev: undefined});
+      this.updateCard({ ...c, position: card.position, _rev: undefined });
     });
     const updatedCard: Card = {
       ...card,

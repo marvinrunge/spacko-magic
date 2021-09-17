@@ -69,7 +69,7 @@ export class CardComponent implements OnInit {
       let actionType = type;
       if (type === 'toggle-tap' && this.mode === 'attach') {
         actionType = 'attach';
-      } else if (type === 'toggle-tap') {
+      } else if (type === 'toggle-tap' && this.card.place === "battlefield") {
         this.setTappedValue(this.tappedValue !== 'tapped');
       }
       this.actionTriggered.emit({ card: this.card, actionType });
