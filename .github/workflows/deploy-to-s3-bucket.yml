@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
     - uses: actions/checkout@master
       
@@ -16,10 +19,9 @@ jobs:
         npm i
         npx nx build --prod --outputPath=www
         
-    - uses: awact/s3-action@0.1.1
+    - name: Deploy
+      uses: reggionick/s3-deploy@v3
       with:
-        SOURCE_DIR: 'www'
-        AWS_REGION: 'eu-central-1'
-        AWS_S3_BUCKET: 's3://spackomagic.de'
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        folder: 'www'
+        bucket: 's3://spackomagic.de'
+        bucket-region: 'eu-central-1'
