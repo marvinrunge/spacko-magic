@@ -112,12 +112,14 @@ spacko-magic-card {
   background-image: url(/assets/arrow_back.svg);
   left: 210px;
   bottom: 0;
+  border-radius: 0 50% 0 0;
 }
 
 .right {
   background-image: url(/assets/arrow_forward.svg);
   right: 0;
   bottom: 0;
+  border-radius: 50% 0 0 0;
 }
 
 spacko-magic-player-stats {

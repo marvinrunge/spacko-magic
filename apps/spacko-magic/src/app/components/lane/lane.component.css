@@ -45,9 +45,11 @@ spacko-magic-deck {
 .left {
   background-image: url(/assets/arrow_back.svg);
   left: 0;
+  border-radius: 0 50% 50% 0;
 }
 
 .right {
   background-image: url(/assets/arrow_forward.svg);
   right: 0;
+  border-radius: 50% 0 0 50%;
 }
