@@ -21,7 +21,7 @@
   </div>
 </div>
 <div [hidden]="edit">
-  <h3 class="heading">Creatures</h3>
+  <h3 class="heading" [hidden]="1>deck.length">Creatures</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'creature'"
     [isEnemyLane]="true"
@@ -31,7 +31,7 @@
     (actionTriggered)="triggerAction($event)"
   ></spacko-magic-lane>
 
-  <h3 class="heading">Other</h3>
+  <h3 class="heading" [hidden]="1>deck.length">Other</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'other'"
     [isEnemyLane]="true"
@@ -41,7 +41,7 @@
     (actionTriggered)="triggerAction($event)"
   ></spacko-magic-lane>
 
-  <h3 class="heading">Lands</h3>
+  <h3 class="heading" [hidden]="1>deck.length">Lands</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'land'"
     [isEnemyLane]="true"

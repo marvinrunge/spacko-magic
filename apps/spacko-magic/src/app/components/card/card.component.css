@@ -1,6 +1,3 @@
-.card-container {
-}
-
 .card {
   cursor: pointer;
 }
@@ -9,7 +6,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
-  background-color: #222;
 }
 
 .counter {
