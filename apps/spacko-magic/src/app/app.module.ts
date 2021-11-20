@@ -25,14 +25,13 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DeckComponent } from './pages/settings/deck.component';
 import { SinglePlayerComponent } from './pages/single-player/single-player.component';
 import { LandsPipe } from './pipes/lands.pipe';
-import { SpellsPipe } from './pipes/spells.pipe';
 import { RootStoreModule } from './root-store';
 import { HeaderComponent } from './components/header/header.component';
 import { BattlefieldComponent } from './pages/battlefield/battlefield.component';
-import {MAT_SNACK_BAR_DATA} from "@angular/material/snack-bar";
-import {AddEnemyModalComponent} from "./components/add-enemy-modal/add-enemy-modal.component";
-import {MatDialogModule} from "@angular/material/dialog";
-
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
 
 const routes: Routes = [
   { path: 'deck', component: DeckComponent },
@@ -54,7 +53,7 @@ const routes: Routes = [
     CardComponent,
     LandsPipe,
     CreaturesPipe,
-    SpellsPipe,
+    DeckPreviewPipe,
     DeckComponent,
     CardComponent,
     LaneComponent,
@@ -67,7 +66,7 @@ const routes: Routes = [
     RegisterComponent,
     LoginComponent,
     HeaderComponent,
-    AddEnemyModalComponent
+    AddEnemyModalComponent,
   ],
   imports: [
     CommonModule,
@@ -88,11 +87,9 @@ const routes: Routes = [
       logOnly: environment.production,
     }),
     MatDialogModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [
-    { provide: MAT_SNACK_BAR_DATA, useValue: { duration: 4000 } }
-  ],
+  providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: { duration: 4000 } }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

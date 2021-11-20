@@ -60,7 +60,10 @@
       }"
     >
       <div class="counter" *ngIf="card.counter > 0">
-        {{ card.counter > 0 ? card.counter : '' }}
+        {{ card.counter }}
+      </div>
+      <div class="counter" *ngIf="card.count > 1">
+        x{{ card.count }}
       </div>
     </div>
   </div>

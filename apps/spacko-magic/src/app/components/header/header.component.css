@@ -20,6 +20,7 @@ mat-icon:active {
 }
 
 .nav-item {
+  padding: 0 1rem 0 1rem;
   font-family: 'magic';
   height: max-content;
   color: white;
@@ -37,4 +38,8 @@ mat-icon:active {
 
 .nav-item:active {
   transform: scale(0.9);
+}
+
+.active {
+  border-bottom: 3px solid #673ab7;
 }

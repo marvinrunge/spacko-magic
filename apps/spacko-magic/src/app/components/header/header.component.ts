@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  isActive = false;
+  @Input() isActive = true;
 
   constructor(private authService: AuthService) {}
 

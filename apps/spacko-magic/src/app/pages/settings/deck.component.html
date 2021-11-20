@@ -1,8 +1,7 @@
 <spacko-magic-header></spacko-magic-header>
 <div class="settings">
-  <h2 class="heading">Initialize Deck</h2>
   <div fxLayout="column" fxLayoutAlign="center stretch">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" *ngIf="edit">
       <mat-label>Decklist</mat-label>
       <textarea
         [(ngModel)]="deckList"
@@ -17,7 +16,50 @@
       (click)="initDeck()"
       color="primary"
     >
-      Process
+      {{ edit ? 'SAVE' : 'EDIT DECK' }}
     </button>
   </div>
+</div>
+<div [hidden]="edit">
+  <h3 class="heading">Creatures</h3>
+  <spacko-magic-lane
+    [cards]="deck | deckPreview: 'creature'"
+    [isEnemyLane]="true"
+    [cardHeight]="cardHeight"
+    [cardWidth]="cardWidth"
+    [cardBorderRadius]="cardBorderRadius"
+    (actionTriggered)="triggerAction($event)"
+  ></spacko-magic-lane>
+
+  <h3 class="heading">Other</h3>
+  <spacko-magic-lane
+    [cards]="deck | deckPreview: 'other'"
+    [isEnemyLane]="true"
+    [cardHeight]="cardHeight"
+    [cardWidth]="cardWidth"
+    [cardBorderRadius]="cardBorderRadius"
+    (actionTriggered)="triggerAction($event)"
+  ></spacko-magic-lane>
+
+  <h3 class="heading">Lands</h3>
+  <spacko-magic-lane
+    [cards]="deck | deckPreview: 'land'"
+    [isEnemyLane]="true"
+    [cardHeight]="cardHeight"
+    [cardWidth]="cardWidth"
+    [cardBorderRadius]="cardBorderRadius"
+    (actionTriggered)="triggerAction($event)"
+  ></spacko-magic-lane>
+</div>
+
+<div
+  class="inspect"
+  *ngIf="selectedCard?.url"
+  (wheel)="deselectCard()"
+  (click)="deselectCard()"
+>
+  <div
+    class="preview"
+    [style.background-image]="'url(' + selectedCard?.url + ')'"
+  ></div>
 </div>

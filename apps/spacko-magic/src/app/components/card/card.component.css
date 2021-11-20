@@ -1,5 +1,4 @@
 .card-container {
-
 }
 
 .card {
@@ -10,6 +9,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: top;
+  background-color: #222;
 }
 
 .counter {

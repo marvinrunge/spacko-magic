@@ -16,7 +16,7 @@ export class PlayerService {
 
   initDb(username: string) {
     const dbPrefix = username.toLocaleLowerCase();
-    this.localPlayerDb = new PouchDB(dbPrefix + '_players', {
+    this.localPlayerDb = new PouchDB('players', {
       auto_compaction: true,
     });
     this.remotePlayerDb = new PouchDB(environment.db + 'players', { skip_setup: true });

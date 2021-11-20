@@ -13,7 +13,39 @@ h2 {
   color: white;
   font-size: 3rem;
   text-align: center;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  text-shadow: 0 0 3px black;
   padding: 0 0 0 0;
   margin: 1rem 0 2rem 0;
+}
+
+h3 {
+  font-family: 'magic';
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  text-shadow: 0 0 3px black;
+  padding: 0 0 0 0;
+  margin: 1rem 0 1rem 0;
+}
+
+.inspect {
+  background-color: #000a;
+  width: 100vw;
+  height: 100vh;
+  z-index: 11;
+  position: absolute;
+  top: 0;
+  cursor: pointer;
+}
+
+.preview {
+  position: relative;
+  margin: auto;
+  border-radius: 30px;
+  width: 488px;
+  height: 680px;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  cursor: pointer;
 }
