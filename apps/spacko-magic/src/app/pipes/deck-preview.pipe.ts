@@ -12,7 +12,7 @@ export class DeckPreviewPipe implements PipeTransform {
       if (uniqueCardIndex > -1) {
         uniqueCards[uniqueCardIndex].count = uniqueCards[uniqueCardIndex].count + 1;
       } else {
-        uniqueCards.push({ ...card });
+        uniqueCards.push({ ...card, place: 'deck' });
       }
     });
     return uniqueCards.sort((a, b) => a.cmc - b.cmc);
