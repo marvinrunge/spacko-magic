@@ -32,6 +32,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const routes: Routes = [
   { path: 'deck', component: DeckComponent },
@@ -88,6 +89,12 @@ const routes: Routes = [
     }),
     MatDialogModule,
     FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: { duration: 4000 } }],
   bootstrap: [AppComponent],
