@@ -1,9 +1,13 @@
 header {
   width: 100%;
-  padding: 8px;
+  padding: 0.7rem;
   color: white;
   vertical-align: middle;
   transition: background 0.2s ease;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 mat-icon {
@@ -23,17 +27,18 @@ mat-icon:active {
   padding: 0 1rem 0 1rem;
   font-family: 'Beleren2016';
   height: max-content;
-  color: white;
+  color: #fffa;
   font-size: 2rem;
   line-height: 2rem;
   text-align: center;
   cursor: pointer;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  transition: filter 0.2s ease, transform 0.2s ease;
+  text-shadow: 0 0 3px black;
+  transition: filter 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
 .nav-item:hover {
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3))
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  color: #fff;
 }
 
 .nav-item:active {
@@ -41,5 +46,5 @@ mat-icon:active {
 }
 
 .active {
-  border-bottom: 3px solid #673ab7;
+  color: #fff;
 }
