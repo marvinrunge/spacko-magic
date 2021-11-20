@@ -59,7 +59,8 @@ export class GameService {
                         attachedCards: [],
                         url: String(card.image_uris.normal),
                         count: 1,
-                        cmc: card.cmc
+                        cmc: card.cmc,
+                        scryfall_uri: card.scryfall_uri
                       },
                     })
                   );

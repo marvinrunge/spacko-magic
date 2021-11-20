@@ -68,6 +68,7 @@ export class BattlefieldComponent implements OnInit {
   innerHeight: number;
   mode?: string;
   searchMode?: string;
+  rotateActive = false;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -293,6 +294,11 @@ export class BattlefieldComponent implements OnInit {
 
   toggleSearchMode() {
     this.mode === 'search' ? (this.mode = undefined) : (this.mode = 'search');
+  }
+
+  rotate(event: any) {
+    event.stopPropagation();
+    this.rotateActive = !this.rotateActive;
   }
 
   triggerAction(event: { card?: Card; actionType: string }) {

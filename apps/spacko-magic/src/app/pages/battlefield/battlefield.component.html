@@ -108,17 +108,30 @@
     ></div>
   </div>
 </div>
+
 <div
   class="inspect"
   *ngIf="selectedCard?.url"
   (wheel)="deselectCard()"
   (click)="deselectCard()"
 >
+  <div class="preview-actions">
+    <mat-icon class="rotate" title="rotate" (click)="rotate($event)">
+      sync
+    </mat-icon>
+    <a [href]="selectedCard?.scryfall_uri" target="_blank">
+      <mat-icon class="rotate" title="info">
+        open_in_new
+      </mat-icon>
+    </a>
+  </div>
   <div
     class="preview"
     [style.background-image]="'url(' + selectedCard?.url + ')'"
+    [style.transform]="rotateActive ? 'rotate(90deg)' : 'rotate(0)'"
   ></div>
 </div>
+
 <div
   class="search-container"
   *ngIf="mode === 'search'"

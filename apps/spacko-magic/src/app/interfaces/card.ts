@@ -12,4 +12,5 @@ export interface Card extends Base {
   isEnemyCard?: boolean;
   count: number;
   cmc: number;
+  scryfall_uri: string;
 }

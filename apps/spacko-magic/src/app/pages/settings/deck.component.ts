@@ -26,6 +26,8 @@ export class DeckComponent implements OnInit{
   innerHeight: number;
   cardBorderRadius: number;
 
+  rotateActive = false;
+
   ngOnInit() {
     const username = localStorage.getItem('current-user');
     if (username) {
@@ -82,5 +84,10 @@ export class DeckComponent implements OnInit{
         }
       }
     }
+  }
+
+  rotate(event: any) {
+    event.stopPropagation();
+    this.rotateActive = !this.rotateActive;
   }
 }

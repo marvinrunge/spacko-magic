@@ -39,13 +39,39 @@ h3 {
 }
 
 .preview {
-  position: relative;
   margin: auto;
+  margin: 1rem auto 1rem auto;
   border-radius: 30px;
   width: 488px;
   height: 680px;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
   cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.preview-actions {
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  text-shadow: 0 0 3px black;
+}
+
+.preview-actions mat-icon {
+  color: #ccc;
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.preview-actions mat-icon:hover {
+  color: #fff;
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+a {
+  all: unset;
 }
