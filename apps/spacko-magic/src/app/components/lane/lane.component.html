@@ -12,6 +12,7 @@
     fxLayoutGap="4px"
     [style.height.px]="cardHeight"
   >
+    <div fxFlex="50px"></div>
     <spacko-magic-card
       *ngFor="let card of lands"
       [isEnemyCard]="isEnemyLane"
@@ -72,6 +73,7 @@
       [touch]="touch"
       (actionTriggered)="triggerAction($event)"
     ></spacko-magic-card>
+    <div fxFlex="50px"></div>
   </div>
   <div
     class="arrow right"
