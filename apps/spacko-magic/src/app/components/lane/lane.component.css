@@ -17,9 +17,6 @@ spacko-magic-deck {
   scroll-behavior: smooth;
 }
 
-.scroll-container::-webkit-scrollbar {
-}
-
 .card-container {
   width: 100%;
   max-width: 100vw;
