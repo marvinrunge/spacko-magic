@@ -14,6 +14,7 @@ export class GraveyardComponent {
   @Input() width: number;
   @Input() borderRadius: number;
   @Input() mode?: string;
+  @Input() touch = false;
   @Output() actionTriggered = new EventEmitter<{
     card?: Card;
     actionType: string;

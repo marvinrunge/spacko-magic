@@ -26,6 +26,10 @@ import { AddEnemyModalComponent } from '../../components/add-enemy-modal/add-ene
 import { GameService } from '../../game.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+function isTouchScreendevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints;
+};
+
 @Component({
   templateUrl: './battlefield.component.html',
   styleUrls: ['./battlefield.component.css'],
@@ -70,6 +74,9 @@ export class BattlefieldComponent implements OnInit {
   searchMode?: string;
   rotateActive = false;
 
+  touch = false;
+  activeHandCard?: string;
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.setCardHeight();
@@ -81,6 +88,12 @@ export class BattlefieldComponent implements OnInit {
     private game: GameService,
     private snackBar: MatSnackBar
   ) {
+    if (isTouchScreendevice()) {
+      this.touch = true;
+    } else {
+      this.touch = false;
+    }
+    console.log(this.touch);
     this.store$
       .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('deck')))
       .subscribe((cards) => (this.deck = cards));
@@ -230,8 +243,16 @@ export class BattlefieldComponent implements OnInit {
   }
 
   play(card: Card) {
-    const playedCard: Card = { ...card, place: 'battlefield' };
-    this.store$.dispatch(updateCardRequest({ card: playedCard }));
+    if (!this.touch) {
+      const playedCard: Card = { ...card, place: 'battlefield' };
+      this.store$.dispatch(updateCardRequest({ card: playedCard }));
+    } else {
+      if (this.activeHandCard === card._id) {
+        const playedCard: Card = { ...card, place: 'battlefield' };
+        this.store$.dispatch(updateCardRequest({ card: playedCard }));
+      }
+      this.activeHandCard = this.activeHandCard ? undefined : card._id;
+    }
   }
 
   sacrifice(card: Card) {
@@ -302,6 +323,7 @@ export class BattlefieldComponent implements OnInit {
   }
 
   triggerAction(event: { card?: Card; actionType: string }) {
+    console.log(event);
     const card = event.card;
     const actionType = event.actionType;
     if (card) {
@@ -433,7 +455,7 @@ export class BattlefieldComponent implements OnInit {
     if (card.place === 'battlefield') {
       setTimeout(() => {
         this.updateCard({ ...card, tapped: !card.tapped });
-      }, 600);
+      }, 300);
     }
   }
 

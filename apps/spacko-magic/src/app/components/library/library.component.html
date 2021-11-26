@@ -1,14 +1,14 @@
 <div
   class="card"
-  (mouseenter)="toggleActions()"
-  (mouseleave)="toggleActions()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
   [style.height.px]="height"
   [style.width.px]="width"
 >
   <div
     class="inner-card"
     [hidden]="cards.length === 0"
-    (click)="triggerAction('draw')"
+    (click)="onClick()"
     fxFill
     [style.height.px]="height"
     [style.width.px]="width"
@@ -28,14 +28,21 @@
         [style.height.px]="height * 0.15"
         title="shuffle"
         class="action shuffle"
-        (click)="triggerAction('shuffle')"
+        (click)="onClickAction('shuffle', $event)"
+      ></div>
+      <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
+        title="draw"
+        class="action draw"
+        (click)="onClickAction('draw', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
         [style.height.px]="height * 0.15"
         title="search"
         class="action search"
-        (click)="triggerAction('search')"
+        (click)="onClickAction('search', $event)"
       ></div>
     </div>
   </div>

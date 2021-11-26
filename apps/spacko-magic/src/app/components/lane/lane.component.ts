@@ -4,7 +4,8 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input, OnChanges,
+  Input,
+  OnChanges,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -28,7 +29,11 @@ export class LaneComponent implements AfterContentChecked {
   @Input() exile?: Card[];
   @Input() lands?: Card[];
   @Input() mode?: string;
-  @Output() actionTriggered = new EventEmitter<{ card?: Card, actionType: string }>();
+  @Input() touch: boolean;
+  @Output() actionTriggered = new EventEmitter<{
+    card?: Card;
+    actionType: string;
+  }>();
 
   showScrollButtons = false;
 
@@ -40,11 +45,17 @@ export class LaneComponent implements AfterContentChecked {
     this.scroll.nativeElement.scrollLeft -= this.cardWidth;
   }
 
-  triggerAction(event: { card?: Card, actionType: string }) {
-    this.actionTriggered.emit({ card: event.card, actionType: event.actionType });
+  triggerAction(event: { card?: Card; actionType: string }) {
+    this.actionTriggered.emit({
+      card: event.card,
+      actionType: event.actionType,
+    });
   }
 
   ngAfterContentChecked() {
-    this.showScrollButtons = !!(this.scroll?.nativeElement && this.scroll.nativeElement.clientWidth >= window.innerWidth);
+    this.showScrollButtons = !!(
+      this.scroll?.nativeElement &&
+      this.scroll.nativeElement.clientWidth >= window.innerWidth
+    );
   }
 }

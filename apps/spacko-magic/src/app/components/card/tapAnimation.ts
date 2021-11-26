@@ -10,7 +10,7 @@ export const tapAnimation = trigger('tappedUntapped', [
       minWidth: '{{ inHeight }}'
     }), { params: { inHeight: '200px' }}),
     transition('untapped <=> tapped', [
-      animate('0.5s ease')
+      animate('0.25s cubic-bezier(0.22, 0.61, 0.36, 1)')
     ]),
   ]);
 
@@ -24,6 +24,6 @@ export const tapAttachmentAnimation = trigger('attachmentTappedUntapped', [
       minWidth: '{{ inWidth }}'
     }), { params: { inWidth: '143px', marginLeft: '31px' }}),
     transition('untapped <=> tapped', [
-      animate('0.5s ease')
+      animate('0.25s cubic-bezier(0.22, 0.61, 0.36, 1)')
     ]),
   ]);

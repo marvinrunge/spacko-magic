@@ -41,6 +41,7 @@ export class CardComponent implements OnInit {
   @Input() type: string;
   @Input() mode?: string;
   @Input() isEnemyCard = false;
+  @Input() touch: boolean;
   @Output() actionTriggered = new EventEmitter<{
     card?: Card;
     actionType: string;
@@ -49,6 +50,7 @@ export class CardComponent implements OnInit {
   showActions = false;
   attachments = 0;
   marginLeft: number;
+  actionTapped = false;
 
   setTappedValue(tapped: boolean) {
     this.tappedValue = tapped ? 'tapped' : 'untapped';
@@ -60,19 +62,59 @@ export class CardComponent implements OnInit {
     this.marginLeft = Math.trunc((this.height - this.width) / 2);
   }
 
+  onClick(event: MouseEvent): void {
+    if (this.touch) {
+      console.log('onTap', this.touch);
+      if (this.mode === 'attach') {
+        this.triggerAction('attach', event);
+      } else {
+        this.toggleActions();
+      }
+    } else {
+      console.log('onClick', this.touch);
+      if (this.mode === 'attach') {
+        this.triggerAction('attach', event);
+      } else {
+        this.triggerAction('toggle-tap', event);
+      }
+    }
+  }
+
+  onClickAction(type: string, event: Event): void {
+    if (this.showActions) {
+      console.log('onClickAction', this.touch);
+      this.triggerAction(type, event);
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+
+  onMouseEnter() {
+    if (!this.touch) {
+      console.log('onMouseEnter', this.touch);
+      this.showActions = true;
+    }
+  }
+
+  onMouseLeave() {
+    if (!this.touch) {
+      console.log('onMouseLeave', this.touch);
+      this.showActions = false;
+    }
+  }
+
   toggleActions() {
+    console.log('toggleActions');
     this.showActions = !this.showActions;
   }
 
-  triggerAction(type: string) {
+  triggerAction(type: string, event?: Event) {
+    console.log('trigger action', this.showActions, this.mode);
     if (!this.isEnemyCard || type === 'zoom') {
-      let actionType = type;
-      if (type === 'toggle-tap' && this.mode === 'attach') {
-        actionType = 'attach';
-      } else if (type === 'toggle-tap' && this.card.place === "battlefield") {
+      if (type === 'toggle-tap' && this.card.place === 'battlefield') {
         this.setTappedValue(this.tappedValue !== 'tapped');
       }
-      this.actionTriggered.emit({ card: this.card, actionType });
+      this.actionTriggered.emit({ card: this.card, actionType: type });
     }
   }
 }

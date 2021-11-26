@@ -29,9 +29,10 @@
 
 <div
   class="card-container"
-  (click)="triggerAction('toggle-tap'); $event.stopPropagation()"
-  (mouseenter)="toggleActions()"
-  (mouseleave)="toggleActions()"
+  (click)="onClick($event)"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (pinch)="triggerAction('zoom')"
   (wheel)="triggerAction('zoom')"
   [style.maxHeight.px]="height"
 >
@@ -80,14 +81,14 @@
         [style.height.px]="height * 0.15"
         title="put on top of deck"
         class="action put-on-top"
-        (click)="triggerAction('put-on-top'); $event.stopPropagation()"
+        (click)="onClickAction('put-on-top', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
         [style.height.px]="height * 0.15"
         title="put on bottom of deck"
         class="action put-on-bottom"
-        (click)="triggerAction('put-on-bottom'); $event.stopPropagation()"
+        (click)="onClickAction('put-on-bottom', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
@@ -95,7 +96,7 @@
         title="attach"
         *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
         class="action attach"
-        (click)="triggerAction('attach-to'); $event.stopPropagation()"
+        (click)="onClickAction('attach-to', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
@@ -103,14 +104,14 @@
         title="unattach"
         *ngIf="card.attachedCards.length > 0"
         class="action unattach"
-        (click)="triggerAction('unattach'); $event.stopPropagation()"
+        (click)="onClickAction('unattach', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
         [style.height.px]="height * 0.15"
         title="return to hand"
         class="action return-to-hand"
-        (click)="triggerAction('return-to-hand'); $event.stopPropagation()"
+        (click)="onClickAction('return-to-hand', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
@@ -121,7 +122,7 @@
           (card.place === 'graveyard' || card.place === 'exile') &&
           mode !== 'search'
         "
-        (click)="triggerAction('search'); $event.stopPropagation()"
+        (click)="onClickAction('search', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
@@ -129,7 +130,7 @@
         title="kill / sacrifice"
         *ngIf="card.place === 'battlefield' || card.place === 'deck'"
         class="action kill"
-        (click)="triggerAction('kill'); $event.stopPropagation()"
+        (click)="onClickAction('kill', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
@@ -137,7 +138,7 @@
         title="exile"
         *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
         class="action exile"
-        (click)="triggerAction('exile'); $event.stopPropagation()"
+        (click)="onClickAction('exile', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
@@ -145,7 +146,7 @@
         title="add a counter"
         *ngIf="card.place === 'battlefield'"
         class="action add-counter"
-        (click)="triggerAction('add-counter'); $event.stopPropagation()"
+        (click)="onClickAction('add-counter', $event)"
       ></div>
       <div
         [style.width.px]="height * 0.15"
@@ -153,7 +154,17 @@
         title="remove a counter"
         *ngIf="card.place === 'battlefield'"
         class="action remove-counter"
-        (click)="triggerAction('remove-counter'); $event.stopPropagation()"
+        (click)="onClickAction('remove-counter', $event)"
+      ></div>
+      <div
+        [style.width.px]="height * 0.15"
+        [style.height.px]="height * 0.15"
+        title="tap / untap"
+        *ngIf="card.place === 'battlefield'"
+        class="action"
+        [class.tap]="!card.tapped"
+        [class.untap]="card.tapped"
+        (click)="onClickAction('toggle-tap', $event)"
       ></div>
     </div>
   </div>

@@ -37,11 +37,43 @@ export class LibraryComponent {
   @Input() width: number;
   @Input() borderRadius: number;
   @Input() mode?: string;
+  @Input() touch = false;
   @Output() actionTriggered = new EventEmitter<{
     card?: Card;
     actionType: string;
   }>();
   showActions = false;
+
+  onClick(): void {
+    if (this.touch) {
+      this.toggleActions();
+    } else {
+      this.triggerAction('draw');
+    }
+  }
+
+  onMouseEnter() {
+    if (!this.touch) {
+      console.log('onMouseEnter', this.touch);
+      this.showActions = true;
+    }
+  }
+
+  onMouseLeave() {
+    if (!this.touch) {
+      console.log('onMouseLeave', this.touch);
+      this.showActions = false;
+    }
+  }
+
+  onClickAction(type: string, event: MouseEvent): void {
+    if (this.showActions) {
+      console.log('onClickAction', this.touch);
+      this.triggerAction(type);
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
 
   toggleActions() {
     this.showActions = !this.showActions;

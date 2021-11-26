@@ -7,7 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  HammerGestureConfig,
+  HammerModule,
+  HAMMER_GESTURE_CONFIG,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -22,8 +27,7 @@ import { EnemyStatsComponent } from './components/enemy-stats/enemy-stats.compon
 import { CreaturesPipe } from './creatures.pipe';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { DeckComponent } from './pages/settings/deck.component';
-import { SinglePlayerComponent } from './pages/single-player/single-player.component';
+import { DeckComponent } from './pages/deck/deck.component';
 import { LandsPipe } from './pipes/lands.pipe';
 import { RootStoreModule } from './root-store';
 import { HeaderComponent } from './components/header/header.component';
@@ -33,6 +37,15 @@ import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-m
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import 'hammerjs';
+
+export class CustomHammerConfig extends HammerGestureConfig {
+  overrides = {
+    tap: {
+      enable: true,
+    }
+  };
+}
 
 const routes: Routes = [
   { path: 'deck', component: DeckComponent },
@@ -60,7 +73,6 @@ const routes: Routes = [
     LaneComponent,
     LibraryComponent,
     GraveyardComponent,
-    SinglePlayerComponent,
     BattlefieldComponent,
     PlayerStatsComponent,
     EnemyStatsComponent,
@@ -89,14 +101,21 @@ const routes: Routes = [
     }),
     MatDialogModule,
     FormsModule,
+    HammerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: { duration: 4000 } }],
+  providers: [
+    { provide: MAT_SNACK_BAR_DATA, useValue: { duration: 4000 } },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: CustomHammerConfig,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
