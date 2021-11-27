@@ -116,7 +116,7 @@
 
 <div
   class="inspect"
-  *ngIf="selectedCard?.url"
+  [class.inspect-visible]="selectedCard?.url"
   (wheel)="deselectCard()"
   (click)="deselectCard()"
 >
@@ -132,8 +132,9 @@
   </div>
   <div
     class="preview"
+    [class.preview-visible]="selectedCard?.url"
     [style.background-image]="'url(' + selectedCard?.url + ')'"
-    [style.transform]="rotateActive ? 'rotate(90deg)' : 'rotate(0)'"
+    [class.preview-rotate]="rotateActive"
   ></div>
 </div>
 

@@ -71,6 +71,14 @@ spacko-magic-card {
   position: absolute;
   top: 0;
   cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  pointer-events: none;
+}
+
+.inspect-visible {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .preview {
@@ -80,7 +88,16 @@ spacko-magic-card {
   width: 488px;
   height: 680px;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transform: scale(0) rotate(0deg);
+}
+
+.preview-visible {
+  transform: scale(1) rotate(0deg);
+}
+
+.preview-rotate {
+  transform: scale(1) rotate(90deg);
 }
 
 .preview-actions {

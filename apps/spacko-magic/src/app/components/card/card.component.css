@@ -26,57 +26,6 @@
   border: 2px solid black;
 }
 
-.tap {
-  background-image: url(/assets/tap.svg);
-}
-
-.untap {
-  background-image: url(/assets/untap.svg);
-}
-
-.return-to-hand {
-  background-image: url(/assets/hand_white.svg);
-  background-size: 80%;
-}
-
-.exile {
-  background-image: url(/assets/exile_white.svg);
-}
-
-.add-counter {
-  background-color: green;
-  background-image: url(/assets/add_white.svg);
-}
-
-.remove-counter {
-  background-color: darkred;
-  background-image: url(/assets/remove_white.svg);
-}
-
-.kill {
-  background-image: url(/assets/cancel_white.svg);
-}
-
-.attach {
-  background-image: url(/assets/layers_white.svg);
-}
-
-.unattach {
-  background-image: url(/assets/layers_clear_white.svg);
-}
-
-.search {
-  background-image: url(/assets/search_white.svg);
-}
-
-.put-on-top {
-  background-image: url(/assets/on_top.svg);
-}
-
-.put-on-bottom {
-  background-image: url(/assets/on_bottom.svg);
-}
-
 .attached-card {
   position: relative;
   width: 0;

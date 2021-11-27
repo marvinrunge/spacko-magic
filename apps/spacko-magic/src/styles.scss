@@ -54,22 +54,104 @@ body {
 }
 
 .action {
-  border: 1px solid rgba(0, 0, 0);
-  background-position-x: center;
-  background-position-y: center;
-  border-radius: 20%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-position-x: 53%;
+  background-position-y: 53%;
+  border-radius: 50%;
+  background-color: rgb(203, 194, 191);
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
   margin-bottom: 4px;
   box-sizing: border-box;
+  box-shadow: 0px 0px 5px #00000088;
+  transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .action:active {
-  background-color: rgba(68, 68, 68, 0.7);
+  filter: brightness(1.4);
+  transform: scale(0.8);
 }
 
 .action:hover {
-  background-color: rgba(34, 34, 34, 0.7);
+  filter: brightness(1.2);
+}
+
+.tap {
+  background-image: url(/assets/tap.svg);
+  background-size: 60%;
+}
+
+.untap {
+  background-image: url(/assets/untap.svg);
+  background-size: 60%;
+  background-color: #231f20;
+}
+
+.return-to-hand {
+  background-image: url(/assets/hand_white.svg);
+  background-size: 70%;
+  background-position-x: 45%;
+}
+
+.exile {
+  background-image: url(/assets/exile_white.svg);
+  background-size: 80%;
+}
+
+.add-counter {
+  background-color: #218f21;
+  background-image: url(/assets/add_white.svg);
+  background-size: 80%;
+}
+
+.remove-counter {
+  background-color: #892a2a;
+  background-image: url(/assets/remove_white.svg);
+  background-size: 80%;
+}
+
+.kill {
+  background-image: url(/assets/cancel_white.svg);
+  background-size: 80%;
+}
+
+.attach {
+  background-image: url(/assets/layers_white.svg);
+  background-size: 80%;
+}
+
+.unattach {
+  background-image: url(/assets/layers_clear_white.svg);
+  background-size: 80%;
+}
+
+.search {
+  background-image: url(/assets/search_white.svg);
+  background-size: 80%;
+}
+
+.put-on-top {
+  background-image: url(/assets/on_top.svg);
+  background-size: 80%;
+}
+
+.put-on-bottom {
+  background-image: url(/assets/on_bottom.svg);
+  background-size: 80%;
+}
+
+.shuffle {
+  background-image: url(/assets/shuffle_white.svg);
+  background-size: 80%;
+}
+
+.search {
+  background-image: url(/assets/search_white.svg);
+  background-size: 80%;
+}
+
+.draw {
+  background-image: url(/assets/hand_white.svg);
+  background-size: 70%;
+  background-position-x: 45%;
 }
