@@ -1,6 +1,10 @@
 const fetch = require("node-fetch");
 
-var url = "http://admin:5trengGehe!m@192.168.0.229:5984/"
+var users = [
+  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius"
+];
+
+var url = "http://admin:5trengGehe!m@spacko-magic.de:5984/"
 
 var addPlayerDB = function() {
   var requestOptions = {
@@ -106,21 +110,17 @@ var addUserAsAdminToCardDb = function(user) {
     redirect: 'follow'
   };
 
-  fetch(url + user + "_cards/_security", requestOptions)
+  fetch(url + user.toLowerCase() + "_cards/_security", requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
 
-var users = [
-  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius"
-];
-
-addPlayerDB();
+//addPlayerDB();
 
 users.forEach(function(user) {
-  addUser(user);
-  addUserCardDb(user);
-  addUserToPlayerDb(user);
+  //addUser(user);
+  //addUserCardDb(user);
+  //addUserToPlayerDb(user);
   addUserAsAdminToCardDb(user);
 });
