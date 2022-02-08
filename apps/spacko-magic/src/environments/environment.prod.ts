@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  db: 'https://spacko-magic.de:5984'
+  db: 'http://spacko-magic.de:5984'
 };
