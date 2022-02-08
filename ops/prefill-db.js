@@ -106,7 +106,7 @@ var addUserAsAdminToCardDb = function(user) {
     redirect: 'follow'
   };
 
-  fetch(url + user + "_cards/_security", requestOptions)
+  fetch(url + user.toLowerCase() + "_cards/_security", requestOptions)
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
