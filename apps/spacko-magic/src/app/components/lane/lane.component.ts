@@ -1,13 +1,9 @@
 import {
-  AfterContentChecked,
-  AfterViewInit,
-  Component,
+  AfterContentChecked, Component,
   ElementRef,
   EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  ViewChild,
+  Input, Output,
+  ViewChild
 } from '@angular/core';
 import { Card } from '../../interfaces/card';
 
@@ -37,12 +33,14 @@ export class LaneComponent implements AfterContentChecked {
 
   showScrollButtons = false;
 
-  scrollRight() {
-    this.scroll.nativeElement.scrollLeft += this.cardWidth;
+  scrollRight(event: MouseEvent) {
+    this.scroll.nativeElement.scrollLeft += this.cardWidth * 3;
+    event.stopPropagation();
   }
 
-  scrollLeft() {
-    this.scroll.nativeElement.scrollLeft -= this.cardWidth;
+  scrollLeft(event: MouseEvent) {
+    this.scroll.nativeElement.scrollLeft -= this.cardWidth * 3;
+    event.stopPropagation();
   }
 
   triggerAction(event: { card?: Card; actionType: string }) {

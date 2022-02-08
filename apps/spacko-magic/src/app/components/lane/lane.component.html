@@ -2,7 +2,7 @@
   <div
     class="arrow left"
     [style.height.px]="cardHeight"
-    (click)="scrollLeft()"
+    (click)="scrollLeft($event)"
     *ngIf="showScrollButtons"
   ></div>
   <div
@@ -78,7 +78,7 @@
   <div
     class="arrow right"
     [style.height.px]="cardHeight"
-    (click)="scrollRight()"
+    (click)="scrollRight($event)"
     *ngIf="showScrollButtons"
   ></div>
 </div>

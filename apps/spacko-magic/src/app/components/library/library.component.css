@@ -10,3 +10,21 @@
   background-position: top;
   border-radius: 9px;
 }
+
+.counter {
+  font-family: 'Beleren2016';
+  position: relative;
+  top: calc(100% - 3rem);
+  left: calc(50% - 1rem);
+  z-index: 1;
+  color: white;
+  max-height: 2rem;
+  max-width: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 2.2rem;
+  filter: drop-shadow(0 0 2px black);
+  user-select: none;
+}

@@ -1,7 +1,7 @@
 <spacko-magic-card
   class="snap"
   [isEnemyCard]="isEnemyCard"
-  *ngIf="cards[0]; else grave"
+  *ngIf="cards[0]"
   [card]="cards[0]"
   [height]="height"
   [width]="width"
@@ -9,18 +9,6 @@
   [touch]="touch"
   (actionTriggered)="triggerAction($event)"
 ></spacko-magic-card>
-<ng-template #grave>
-  <div class="card">
-    <div
-      class="grave-placeholder"
-      *ngIf="type === 'graveyard'"
-      fxFill
-      [style.height.px]="height"
-      [style.width.px]="width"
-      [style.border-radius.px]="borderRadius"
-      [style.background-image]="
-        'url(https://img.icons8.com/ios/452/cemetery.png)'
-      "
-    ></div>
-  </div>
-</ng-template>
+<div class="counter" *ngIf="cards.length > 0">
+  {{ cards.length }}
+</div>

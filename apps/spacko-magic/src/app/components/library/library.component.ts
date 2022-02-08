@@ -54,21 +54,18 @@ export class LibraryComponent {
 
   onMouseEnter() {
     if (!this.touch) {
-      console.log('onMouseEnter', this.touch);
       this.showActions = true;
     }
   }
 
   onMouseLeave() {
     if (!this.touch) {
-      console.log('onMouseLeave', this.touch);
       this.showActions = false;
     }
   }
 
   onClickAction(type: string, event: MouseEvent): void {
     if (this.showActions) {
-      console.log('onClickAction', this.touch);
       this.triggerAction(type);
       event.stopPropagation();
       event.preventDefault();

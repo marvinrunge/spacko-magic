@@ -1,9 +1,5 @@
 const fetch = require("node-fetch");
 
-var users = [
-  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius"
-];
-
 var url = "http://admin:5trengGehe!m@spacko-magic.de:5984/"
 
 var addPlayerDB = function() {
@@ -116,11 +112,13 @@ var addUserAsAdminToCardDb = function(user) {
     .catch(error => console.log('error', error));
 }
 
-//addPlayerDB();
+addPlayerDB();
+
+setTimeout(() => {}, 1000);
 
 users.forEach(function(user) {
-  //addUser(user);
-  //addUserCardDb(user);
-  //addUserToPlayerDb(user);
+  addUser(user);
+  addUserCardDb(user);
+  addUserToPlayerDb(user);
   addUserAsAdminToCardDb(user);
 });

@@ -9,21 +9,23 @@
 }
 
 .counter {
+  font-family: 'Beleren2016';
   position: relative;
-  top: calc(50% - 1.3rem);
-  left: 8%;
+  top: calc(50% - 2rem);
+  left: 5%;
   z-index: 1;
   color: white;
-  max-height: 1.3rem;
-  max-width: 1.3rem;
-  min-height: 1.3rem;
-  min-width: 1.3rem;
+  max-height: 2rem;
+  max-width: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
   text-align: center;
-  font-size: 13px;
-  line-height: 1.4rem;
-  background-color: #222;
+  font-size: 1.1rem;
+  line-height: 2.2rem;
+  background-color: #231f20;
   border-radius: 50%;
-  border: 2px solid black;
+  filter: drop-shadow(0 0 1px black);
+  user-select: none;
 }
 
 .attached-card {

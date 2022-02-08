@@ -67,7 +67,9 @@ export class GameService {
                 }
               },
               (error) => {
-                console.log(error);
+                this.snackBar.open(error?.error?.details, undefined, {
+                  duration: 4000,
+                });
               }
             );
         }

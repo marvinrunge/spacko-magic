@@ -64,14 +64,12 @@ export class CardComponent implements OnInit {
 
   onClick(event: MouseEvent): void {
     if (this.touch) {
-      console.log('onTap', this.touch);
       if (this.mode === 'attach') {
         this.triggerAction('attach', event);
       } else {
         this.toggleActions();
       }
     } else {
-      console.log('onClick', this.touch);
       if (this.mode === 'attach') {
         this.triggerAction('attach', event);
       } else {
@@ -82,7 +80,6 @@ export class CardComponent implements OnInit {
 
   onClickAction(type: string, event: Event): void {
     if (this.showActions) {
-      console.log('onClickAction', this.touch);
       this.triggerAction(type, event);
       event.stopPropagation();
       event.preventDefault();
@@ -91,25 +88,21 @@ export class CardComponent implements OnInit {
 
   onMouseEnter() {
     if (!this.touch) {
-      console.log('onMouseEnter', this.touch);
       this.showActions = true;
     }
   }
 
   onMouseLeave() {
     if (!this.touch) {
-      console.log('onMouseLeave', this.touch);
       this.showActions = false;
     }
   }
 
   toggleActions() {
-    console.log('toggleActions');
     this.showActions = !this.showActions;
   }
 
   triggerAction(type: string, event?: Event) {
-    console.log('trigger action', this.showActions, this.mode);
     if (!this.isEnemyCard || type === 'zoom') {
       if (type === 'toggle-tap' && this.card.place === 'battlefield') {
         this.setTappedValue(this.tappedValue !== 'tapped');

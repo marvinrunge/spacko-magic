@@ -13,8 +13,12 @@
     [style.height.px]="height"
     [style.width.px]="width"
     [style.border-radius.px]="borderRadius"
-    [style.background-image]="'url(assets/spackomagiccard.svg)'"
-  ></div>
+    [style.background-image]="'url(assets/spackomagiccard.jpg)'"
+  >
+    <div class="counter" *ngIf="cards.length > 0">
+      {{ cards.length }}
+    </div>
+  </div>
   <div
     *ngIf="!isEnemyCard"
     [@showHide]="showActions ? 'show' : 'hide'"
