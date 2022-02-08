@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-var url = "http://admin:5trengGehe!m@192.168.0.229:5984/"
+var url = "http://admin:5trengGehe!m@spacko-magic.de:5984/"
 
 var addPlayerDB = function() {
   var requestOptions = {
