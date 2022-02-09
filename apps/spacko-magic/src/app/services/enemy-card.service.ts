@@ -71,7 +71,7 @@ export class EnemyCardService {
     });
   }
 
-  createRemoteDb(username: string): Promise<any> {
+  createRemoteDb(username: string): PouchDB.Database {
     return new PouchDB(environment.db + username + '_cards', {skip_setup: true});
   }
 
