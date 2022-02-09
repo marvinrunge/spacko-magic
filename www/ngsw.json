@@ -1,0 +1,145 @@
+{
+  "configVersion": 1,
+  "timestamp": 1644339355432,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.e67709f47126020c6df0.js",
+        "/manifest.webmanifest",
+        "/polyfills.aa6afe24573e22dc4967.js",
+        "/runtime.81b9508cbb628bb8abe9.js",
+        "/styles.31160fe269add7acc1fe.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/add_white.svg",
+        "/assets/arrow_back.svg",
+        "/assets/arrow_forward.svg",
+        "/assets/cancel_white.svg",
+        "/assets/cards_white.svg",
+        "/assets/clear_white.svg",
+        "/assets/energy_counter.svg",
+        "/assets/exile_white.svg",
+        "/assets/fonts/BELEREN.TTF",
+        "/assets/fonts/MAGIC.TTF",
+        "/assets/fonts/SATANS.TTF",
+        "/assets/fullscreen_black.svg",
+        "/assets/fullscreen_white.svg",
+        "/assets/hand_white.svg",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/layers_black.svg",
+        "/assets/layers_clear_black.svg",
+        "/assets/layers_clear_white.svg",
+        "/assets/life.svg",
+        "/assets/logo.svg",
+        "/assets/on_bottom.svg",
+        "/assets/on_top.svg",
+        "/assets/other_counter.svg",
+        "/assets/poison_counter.svg",
+        "/assets/remove_white.svg",
+        "/assets/search_white.svg",
+        "/assets/shuffle_white.svg",
+        "/assets/spackomagiccard.jpg",
+        "/assets/spackomagiccard.svg",
+        "/assets/spm-apple-icon.png",
+        "/assets/tap.svg",
+        "/assets/testdeck.txt",
+        "/assets/untap.svg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/add_white.svg": "b669b5934c3ed2528492faca48204b25c677aeeb",
+    "/assets/arrow_back.svg": "151c710e223ab9b1478ba02f33ae08c5683b9998",
+    "/assets/arrow_forward.svg": "da72ea59ccd116f0fcf76e833dc7ace4b2cd6212",
+    "/assets/cancel_white.svg": "52bdaba83c599043662441f4435fc77bd6ae8733",
+    "/assets/cards_white.svg": "f537bba0e09e1eb4efa134eccb8d49a3b7c736fe",
+    "/assets/clear_white.svg": "71a069d3f3efb87b842c512c9e9616eec0aa66bd",
+    "/assets/energy_counter.svg": "0e3792983f7aff86a6931c54058a9256793cc230",
+    "/assets/exile_white.svg": "51188cc68547f00d3b7129f1752994d84f8d0de0",
+    "/assets/fonts/BELEREN.TTF": "d0d2bafa0e4cf83c1c386c7c044f8595d5fcd73f",
+    "/assets/fonts/MAGIC.TTF": "fc9367a498995dd1319dffda1505c2e1815e5e87",
+    "/assets/fonts/SATANS.TTF": "a63ddab4fb03a27058fbaac951a26dcac4c254c6",
+    "/assets/fullscreen_black.svg": "b5ae7ef11951e46a23aa24eff9234d026ce9b386",
+    "/assets/fullscreen_white.svg": "8993230e91640f307bc5fd5e4ddc509679c96d33",
+    "/assets/hand_white.svg": "c0c4b62acf44c415f47afa2e9f053e42a07bc1b1",
+    "/assets/icons/icon-128x128.png": "47058a05770ed2fdb5b61c06fa01958f8ec4f899",
+    "/assets/icons/icon-144x144.png": "6bd60c8eb94d4533cc879a9ea551b03e6e80d434",
+    "/assets/icons/icon-152x152.png": "0ae7fe3c46eccba189a777aef276387ddd256628",
+    "/assets/icons/icon-192x192.png": "01d2abe47cf944f64687c9e03931820f6c7c5a4d",
+    "/assets/icons/icon-384x384.png": "22850d587adf33abfea48c1c5eeb6732846aa245",
+    "/assets/icons/icon-512x512.png": "46e39931a9ca81cc4f21ab94ebb0beccb261712b",
+    "/assets/icons/icon-72x72.png": "560444362572ce49025b6462be913041379ed54f",
+    "/assets/icons/icon-96x96.png": "3597555dd376433a1c93ba3a5c37392b6d926567",
+    "/assets/layers_black.svg": "804705dae4004e17ea88a2e296ed8ac1286e469d",
+    "/assets/layers_clear_black.svg": "23b7c1fc0435375008c35ccf5a02a82db282f9dd",
+    "/assets/layers_clear_white.svg": "c7c700c41849531dff63bd20970c3e36c93f7630",
+    "/assets/life.svg": "2cf8f78e135773d6e4d098f1aa33f6a4423aeb42",
+    "/assets/logo.svg": "39b10015591a48b391434489a8d0da0339fd8f60",
+    "/assets/on_bottom.svg": "2e4555c7b9a8e017b5ed67351d571b39ea3ef670",
+    "/assets/on_top.svg": "8013466986db6b88d965e2bbab72a8ce452b3256",
+    "/assets/other_counter.svg": "f4112444aa09f019d0e537ee9197b43aa25954b1",
+    "/assets/poison_counter.svg": "94c5314e023716c42d00430912159f6c13523ec9",
+    "/assets/remove_white.svg": "e668480f3b1e9ebb715435cc2bdef10313a54aa1",
+    "/assets/search_white.svg": "625cd86a486f8fc0eee21c05a5dd5c5944085851",
+    "/assets/shuffle_white.svg": "b6141bcbb84126567e7245c44506d510278ba4ca",
+    "/assets/spackomagiccard.jpg": "62b61d4d6e8650f91fb0b0dee49a67cdeb7767dc",
+    "/assets/spackomagiccard.svg": "5b78bcecba9efccee6e9d63f50e423485fd3db99",
+    "/assets/spm-apple-icon.png": "938acc6b1ee0f40d47d802f226bd92d9b5a36233",
+    "/assets/tap.svg": "629c0ce949fb9b665f0bc91924e99d10be3cfa15",
+    "/assets/testdeck.txt": "f565ea9337ee54d7fef0a342e86aff0fe7c35bcf",
+    "/assets/untap.svg": "73666159254757a6793f50fee201b99c7bed331d",
+    "/favicon.ico": "ee7f75abe58c7728c30c1e0b24397eec540966c1",
+    "/index.html": "e237f1bf83ec1db4021f32dca692b1748bed4f88",
+    "/main.e67709f47126020c6df0.js": "6000822d37a694b0c5284973a5ac00310a7ee24b",
+    "/manifest.webmanifest": "116c226fbc1704a22dceecc2ef10871834471c12",
+    "/polyfills.aa6afe24573e22dc4967.js": "b740442a0c6d6e0c188ef49631cdd5b8955bea2f",
+    "/runtime.81b9508cbb628bb8abe9.js": "051bb75f5c9481655207d94f4e56dc4430bf87a1",
+    "/styles.31160fe269add7acc1fe.css": "487135d91bca7f4b7f4f40ad4b5c5377e7f418a7"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
