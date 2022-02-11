@@ -1,5 +1,9 @@
 const fetch = require("node-fetch");
 
+var users = [
+  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius"
+];
+
 var url = "http://admin:5trengGehe!m@spacko-magic.de:5984/"
 
 var addPlayerDB = function() {
@@ -79,18 +83,43 @@ var addUserToPlayerDb = function(user) {
     .catch(error => console.log('error', error));
 }
 
-var addUserAsAdminToCardDb = function(user) {
+var addUserPermissionsToPlayerDb = function(user) {
   var raw = JSON.stringify({
     "members": {
-      "roles": [
-        "_admin"
-      ],
+      "roles": [],
       "names": users
     },
     "admins": {
-      "roles": [
-        "_admin"
-      ],
+      "roles": [],
+      "names": [
+        user
+      ]
+    }
+  });
+
+  var requestOptions = {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: raw,
+    redirect: 'follow'
+  };
+
+  fetch(url + "players/_security", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
+
+var addUserPermissionsToCardDb = function(user) {
+  var raw = JSON.stringify({
+    "members": {
+      "roles": [],
+      "names": users
+    },
+    "admins": {
+      "roles": [],
       "names": [
         user
       ]
@@ -120,5 +149,6 @@ users.forEach(function(user) {
   addUser(user);
   addUserCardDb(user);
   addUserToPlayerDb(user);
-  addUserAsAdminToCardDb(user);
+  addUserPermissionsToCardDb(user);
+  addUserPermissionsToPlayerDb(user);
 });

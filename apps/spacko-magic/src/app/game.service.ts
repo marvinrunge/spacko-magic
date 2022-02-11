@@ -4,12 +4,13 @@ import { Store } from '@ngrx/store';
 import { delay, finalize } from 'rxjs/operators';
 import { RootStoreState } from './root-store';
 import { addCardRequest } from './root-store/card-store/actions';
-import { loadEnemyCardsRequest } from './root-store/enemy-card-store/actions';
+import { loadEnemyCardsRequest, resetEnemyCardSuccess } from './root-store/enemy-card-store/actions';
 import { setSelectedEnemyPlayerId } from './root-store/player-store/actions';
 import { CardService } from './services/card.service';
 import { EnemyCardService } from './services/enemy-card.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
+import { Player } from './interfaces/player';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,7 @@ export class GameService {
                       card: {
                         _id: String(card.name) + i,
                         _deleted: false,
+                        _rev: "",
                         counter: 0,
                         marked: false,
                         position: Math.random(),
@@ -60,7 +62,7 @@ export class GameService {
                         url: String(card.image_uris.normal),
                         count: 1,
                         cmc: card.cmc,
-                        scryfall_uri: card.scryfall_uri
+                        scryfall_uri: card.scryfall_uri,
                       },
                     })
                   );
@@ -77,32 +79,32 @@ export class GameService {
     });
   }
 
-  addEnemy(username: string) {
-    this.enemyCardService
+  addEnemy(username: string, players?: Player[]) {
+    console.log("add enemy");
+    if (!players || players.some(player => player.name.toLowerCase() === username.toLowerCase())) {
+      this.enemyCardService
       .initDb(username)
       .then((success) => {
+        console.log(success);
         if (success) {
           localStorage.setItem('current-enemy', username);
           this.store$.dispatch(
             setSelectedEnemyPlayerId({ selectedPlayerId: username })
           );
+          this.store$.dispatch(resetEnemyCardSuccess());
           this.store$.dispatch(loadEnemyCardsRequest());
           this.snackBar.open(
             'Successfully added Enemy "' + username + '"',
             undefined,
             { duration: 4000 }
           );
-        } else {
-          this.snackBar.open('Enemy "' + username + '" not found', undefined, {
-            duration: 4000,
-          });
         }
+      });
+    } else {
+      this.snackBar.open('Enemy "' + username + '" does not exist', undefined, {
+        duration: 4000,
       })
-      .catch(() =>
-        this.snackBar.open('Enemy "' + username + '" not found', undefined, {
-          duration: 4000,
-        })
-      );
+    }
   }
 
   getType(type: string): string {

@@ -71,12 +71,18 @@ export class AuthService {
         if (err) {
           if (err.name === 'conflict') {
             this.snackBar.open(
-              loginData.name + ' already exists, choose another username'
+              loginData.name + ' already exists, choose another username', undefined, {
+                duration: 4000,
+              }
             );
           } else if (err.name === 'forbidden') {
-            this.snackBar.open('Invalid user credentials');
+            this.snackBar.open('Invalid user credentials', undefined, {
+              duration: 4000,
+            });
           } else {
-            this.snackBar.open('Ooops something went wrong...');
+            this.snackBar.open('Ooops something went wrong...', undefined, {
+              duration: 4000,
+            });
           }
         } else {
           this.login(loginData);
@@ -97,9 +103,13 @@ export class AuthService {
       .logIn(loginData.name, loginData.password, (err: any) => {
         if (err) {
           if (err.name === 'unauthorized' || err.name === 'forbidden') {
-            this.snackBar.open('Invalid user credentials');
+            this.snackBar.open('Invalid user credentials', undefined, {
+              duration: 4000,
+            });
           } else {
-            this.snackBar.open('Ooops something went wrong...');
+            this.snackBar.open('Ooops something went wrong...', undefined, {
+              duration: 4000,
+            });
           }
         } else {
           this.checkSession(true);
@@ -111,6 +121,7 @@ export class AuthService {
     this.playerService.getDb().logOut((err: any) => {
       if (err) {
         this.snackBar.open('You are offline');
+        window.location.href = '/';
       } else {
         this.cardService.reset();
         localStorage.removeItem('current-user');
@@ -120,6 +131,7 @@ export class AuthService {
     this.cardService.getDb().logOut((err: any) => {
       if (err) {
         this.snackBar.open('You are offline');
+        window.location.href = '/';
       } else {
         this.cardService.reset();
         localStorage.removeItem('current-user');

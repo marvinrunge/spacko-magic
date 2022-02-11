@@ -28,7 +28,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 function isTouchScreendevice() {
   return 'ontouchstart' in window || navigator.maxTouchPoints;
-};
+}
 
 @Component({
   templateUrl: './battlefield.component.html',
@@ -62,6 +62,7 @@ export class BattlefieldComponent implements OnInit {
   minPositionExile?: number = 0;
   maxPositionExile?: number = 0;
 
+  players: Player[];
   selectedPlayer: Player;
   selectedCard?: Card;
   activeAttachCard: Card;
@@ -93,7 +94,9 @@ export class BattlefieldComponent implements OnInit {
     } else {
       this.touch = false;
     }
-    console.log(this.touch);
+    this.store$
+      .pipe(select(PlayerSelectors.selectAllPlayers))
+      .subscribe((players) => (this.players = players));
     this.store$
       .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('deck')))
       .subscribe((cards) => (this.deck = cards));
@@ -228,7 +231,7 @@ export class BattlefieldComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.game.addEnemy(result);
+      this.game.addEnemy(result, this.players);
     });
   }
 
@@ -400,7 +403,10 @@ export class BattlefieldComponent implements OnInit {
         ...card,
         place: 'exile',
         tapped: false,
-        position: (this.minPositionExile && Number.isFinite(this.minPositionExile)) ? this.minPositionExile - 1 : card.position,
+        position:
+          this.minPositionExile && Number.isFinite(this.minPositionExile)
+            ? this.minPositionExile - 1
+            : card.position,
       }),
     });
   }
@@ -417,7 +423,11 @@ export class BattlefieldComponent implements OnInit {
         ...card,
         place: 'graveyard',
         tapped: false,
-        position: (this.minPositionGraveyard && Number.isFinite(this.minPositionGraveyard)) ? this.minPositionGraveyard - 1 : card.position,
+        position:
+          this.minPositionGraveyard &&
+          Number.isFinite(this.minPositionGraveyard)
+            ? this.minPositionGraveyard - 1
+            : card.position,
       }),
     });
   }
@@ -496,7 +506,7 @@ export class BattlefieldComponent implements OnInit {
 
   private unattach(card: Card): Card {
     card.attachedCards.forEach((c) => {
-      this.updateCard({ ...c, position: card.position, _rev: undefined });
+      this.updateCard({ ...c, position: card.position, _rev: '' });
     });
     const updatedCard: Card = {
       ...card,

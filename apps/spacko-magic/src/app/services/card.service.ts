@@ -11,8 +11,8 @@ PouchDB.plugin(PouchDBAuthentication);
   providedIn: 'root',
 })
 export class CardService {
-  private localCardDb: any;
-  private remoteCardDb: any;
+  private localCardDb: PouchDB.Database;
+  private remoteCardDb: PouchDB.Database;
 
   initDb(username: string) {
     const dbPrefix = username.toLocaleLowerCase();
@@ -74,7 +74,7 @@ export class CardService {
   }
 
   reset() {
-    this.remoteCardDb = undefined;
-    this.localCardDb = undefined;
+    this.remoteCardDb.close();
+    this.localCardDb.close();
   }
 }
