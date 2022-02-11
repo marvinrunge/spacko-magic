@@ -70,7 +70,7 @@ export class GameService {
               },
               (error) => {
                 this.snackBar.open(error?.error?.details, undefined, {
-                  duration: 4000,
+                  duration: 2500,
                 });
               }
             );
@@ -79,32 +79,25 @@ export class GameService {
     });
   }
 
-  addEnemy(username: string, players?: Player[]) {
-    console.log("add enemy");
-    if (!players || players.some(player => player.name.toLowerCase() === username.toLowerCase())) {
-      this.enemyCardService
+  addEnemies(usernames: string[]) {
+    if (usernames.length > 0) {
+      localStorage.setItem('current-enemies', usernames.toString());
+      this.changeEnemy(usernames[0]);
+    }
+  }
+
+  changeEnemy(username: string) {
+    this.enemyCardService
       .initDb(username)
       .then((success) => {
-        console.log(success);
         if (success) {
-          localStorage.setItem('current-enemy', username);
           this.store$.dispatch(
             setSelectedEnemyPlayerId({ selectedPlayerId: username })
           );
           this.store$.dispatch(resetEnemyCardSuccess());
           this.store$.dispatch(loadEnemyCardsRequest());
-          this.snackBar.open(
-            'Successfully added Enemy "' + username + '"',
-            undefined,
-            { duration: 4000 }
-          );
         }
       });
-    } else {
-      this.snackBar.open('Enemy "' + username + '" does not exist', undefined, {
-        duration: 4000,
-      })
-    }
   }
 
   getType(type: string): string {

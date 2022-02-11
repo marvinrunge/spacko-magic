@@ -1,13 +1,15 @@
-<header fxLayout="row" [style.background]="isActive ? '#000000bb' : 'none'" fxLayoutGap="8px" fxLayoutAlign="space-between center">
-  <mat-icon (click)="toggleMenu()">menu</mat-icon>
-  <div fxFill *ngIf="isActive" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="8px">
+<div class="menu-button" (click)="toggleMenu()">
+  <mat-icon>menu</mat-icon>
+</div>
+<header fxLayout="column" [style.background]="isActive ? '#000000' : 'none'" fxLayoutGap="8px" fxLayoutAlign="start start">
+  <div fxFill *ngIf="isActive" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="8px">
     <div class="nav-item" routerLink="/battlefield" routerLinkActive="active">
       Battlefield
     </div>
     <div class="nav-item" routerLink="/deck" routerLinkActive="active">
       Deck
     </div>
-    <div class="nav-item" (click)="onLogout()" routerLinkActive="active">
+    <div class="nav-item logout" (click)="onLogout()" routerLinkActive="active">
       Logout
     </div>
   </div>

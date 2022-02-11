@@ -7,11 +7,17 @@ import { Player } from '../../interfaces/player';
   styleUrls: ['./enemy-stats.component.css'],
 })
 export class EnemyStatsComponent {
-  @Input() player: Player;
+  @Input() players: string[];
+  @Input() selectedPlayer: Player;
   @Input() cards = 0;
   @Output() addEnemy = new EventEmitter();
+  @Output() changeEnemy = new EventEmitter<string>();
 
-  onClick() {
+  onClickAdd() {
     this.addEnemy.emit();
+  }
+
+  onClickUsername(name: string) {
+    this.changeEnemy.emit(name);
   }
 }

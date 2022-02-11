@@ -63,6 +63,7 @@ export class BattlefieldComponent implements OnInit {
   maxPositionExile?: number = 0;
 
   players: Player[];
+  enemies: string[];
   selectedPlayer: Player;
   selectedCard?: Card;
   activeAttachCard: Card;
@@ -215,23 +216,34 @@ export class BattlefieldComponent implements OnInit {
 
   ngOnInit() {
     this.setCardHeight();
-    this.loadEnemy();
+    this.loadEnemies();
   }
 
-  loadEnemy() {
-    const enemyUsername = localStorage.getItem('current-enemy');
-    if (enemyUsername) {
-      this.game.addEnemy(enemyUsername);
+  loadEnemies() {
+    const usernames = localStorage.getItem('current-enemies');
+    if (usernames) {
+      this.enemies = usernames.split(',');
+      this.game.addEnemies(this.enemies);
     }
+  }
+
+  changeEnemy(username: string) {
+    this.game.changeEnemy(username);
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddEnemyModalComponent, {
-      width: '250px',
+      width: '300px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.game.addEnemy(result, this.players);
+    dialogRef.componentInstance.players = this.players;
+    dialogRef.componentInstance.selectedPlayerNames = [...this.enemies];
+
+    dialogRef.afterClosed().subscribe((playerNames: string[]) => {
+      if (playerNames.length > 0) {
+        this.game.addEnemies(playerNames);
+        this.enemies = playerNames;
+      }
     });
   }
 
@@ -293,7 +305,7 @@ export class BattlefieldComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    this.cardHeight = Math.trunc((this.innerHeight - 126) / 4);
+    this.cardHeight = Math.trunc((this.innerHeight - 158) / 4);
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
     this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }
@@ -326,7 +338,6 @@ export class BattlefieldComponent implements OnInit {
   }
 
   triggerAction(event: { card?: Card; actionType: string }) {
-    console.log(event);
     const card = event.card;
     const actionType = event.actionType;
     if (card) {
@@ -416,8 +427,6 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private kill(card: Card) {
-    console.log(this.graveyard);
-    console.log('min', this.minPositionGraveyard);
     this.updateCard({
       ...this.unattach({
         ...card,

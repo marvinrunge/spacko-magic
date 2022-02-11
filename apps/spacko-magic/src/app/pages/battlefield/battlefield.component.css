@@ -173,15 +173,6 @@ spacko-magic-player-stats {
   pointer-events: auto;
 }
 
-spacko-magic-enemy-stats {
-  width: 200px;
-  top: 0;
-  right: 0;
-  position: absolute;
-  height: 110px;
-  z-index: 1;
-}
-
 .search-container {
   position: absolute;
   top: 0;

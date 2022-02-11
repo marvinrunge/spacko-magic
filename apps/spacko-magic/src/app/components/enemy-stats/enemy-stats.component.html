@@ -1,77 +1,93 @@
-<div fxLayout="column" class="player-stats-container" fxFill>
-  <div
-    class="player-stats-content"
-    fxFlex
-    fxLayout="row"
-    fxLayoutAlign="space-around"
-  >
-    <div
-      class="life-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
-    >
-      <div fxFlex fxLayoutAlign="center center">
-        <img src="/assets/life.svg" width="30px" height="30px" />
+<div fxLayout="column" class="player-stats-container">
+  <div class="player-stats-header">
+      <div class="entry add-player" (click)="onClickAdd()">
+        <mat-icon>add</mat-icon>
       </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player ? player?.life : 0 }}</div>
-    </div>
-
-    <div
-      class="cards"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
-    >
-      <div fxFlex fxLayoutAlign="center center">
-        <img src="/assets/cards_white.svg" width="30px" height="30px" />
+      <div class="player-names" fxLayout="row" fxLayoutAlign="center center">
+        <div
+          *ngFor="let player of players"
+          class="player-name entry"
+          [class.selected]="player === selectedPlayer?.name"
+          (click)="onClickUsername(player)"
+        >
+          <span>{{ player }}</span>
+        </div>
       </div>
-      <div fxFlex fxLayoutAlign="center center">{{ cards }}</div>
-    </div>
-    <div
-      class="poison-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
-      *ngIf="player && player?.poison !== 0"
-    >
-      <div fxFlex fxLayoutAlign="center center">
-        <img src="/assets/poison_counter.svg" width="30px" height="30px" />
-      </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player.poison }}</div>
-    </div>
-    <div
-      class="energy-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
-      *ngIf="player && player?.energy !== 0"
-    >
-      <div fxFlex fxLayoutAlign="center center">
-        <img src="/assets/energy_counter.svg" width="30px" height="30px" />
-      </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player ? player?.energy : 0}}</div>
-    </div>
-    <div
-      class="other-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
-      *ngIf="player && player?.other !== 0"
-    >
-      <div fxFlex fxLayoutAlign="center center">
-        <img src="/assets/other_counter.svg" width="30px" height="30px" />
-      </div>
-      <div fxFlex fxLayoutAlign="center center">{{ player ? player?.other : 0 }}</div>
-    </div>
   </div>
-  <div
-    class="player-stats-header"
-    fxLayoutAlign="center center"
-    fxFlex="30"
-    fxLayout="column"
-    (click)="onClick()"
-  >
-    <span>{{ player ? player.name : 'add enemy' }}</span>
+  <div fxLayout="column" *ngIf="selectedPlayer" fxFill>
+    <div
+      class="player-stats-content"
+      fxFlex
+      fxLayout="row"
+      fxLayoutAlign="space-around"
+    >
+      <div
+        class="life-counter"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="4px"
+      >
+        <div fxFlex fxLayoutAlign="center center">
+          <img src="/assets/life.svg" width="30px" height="30px" />
+        </div>
+        <div fxFlex fxLayoutAlign="center center">
+          {{ selectedPlayer ? selectedPlayer?.life : 0 }}
+        </div>
+      </div>
+
+      <div
+        class="cards"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="4px"
+      >
+        <div fxFlex fxLayoutAlign="center center">
+          <img src="/assets/cards_white.svg" width="30px" height="30px" />
+        </div>
+        <div fxFlex fxLayoutAlign="center center">{{ cards }}</div>
+      </div>
+      <div
+        class="poison-counter"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="4px"
+        *ngIf="selectedPlayer?.poison !== 0"
+      >
+        <div fxFlex fxLayoutAlign="center center">
+          <img src="/assets/poison_counter.svg" width="30px" height="30px" />
+        </div>
+        <div fxFlex fxLayoutAlign="center center">
+          {{ selectedPlayer ? selectedPlayer.poison : 0 }}
+        </div>
+      </div>
+      <div
+        class="energy-counter"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="4px"
+        *ngIf="selectedPlayer?.energy !== 0"
+      >
+        <div fxFlex fxLayoutAlign="center center">
+          <img src="/assets/energy_counter.svg" width="30px" height="30px" />
+        </div>
+        <div fxFlex fxLayoutAlign="center center">
+          {{ selectedPlayer ? selectedPlayer?.energy : 0 }}
+        </div>
+      </div>
+      <div
+        class="other-counter"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="4px"
+        *ngIf="selectedPlayer?.other !== 0"
+      >
+        <div fxFlex fxLayoutAlign="center center">
+          <img src="/assets/other_counter.svg" width="30px" height="30px" />
+        </div>
+        <div fxFlex fxLayoutAlign="center center">
+          {{ selectedPlayer ? selectedPlayer?.other : 0 }}
+        </div>
+      </div>
+    </div>
   </div>
 </div>

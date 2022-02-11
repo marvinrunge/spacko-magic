@@ -1,11 +1,37 @@
-<h1 mat-dialog-title>Add Enemy</h1>
+<h1 mat-dialog-title>Select Enemies</h1>
 <div mat-dialog-content>
-  <mat-form-field appearance="fill">
+  <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Enemy Username</mat-label>
-    <input matInput cdkFocusInitial (keydown.enter)="onEnter()" [(ngModel)]="enemyName">
+    <input
+      type="text"
+      placeholder="Username"
+      aria-label="Number"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+      (keydown.enter)="add()"
+    />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let player of filteredPlayers | async"
+        [value]="player.name"
+        (click)="add()"
+      >
+        {{ player.name }}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
+  <mat-list role="list">
+    <mat-list-item *ngFor="let name of selectedPlayerNames">
+      <span>{{ name }}</span>
+      <div></div>
+      <button mat-icon-button class="delete" (click)="remove(name)">
+        <mat-icon>delete</mat-icon>
+      </button></mat-list-item
+    >
+  </mat-list>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="enemyName">Ok</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="selectedPlayerNames">Save</button>
 </div>
