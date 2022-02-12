@@ -45,6 +45,7 @@ export class BattlefieldComponent implements OnInit {
   creatures: Card[] = [];
   lands: Card[] = [];
   other: Card[] = [];
+  enemies: string[] = [];
 
   enemyDeck: Card[] = [];
   enemyHand: Card[] = [];
@@ -63,7 +64,6 @@ export class BattlefieldComponent implements OnInit {
   maxPositionExile?: number = 0;
 
   players: Player[];
-  enemies: string[];
   selectedPlayer: Player;
   selectedCard?: Card;
   activeAttachCard: Card;

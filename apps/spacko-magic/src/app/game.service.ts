@@ -10,7 +10,6 @@ import { CardService } from './services/card.service';
 import { EnemyCardService } from './services/enemy-card.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
-import { Player } from './interfaces/player';
 
 @Injectable({
   providedIn: 'root',
