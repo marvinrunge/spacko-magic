@@ -19,8 +19,13 @@ export class EnemyCardService {
     this.localCardDb = new PouchDB(dbPrefix + '_cards', {
       auto_compaction: true,
     });
-    this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', {skip_setup: true});
-    this.localCardDb.sync(this.remoteCardDb, {live: true, retry: true});
+    this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', {
+      skip_setup: true,
+    });
+    this.localCardDb.replicate.from(this.remoteCardDb, {
+      live: true,
+      retry: true,
+    });
     return Promise.resolve(true);
   }
 
