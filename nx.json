@@ -25,6 +25,9 @@
     "spacko-magic-e2e": {
       "tags": [],
       "implicitDependencies": ["spacko-magic"]
+    },
+    "play-magic-together": {
+      "tags": []
     }
   }
 }
