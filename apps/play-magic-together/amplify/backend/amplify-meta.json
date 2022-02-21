@@ -1,0 +1,101 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-playmagictogether-staging-105742-authRole",
+      "UnauthRoleArn": "arn:aws:iam::522310056694:role/amplify-playmagictogether-staging-105742-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::522310056694:role/amplify-playmagictogether-staging-105742-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-playmagictogether-staging-105742-deployment",
+      "UnauthRoleName": "amplify-playmagictogether-staging-105742-unauthRole",
+      "StackName": "amplify-playmagictogether-staging-105742",
+      "StackId": "arn:aws:cloudformation:eu-central-1:522310056694:stack/amplify-playmagictogether-staging-105742/c3668d60-9172-11ec-8d84-0a1b5b7ba1ca",
+      "AmplifyAppId": "dkzdb46yd5jp9"
+    }
+  },
+  "auth": {
+    "PlayMagicTogether": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL",
+          "NICKNAME",
+          "PICTURE"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ]
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "eu-central-1_bKAi3kZcv",
+        "AppClientIDWeb": "82kk8onu6m177u3mhu6o624p2",
+        "AppClientID": "4ob2krlvfvpu4untr9gf20q915",
+        "IdentityPoolId": "eu-central-1:9575e96d-71cd-4002-9374-3df81b68895f",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-central-1:522310056694:userpool/eu-central-1_bKAi3kZcv",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "PlayMagicTogether"
+      },
+      "lastPushTimeStamp": "2022-02-19T12:14:24.390Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-playmagictogether-staging-105742-deployment/amplify-cfn-templates/auth/PlayMagicTogether-cloudformation-template.json",
+        "logicalId": "authPlayMagicTogether"
+      }
+    }
+  },
+  "api": {
+    "PlayMagicTogether": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authPlayMagicTogether"
+              }
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "hw4umx6g4nbrhdmxk5cgxkai7y",
+        "GraphQLAPIEndpointOutput": "https://qw6zcgtzxbdvvb7gkocxoxbrl4.appsync-api.eu-central-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-efhhpvgt75evnjnz6ezrcx2pzm"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-playmagictogether-staging-105742-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiPlayMagicTogether"
+      },
+      "lastPushTimeStamp": "2022-02-19T12:14:26.796Z",
+      "lastPushDirHash": "2qYlY4yHAT/DXvy0NRBCRNjY6P0="
+    }
+  }
+}

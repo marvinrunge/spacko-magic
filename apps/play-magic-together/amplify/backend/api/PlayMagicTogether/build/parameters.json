@@ -1,0 +1,19 @@
+{
+    "AppSyncApiName": "PlayMagicTogether",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authPlayMagicTogether",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-playmagictogether-staging-105742-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/3b4ac1d2471bf7d8abc92fe4082f2fafc9685598"
+}
