@@ -22,7 +22,7 @@ export class CardService {
     this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', {
       skip_setup: true,
     });
-    this.localCardDb.replicate.to(this.remoteCardDb, {
+    this.localCardDb.sync(this.remoteCardDb, {
       live: true,
       retry: true,
     });

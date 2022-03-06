@@ -10,7 +10,7 @@ import { CardSelectors, RootStoreState } from '../../root-store';
   templateUrl: './deck.component.html',
   styleUrls: ['./deck.component.css']
 })
-export class DeckComponent implements OnInit{
+export class DeckComponent implements OnInit {
   username = '';
   deckList = '';
   enemyUsername = '';
