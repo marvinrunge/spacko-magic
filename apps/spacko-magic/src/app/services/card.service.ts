@@ -17,8 +17,7 @@ export class CardService {
   initDb(username: string) {
     const dbPrefix = username.toLocaleLowerCase();
     this.localCardDb = new PouchDB(dbPrefix + '_cards', {
-      auto_compaction: true,
-      adapter: 'websql'
+      auto_compaction: true
     });
     this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', {
       skip_setup: true,

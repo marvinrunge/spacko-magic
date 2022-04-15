@@ -17,8 +17,7 @@ export class EnemyCardService {
   initDb(username: string): Promise<boolean> {
     const dbPrefix = username.toLowerCase();
     this.localCardDb = new PouchDB(dbPrefix + '_cards', {
-      auto_compaction: true,
-      adapter: 'websql'
+      auto_compaction: true
     });
     this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', {
       skip_setup: true,
