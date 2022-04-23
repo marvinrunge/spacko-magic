@@ -13,8 +13,18 @@ PouchDB.plugin(PouchDBAuthentication);
 export class EnemyCardService {
   private localCardDb: PouchDB.Database;
   private remoteCardDb: PouchDB.Database;
+  private sync: PouchDB.Replication.Sync<any>;
 
   initDb(username: string): Promise<boolean> {
+    if (this.sync) {
+      this.sync.cancel();
+    }
+    if (this.localCardDb) {
+      this.localCardDb.close();
+    }
+    if (this.remoteCardDb) {
+      this.remoteCardDb.close();
+    }
     const dbPrefix = username.toLowerCase();
     this.localCardDb = new PouchDB(dbPrefix + '_cards', {
       auto_compaction: true
@@ -22,21 +32,12 @@ export class EnemyCardService {
     this.remoteCardDb = new PouchDB(environment.db + dbPrefix + '_cards', {
       skip_setup: true,
     });
-    this.localCardDb.replicate.from(this.remoteCardDb, {
+
+    this.sync = this.localCardDb.sync(this.remoteCardDb, {
       live: true,
       retry: true,
     });
     return Promise.resolve(true);
-  }
-
-  resetDB(username: string): Promise<any> {
-    return this.localCardDb.allDocs().then((result: any) => {
-      return Promise.all(
-        result.rows.map((row: any) => {
-          return this.localCardDb.remove(row.id, row.value.rev);
-        })
-      );
-    });
   }
 
   addUpdateMultipleDocs(cards: Card[]) {
