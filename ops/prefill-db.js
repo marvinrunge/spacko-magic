@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 
 var users = [
-  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius"
+  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius", "Bastian", "Felix"
 ];
 
 var url = "http://admin:5trengGehe!m@spacko-magic.de:5984/"
