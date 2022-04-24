@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(spacko-magic.de www.spacko-magic.de)
+domains=("spacko-magic.de" "www.spacko-magic.de")
 rsa_key_size=4096
 data_path="./data/certbot"
 email="marvinrunge@web.de" # Adding a valid address is strongly recommended
