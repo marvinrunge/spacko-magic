@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx:
-    image: nginx:1.15-alpine
+    image: spacko-magic-nginx
     restart: unless-stopped
     volumes:
       - ./data/nginx:/etc/nginx/conf.d
