@@ -9,6 +9,7 @@ header {
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
   z-index: 9999;
+  width: 220px;
 }
 
 .menu-button {
@@ -44,23 +45,29 @@ mat-icon:active {
   text-align: center;
   cursor: pointer;
   text-shadow: 0 0 3px black;
-  transition: filter 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  transition: filter 0.2s ease, transform 0.2s ease, color 0.2s ease, background-color ease 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: start;
 }
 
 .nav-item:hover {
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
   color: #fff;
+  background-color: #673ab7;
 }
 
 .nav-item:active {
-  transform: scale(0.9);
+  background-color: black;
 }
 
 .active {
   color: #fff;
+  background-color: #3e256a;
 }
 
 .logout {
   bottom: 0;
-  position: fixed;
+  position: absolute;
+  max-width: 300px;
 }

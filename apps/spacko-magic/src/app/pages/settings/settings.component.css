@@ -1,0 +1,29 @@
+h2 {
+  font-family: 'Beleren2016';
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0 0 3px black;
+  padding: 0 0 0 0;
+  margin: 1rem 0 2rem 0;
+}
+
+h3 {
+  font-family: 'Beleren2016';
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  text-shadow: 0 0 3px black;
+  padding: 0 0 0 0;
+  margin: 1rem 0 1rem 0;
+}
+
+.settings {
+  max-width: 400px;
+  margin: auto;
+  padding: 18px;
+}
+
+mat-form-field {
+  width: 100%;
+}

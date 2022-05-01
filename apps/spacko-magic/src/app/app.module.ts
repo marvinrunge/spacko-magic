@@ -32,6 +32,7 @@ import { PlayerStatsComponent } from './components/player-stats/player-stats.com
 import { CreaturesPipe } from './creatures.pipe';
 import { BattlefieldComponent } from './pages/battlefield/battlefield.component';
 import { DeckComponent } from './pages/deck/deck.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
@@ -48,6 +49,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
 
 const routes: Routes = [
   { path: 'deck', component: DeckComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: 'battlefield', component: BattlefieldComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -79,6 +81,7 @@ const routes: Routes = [
     LoginComponent,
     HeaderComponent,
     AddEnemyModalComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

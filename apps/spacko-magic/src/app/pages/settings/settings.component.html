@@ -1,0 +1,20 @@
+<spacko-magic-header></spacko-magic-header>
+<div class="settings">
+  <h1>Select Enemies</h1>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Deckstats ID</mat-label>
+    <input
+      [(ngModel)]="id"
+      type="text"
+      placeholder="4260"
+      aria-label="Number"
+      matInput
+    />
+  </mat-form-field>
+  <mat-list role="list">
+    <mat-list-item *ngFor="let deck of decklist">
+      <span>{{ deck.name }}</span>
+    </mat-list-item>
+  </mat-list>
+  <button (click)="loadDecks(id)" mat-button>Save</button>
+</div>

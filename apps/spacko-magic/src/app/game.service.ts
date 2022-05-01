@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { delay, finalize } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { CardService } from './services/card.service';
 import { EnemyCardService } from './services/enemy-card.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
+import { DeckstatsResponse } from './interfaces/deckstats/types';
 
 @Injectable({
   providedIn: 'root',
@@ -97,6 +98,12 @@ export class GameService {
           this.store$.dispatch(loadEnemyCardsRequest());
         }
       });
+  }
+
+  getDeckstatsDeckFromId(id: string) {
+
+    return this.http.get<DeckstatsResponse>(`https://deckstats.net/api.php?action=user_folder_get&result_type=folder%3Bdecks%3Bparent_tree%3Bsubfolders&owner_id=4260&folder_id=-1&decks_page=1`,
+    { headers: new HttpHeaders('Access-Control-Allow-Origin: *') ,withCredentials: true }).toPromise();
   }
 
   getType(type: string): string {
