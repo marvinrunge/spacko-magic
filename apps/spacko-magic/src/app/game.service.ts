@@ -4,13 +4,17 @@ import { Store } from '@ngrx/store';
 import { delay, finalize } from 'rxjs/operators';
 import { RootStoreState } from './root-store';
 import { addCardRequest } from './root-store/card-store/actions';
-import { loadEnemyCardsRequest, resetEnemyCardSuccess } from './root-store/enemy-card-store/actions';
+import {
+  loadEnemyCardsRequest,
+  resetEnemyCardSuccess,
+} from './root-store/enemy-card-store/actions';
 import { setSelectedEnemyPlayerId } from './root-store/player-store/actions';
 import { CardService } from './services/card.service';
 import { EnemyCardService } from './services/enemy-card.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { DeckstatsResponse } from './interfaces/deckstats/types';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +46,12 @@ export class GameService {
           const name = entry.slice(2);
           this.http
             .get('https://api.scryfall.com/cards/named?exact=' + name)
-            .pipe(delay(50), finalize(() => this.loadingRequests.next(this.loadingRequests.getValue() - 1)))
+            .pipe(
+              delay(50),
+              finalize(() =>
+                this.loadingRequests.next(this.loadingRequests.getValue() - 1)
+              )
+            )
             .subscribe(
               (card: any) => {
                 for (let i = 1; i <= count; i++) {
@@ -51,7 +60,7 @@ export class GameService {
                       card: {
                         _id: String(card.name) + i,
                         _deleted: false,
-                        _rev: "",
+                        _rev: '',
                         counter: 0,
                         marked: false,
                         position: Math.random(),
@@ -87,23 +96,23 @@ export class GameService {
   }
 
   changeEnemy(username: string) {
-    this.enemyCardService
-      .initDb(username)
-      .then((success) => {
-        if (success) {
-          this.store$.dispatch(
-            setSelectedEnemyPlayerId({ selectedPlayerId: username })
-          );
-          this.store$.dispatch(resetEnemyCardSuccess());
-          this.store$.dispatch(loadEnemyCardsRequest());
-        }
-      });
+    this.enemyCardService.initDb(username).then((success) => {
+      if (success) {
+        this.store$.dispatch(
+          setSelectedEnemyPlayerId({ selectedPlayerId: username })
+        );
+        this.store$.dispatch(resetEnemyCardSuccess());
+        this.store$.dispatch(loadEnemyCardsRequest());
+      }
+    });
   }
 
   getDeckstatsDeckFromId(id: string) {
-
-    return this.http.get<DeckstatsResponse>(`https://deckstats.net/api.php?action=user_folder_get&result_type=folder%3Bdecks%3Bparent_tree%3Bsubfolders&owner_id=4260&folder_id=-1&decks_page=1`,
-    { headers: new HttpHeaders('Access-Control-Allow-Origin: *') ,withCredentials: true }).toPromise();
+    return this.http
+      .get<DeckstatsResponse>(
+        `${environment.deckstats}api.php?action=user_folder_get&result_type=folder%3Bdecks%3Bparent_tree%3Bsubfolders&owner_id=4260&folder_id=-1`
+      )
+      .toPromise();
   }
 
   getType(type: string): string {
