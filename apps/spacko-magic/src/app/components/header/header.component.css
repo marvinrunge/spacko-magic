@@ -71,3 +71,9 @@ mat-icon:active {
   position: absolute;
   max-width: 300px;
 }
+
+.backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}
