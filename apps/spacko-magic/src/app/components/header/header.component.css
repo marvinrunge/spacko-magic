@@ -64,3 +64,9 @@ mat-icon:active {
   bottom: 0;
   position: fixed;
 }
+
+.backdrop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}

@@ -1,6 +1,7 @@
 <div class="menu-button" (click)="toggleMenu()">
   <mat-icon>menu</mat-icon>
 </div>
+<div *ngIf="isActive" class="backdrop" (click)="toggleMenu()"></div>
 <header fxLayout="column" [style.background]="isActive ? '#000000' : 'none'" fxLayoutGap="8px" fxLayoutAlign="start start">
   <div fxFill *ngIf="isActive" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="8px">
     <div class="nav-item" routerLink="/battlefield" routerLinkActive="active">
