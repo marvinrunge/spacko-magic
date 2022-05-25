@@ -7,16 +7,16 @@ const port = 8000;
 var url = "https://deckstats.net/"
 var response;
 
-var getDeckList = function() {
+var getDeckList = function(deckstatsApiUrl) {
   var requestOptions = {
     method: 'GET',
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     redirect: 'follow'
   };
 
-  return fetch(url + "api.php?action=get_deck&id_type=saved&owner_id=24472&id=1126678&response_type=list", requestOptions)
+  return fetch(url + deckstatsApiUrl, requestOptions)
     .then(response => response.text())
     .then(result => response = result)
     .catch(error => response = error);
@@ -24,8 +24,9 @@ var getDeckList = function() {
 
 const requestListener = async function (req, res) {
   res.setHeader("Content-Type", "application/json");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
   res.writeHead(200);
-  await getDeckList();
+  await getDeckList(req.url);
   res.end(response);
 };
 

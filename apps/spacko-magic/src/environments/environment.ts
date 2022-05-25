@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   db: 'http://localhost:5984/',
-  deckstats: 'https://spacko-magic.de/deckstats/'
+  deckstats: 'http://localhost:8000/'
 };
 
 /*

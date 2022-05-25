@@ -1,6 +1,6 @@
 <spacko-magic-header></spacko-magic-header>
 <div class="settings">
-  <h1>Select Enemies</h1>
+  <h3 class="heading">Settings</h3>
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Deckstats ID</mat-label>
     <input
@@ -11,10 +11,16 @@
       matInput
     />
   </mat-form-field>
-  <mat-list role="list">
-    <mat-list-item *ngFor="let deck of decklist">
-      <span>{{ deck.name }}</span>
-    </mat-list-item>
-  </mat-list>
-  <button (click)="loadDecks(id)" mat-button>Save</button>
+  <div *ngFor="let deck of decklist" class="deck-list-item">
+    <img class="deck-image" [src]="deck.image_url" />
+    <div class="deck-name">{{ deck.name }}</div>
+    <div class="deck-link-wrapper">
+      <a class="deck-link" [href]="deck.url_neutral" target="_blank">
+        <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
+      </a>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" (click)="addDeckstatsUserId(id)" mat-button>
+    Save
+  </button>
 </div>

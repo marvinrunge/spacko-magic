@@ -7,4 +7,5 @@ export interface Player extends Base {
   energy: number;
   other: number;
   activeDeck: string;
+  deckstatsUserId: string;
 }
