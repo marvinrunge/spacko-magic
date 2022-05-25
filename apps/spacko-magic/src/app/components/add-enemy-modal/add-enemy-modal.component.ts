@@ -41,11 +41,12 @@ export class AddEnemyModalComponent implements OnInit {
 
   remove(username: string) {
     this.selectedPlayerNames = [...this.selectedPlayerNames].filter(u => u !== username);
+    this.myControl.reset('');
   }
 
   private _filter(username: string): Player[] {
     const filterValue = username?.toLowerCase();
 
-    return this.players.filter(player => player.name.toLowerCase().includes(filterValue));
+    return this.players.filter(player => player.name.toLowerCase().includes(filterValue) && !this.selectedPlayerNames.includes(player.name));
   }
 }
