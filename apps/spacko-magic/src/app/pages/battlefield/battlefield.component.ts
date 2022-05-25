@@ -37,7 +37,6 @@ function isTouchScreendevice() {
 export class BattlefieldComponent implements OnInit {
   @ViewChild('handScroll') handScroll: ElementRef;
 
-  title = 'spacko-magic';
   deck: Card[] = [];
   hand: Card[] = [];
   graveyard: Card[] = [];
