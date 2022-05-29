@@ -22,7 +22,6 @@ export class SettingsComponent {
         .subscribe((player) => {
           this.selectedPlayer = player;
           this.id = this.selectedPlayer?.deckstatsUserId;
-          console.log(player);
         });
   }
 
