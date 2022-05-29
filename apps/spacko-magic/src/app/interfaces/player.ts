@@ -1,4 +1,5 @@
 import { Base } from './base';
+import { DeckstatsDeck } from './deckstats/types';
 
 export interface Player extends Base {
   name: string;
@@ -7,5 +8,6 @@ export interface Player extends Base {
   energy: number;
   other: number;
   activeDeck: string;
+  decks: DeckstatsDeck[];
   deckstatsUserId: string;
 }

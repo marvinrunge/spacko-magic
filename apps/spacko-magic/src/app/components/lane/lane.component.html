@@ -2,7 +2,8 @@
   <div
     class="arrow left"
     [style.height.px]="cardHeight"
-    (click)="scrollLeft($event)"
+    (mouseover)="scrollTo('left')"
+    (mouseleave)="stopTimer(timer)"
     *ngIf="showScrollButtons"
   ></div>
   <div
@@ -78,7 +79,8 @@
   <div
     class="arrow right"
     [style.height.px]="cardHeight"
-    (click)="scrollRight($event)"
+    (mouseover)="scrollTo('right')"
+    (mouseleave)="stopTimer(timer)"
     *ngIf="showScrollButtons"
   ></div>
 </div>

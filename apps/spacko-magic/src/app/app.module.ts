@@ -12,8 +12,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
+import {
+  MAT_SNACK_BAR_DATA,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
+import {
+  BrowserModule,
+  HAMMER_GESTURE_CONFIG,
+  HammerGestureConfig,
+  HammerModule,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -31,13 +39,15 @@ import { LibraryComponent } from './components/library/library.component';
 import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
 import { CreaturesPipe } from './creatures.pipe';
 import { BattlefieldComponent } from './pages/battlefield/battlefield.component';
-import { DeckComponent } from './pages/deck/deck.component';
+import { ActiveDeckComponent } from './pages/deck/deck.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
 import { LandsPipe } from './pipes/lands.pipe';
 import { RootStoreModule } from './root-store';
+import { DeckComponent } from './components/deck/deck.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   overrides = {
@@ -48,7 +58,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
 }
 
 const routes: Routes = [
-  { path: 'deck', component: DeckComponent },
+  { path: 'deck', component: ActiveDeckComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'battlefield', component: BattlefieldComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -69,6 +79,7 @@ const routes: Routes = [
     LandsPipe,
     CreaturesPipe,
     DeckPreviewPipe,
+    ActiveDeckComponent,
     DeckComponent,
     CardComponent,
     LaneComponent,
@@ -81,7 +92,7 @@ const routes: Routes = [
     LoginComponent,
     HeaderComponent,
     AddEnemyModalComponent,
-    SettingsComponent
+    SettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -97,6 +108,7 @@ const routes: Routes = [
     MatButtonModule,
     MatListModule,
     MatIconModule,
+    MatExpansionModule,
     HttpClientModule,
     RootStoreModule,
     StoreDevtoolsModule.instrument({

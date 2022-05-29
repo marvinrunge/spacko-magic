@@ -1,20 +1,6 @@
-spacko-magic-card {
-  scroll-snap-align: center;
-}
-
-spacko-magic-graveyard {
-  scroll-snap-align: center;
-}
-
-spacko-magic-deck {
-  scroll-snap-align: center;
-}
-
 .scroll-container {
   overflow-y: hidden;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
 }
 
 .card-container {

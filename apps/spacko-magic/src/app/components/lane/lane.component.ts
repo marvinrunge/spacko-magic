@@ -1,5 +1,6 @@
 import {
-  AfterContentChecked, Component,
+  AfterContentChecked,
+  Component,
   ElementRef,
   EventEmitter,
   Input, Output,
@@ -32,15 +33,17 @@ export class LaneComponent implements AfterContentChecked {
   }>();
 
   showScrollButtons = false;
+  timer: any;
 
-  scrollRight(event: MouseEvent) {
-    this.scroll.nativeElement.scrollLeft += this.cardWidth * 3;
-    event.stopPropagation();
-  }
-
-  scrollLeft(event: MouseEvent) {
-    this.scroll.nativeElement.scrollLeft -= this.cardWidth * 3;
-    event.stopPropagation();
+  scrollTo(direction: 'left' | 'right') {
+    if (direction === 'left') {
+      this.scroll.nativeElement.scrollLeft -= 3;
+    } else if (direction === 'right') {
+      this.scroll.nativeElement.scrollLeft += 3;
+    }
+    this.timer = setTimeout(() => {
+      this.scrollTo(direction);
+    }, 10);
   }
 
   triggerAction(event: { card?: Card; actionType: string }) {
@@ -55,5 +58,9 @@ export class LaneComponent implements AfterContentChecked {
       this.scroll?.nativeElement &&
       this.scroll.nativeElement.clientWidth >= window.innerWidth
     );
+  }
+
+  stopTimer(timer:number) {
+    clearTimeout(timer);
   }
 }

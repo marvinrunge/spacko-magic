@@ -1,30 +1,43 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { GameService } from '../../game.service';
-import { DeckstatsDeck } from '../../interfaces/deckstats/types';
 import { Player } from '../../interfaces/player';
 import { PlayerSelectors, RootStoreState } from '../../root-store';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
-import { PlayerService } from '../../services/player.service';
 
 @Component({
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
-  decklist: DeckstatsDeck[];
   id: string;
+  selectedPlayer: Player;
+  panelOpenState = false;
 
-  constructor(private gameService: GameService,
-    private playerService: PlayerService) {
+  constructor(
+    private store$: Store<RootStoreState.State>,
+    private gameService: GameService) {
+      this.store$
+        .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
+        .subscribe((player) => {
+          this.selectedPlayer = player;
+          this.id = this.selectedPlayer?.deckstatsUserId;
+          console.log(player);
+        });
   }
 
-  async loadDecks(id: string) {
-    this.decklist = (await this.gameService.getDeckstatsDeckFromId(id)).folder.decks;
-    console.log(this.decklist);
+  loadDeck(url:string) {
+    this.gameService.loadDeckstatsDeck(url);
   }
 
-  addDeckstatsUserId(id: string) {
-    return;
+  async addDeckstatsUserId(id: string) {
+    const playerToUpdate = { ...this.selectedPlayer };
+    playerToUpdate.deckstatsUserId = id;
+    playerToUpdate.decks = (await this.gameService.getDeckstatsDecksFromId(this.id));
+    this.updatePlayer(playerToUpdate);
+  }
+
+  updatePlayer(player: Player) {
+    this.store$.dispatch(updatePlayerRequest({ player }));
   }
 }

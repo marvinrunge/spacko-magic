@@ -1,0 +1,20 @@
+<div class="scene">
+  <div class="box show-front" (click)="loadDeck()">
+    <div
+      class="box__face box__face--front"
+      [style.background-image]="'url(' + deck.image_url + ')'"
+    >
+      <div>
+        <div>
+          <h3>{{ deck.name }}</h3>
+        </div>
+        <a class="deck-link" [href]="deck.url_neutral" target="_blank" (click)="$event.stopPropagation();">
+          <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
+        </a>
+        <div class="card-count">
+          {{ deck.number_main }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

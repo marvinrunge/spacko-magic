@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { CardService } from './card.service';
 import { loadCardsRequest } from '../root-store/card-store/actions';
 import { PlayerService } from './player.service';
-import { loadPlayersRequest, setSelectedPlayerId, updatePlayerRequest } from '../root-store/player-store/actions';
+import { loadPlayersRequest, setSelectedPlayerId } from '../root-store/player-store/actions';
 
 export interface LoginData {
   name: string;
@@ -31,6 +31,8 @@ export class RegistrationData {
   providedIn: 'root',
 })
 export class AuthService {
+  username: string;
+
   constructor(
     public router: Router,
     private cardService: CardService,
@@ -40,10 +42,10 @@ export class AuthService {
   ) {}
 
   checkSession(fromLogin?: boolean) {
-    const username = localStorage.getItem('current-user');
-    if (username) {
-      this.playerService.initDb(username);
-      this.cardService.initDb(username);
+    this.username = localStorage.getItem('current-user') ?? "";
+    if (this.username) {
+      this.playerService.initDb(this.username);
+      this.cardService.initDb(this.username);
       this.cardService.getDb().getSession((err: any, response: any) => {
         if (err?.message) {
           console.log("ERROR:", err.message);
@@ -53,7 +55,7 @@ export class AuthService {
         } else {
           this.store$.dispatch(loadCardsRequest());
           this.store$.dispatch(loadPlayersRequest());
-          this.store$.dispatch(setSelectedPlayerId({ selectedPlayerId: username }));
+          this.store$.dispatch(setSelectedPlayerId({ selectedPlayerId: this.username?.toString() }));
           if (fromLogin) {
             this.router.navigate(['deck']);
           }

@@ -13,8 +13,11 @@ import { CardService } from './services/card.service';
 import { EnemyCardService } from './services/enemy-card.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
-import { DeckstatsResponse } from './interfaces/deckstats/types';
+import { DeckstatsResponse, DeckstatsDeck } from './interfaces/deckstats/types';
 import { environment } from '../environments/environment';
+import { rmSync } from 'fs';
+import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +25,12 @@ import { environment } from '../environments/environment';
 export class GameService {
   public constructor(
     private http: HttpClient,
+    public router: Router,
     private store$: Store<RootStoreState.State>,
     private cardService: CardService,
     private enemyCardService: EnemyCardService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
   ) {}
 
   loadingRequests: BehaviorSubject<number> = new BehaviorSubject<number>(-1);
@@ -68,7 +73,7 @@ export class GameService {
                         type: this.getType(card.type_line),
                         place: 'deck',
                         attachedCards: [],
-                        url: String(card.image_uris.normal),
+                        url: String(card.image_uris?.normal),
                         count: 1,
                         cmc: card.cmc,
                         scryfall_uri: card.scryfall_uri,
@@ -86,6 +91,13 @@ export class GameService {
         }
       });
     });
+  }
+
+  async loadDeckstatsDeck(url: string) {
+    url = url.replace("//deckstats.net/", environment.deckstats);
+    const respone = await this.http.get<string>(`${url}?include_comments=1&do_not_include_printings=0&export_txt=1`, { responseType: 'text' as 'json'}).toPromise();
+    this.router.navigate(['deck']);
+    this.initDeck(respone, this.authService.username);
   }
 
   addEnemies(usernames: string[]) {
@@ -107,12 +119,22 @@ export class GameService {
     });
   }
 
-  getDeckstatsDeckFromId(id: string) {
-    return this.http
-      .get<DeckstatsResponse>(
-        `${environment.deckstats}api.php?action=user_folder_get&result_type=folder%3Bdecks%3Bparent_tree%3Bsubfolders&owner_id=4260&folder_id=-1`
-      )
-      .toPromise();
+  async getDeckstatsDecksFromId(id: string) {
+    const decks: DeckstatsDeck[] = [];
+    let response;
+    let firstRequest = true;
+    let page = 1;
+    while (firstRequest || (response && (response.folder.decks_current_page < (response.folder.decks_total / response.folder.decks_per_page)))) {
+      firstRequest = false;
+      response = await this.http
+        .get<DeckstatsResponse>(
+          `${environment.deckstats}api.php?action=user_folder_get&result_type=folder%3Bdecks%3Bparent_tree%3Bsubfolders&owner_id=${id}&decks_page=${page}&folder_id=-1`
+        )
+        .toPromise();
+      response.folder.decks.forEach(deck => decks.push(deck));
+      page++;
+    }
+    return decks;
   }
 
   getType(type: string): string {
