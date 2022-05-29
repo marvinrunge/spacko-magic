@@ -48,7 +48,6 @@ export class AuthService {
       this.cardService.initDb(this.username);
       this.cardService.getDb().getSession((err: any, response: any) => {
         if (err?.message) {
-          console.log("ERROR:", err.message);
           this.snackBar.open(err.message);
         } else if (!response.userCtx.name) {
           // nobody's logged in
