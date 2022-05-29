@@ -4,11 +4,17 @@ import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { GameService } from '../../game.service';
 import { Card } from '../../interfaces/card';
-import { CardSelectors, RootStoreState } from '../../root-store';
+import { Player } from '../../interfaces/player';
+import {
+  CardSelectors,
+  PlayerSelectors,
+  RootStoreState,
+} from '../../root-store';
+import { updatePlayerRequest } from '../../root-store/player-store/actions';
 
 @Component({
   templateUrl: './deck.component.html',
-  styleUrls: ['./deck.component.css']
+  styleUrls: ['./deck.component.css'],
 })
 export class ActiveDeckComponent implements OnInit {
   username = '';
@@ -25,6 +31,7 @@ export class ActiveDeckComponent implements OnInit {
   cardHeight: number;
   innerHeight: number;
   cardBorderRadius: number;
+  selectedPlayer: Player;
 
   rotateActive = false;
 
@@ -39,21 +46,27 @@ export class ActiveDeckComponent implements OnInit {
 
   constructor(
     private game: GameService,
-    private router: Router,
-    private store$: Store<RootStoreState.State>,
+    private store$: Store<RootStoreState.State>
   ) {
     this.store$
       .pipe(select(CardSelectors.selectAllCards))
       .subscribe((cards) => (this.deck = cards));
-    this.loadingRequests = game.loadingRequests;
+    this.store$
+      .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
+      .subscribe((player) => {
+        this.selectedPlayer = player;
+        if (player?.activeDeck && player.activeDeck !== this.deckList) {
+          this.game.initDeck(player.activeDeck, this.username);
+          this.deckList = player.activeDeck;
+        }
+      });
   }
 
   initDeck() {
     if (this.edit) {
-      localStorage.setItem('decklist', this.deckList);
-      this.game.initDeck(this.deckList, this.username);
-    } else {
-      this.deckList = localStorage.getItem('decklist') ?? '';
+      const playerToUpdate = { ...this.selectedPlayer };
+      playerToUpdate.activeDeck = this.deckList;
+      this.store$.dispatch(updatePlayerRequest({ player: playerToUpdate }));
     }
     this.edit = !this.edit;
   }

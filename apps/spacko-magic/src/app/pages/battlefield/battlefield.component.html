@@ -62,7 +62,7 @@
 <div
   class="player-lane"
   fxLayout="row"
-  [style.height.px]="cardHeight*1.5"
+  [style.height.px]="cardHeight * 1.5"
   [style.z-index]="4"
 >
   <spacko-magic-player-stats
@@ -75,7 +75,7 @@
     class="hand-container"
     fxLayout="row"
     fxLayoutAlign="center center"
-    [style.height.px]="cardHeight*1.5"
+    [style.height.px]="cardHeight * 1.5"
   >
     <div
       class="arrow left"
@@ -86,8 +86,8 @@
       #handScroll
       class="scroll-container"
       fxLayout="row"
-      [style.height.px]="cardHeight*1.5"
-      [style.paddingTop.px]="cardHeight*1.5-110"
+      [style.height.px]="cardHeight * 1.5"
+      [style.paddingTop.px]="cardHeight * 1.5 - 110"
     >
       <div fxFlex="50px"></div>
       <div
@@ -127,17 +127,42 @@
       sync
     </mat-icon>
     <a [href]="selectedCard?.scryfall_uri" target="_blank">
-      <mat-icon class="rotate" title="info">
-        open_in_new
-      </mat-icon>
+      <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
     </a>
   </div>
   <div
+    *ngIf="!selectedCard?.cardFaces; else flipCard"
     class="preview"
     [class.preview-visible]="selectedCard?.url"
-    [style.background-image]="selectedCard ? 'url(' + selectedCard.url + ')' : undefined"
+    [style.background-image]="
+      selectedCard ? 'url(' + selectedCard.url + ')' : undefined
+    "
     [class.preview-rotate]="rotateActive"
   ></div>
+  <ng-template #flipCard>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div
+          class="flip-card-front"
+          [class.preview-visible]="selectedCard?.url"
+          [style.background-image]="
+            selectedCard ? 'url(' + getCardImage(selectedCard) + ')' : undefined
+          "
+          [class.preview-rotate]="rotateActive"
+        ></div>
+        <div
+          class="flip-card-back"
+          [class.preview-visible]="selectedCard?.url"
+          [style.background-image]="
+            selectedCard
+              ? 'url(' + getCardImage(selectedCard, true) + ')'
+              : undefined
+          "
+          [class.preview-rotate]="rotateActive"
+        ></div>
+      </div>
+    </div>
+  </ng-template>
 </div>
 
 <div

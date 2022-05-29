@@ -393,6 +393,10 @@ export class BattlefieldComponent implements OnInit {
           this.search(card);
           break;
         }
+        case 'flip': {
+          this.flip(card);
+          break;
+        }
       }
     }
     switch (actionType) {
@@ -486,6 +490,14 @@ export class BattlefieldComponent implements OnInit {
     if (card.counter > 0) {
       const counter = card.counter - 1;
       this.updateCard({ ...card, counter });
+    }
+  }
+
+  private flip(card: Card) {
+    if (card.url === card.cardFaces?.frontUrl) {
+      this.updateCard({ ...card, url: card.cardFaces?.backUrl });
+    } else if (card.url === card.cardFaces?.backUrl) {
+      this.updateCard({ ...card, url: card.cardFaces?.frontUrl });
     }
   }
 

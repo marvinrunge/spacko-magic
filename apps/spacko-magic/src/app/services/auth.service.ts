@@ -49,6 +49,9 @@ export class AuthService {
       this.cardService.getDb().getSession((err: any, response: any) => {
         if (err?.message) {
           this.snackBar.open(err.message);
+          if (err?.name === 'unauthorized') {
+            this.router.navigate(['login']);
+          }
         } else if (!response.userCtx.name) {
           // nobody's logged in
         } else {
