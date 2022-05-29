@@ -131,7 +131,6 @@
     </a>
   </div>
   <div
-    *ngIf="!selectedCard?.cardFaces; else flipCard"
     class="preview"
     [class.preview-visible]="selectedCard?.url"
     [style.background-image]="
@@ -139,30 +138,6 @@
     "
     [class.preview-rotate]="rotateActive"
   ></div>
-  <ng-template #flipCard>
-    <div class="flip-card">
-      <div class="flip-card-inner">
-        <div
-          class="flip-card-front"
-          [class.preview-visible]="selectedCard?.url"
-          [style.background-image]="
-            selectedCard ? 'url(' + getCardImage(selectedCard) + ')' : undefined
-          "
-          [class.preview-rotate]="rotateActive"
-        ></div>
-        <div
-          class="flip-card-back"
-          [class.preview-visible]="selectedCard?.url"
-          [style.background-image]="
-            selectedCard
-              ? 'url(' + getCardImage(selectedCard, true) + ')'
-              : undefined
-          "
-          [class.preview-rotate]="rotateActive"
-        ></div>
-      </div>
-    </div>
-  </ng-template>
 </div>
 
 <div
