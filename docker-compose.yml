@@ -24,7 +24,7 @@ services:
     image: node:latest
     restart: unless-stopped
     volumes:
-      - ./ops/deckstats:/
+      - ./ops/deckstats:/deckstats
     ports:
       - "8000:8000"
-    command: "node ./deckstats.js"
+    command: "node ./deckstats/deckstats.js"
