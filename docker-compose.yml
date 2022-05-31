@@ -27,4 +27,4 @@ services:
       - ./ops/deckstats:/deckstats
     ports:
       - "8000:8000"
-    command: "npm i node-fetch && node ./deckstats/deckstats.js"
+    command: "npm i node-fetch ; node ./deckstats/deckstats.js"
