@@ -20,12 +20,4 @@ export class Card implements Base {
   count: number;
   cmc: number;
   scryfall_uri: string;
-
-  static getCardImage(card: Card, back?: boolean): string {
-    if (back) {
-      return card.cardFaces ? card.cardFaces?.backUrl : card.url;
-    } else {
-      return card.cardFaces ? card.cardFaces?.frontUrl : card.url;
-    }
-  }
 }

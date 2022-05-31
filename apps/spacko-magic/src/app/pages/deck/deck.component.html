@@ -71,7 +71,7 @@
   <div
     class="preview"
     [class.preview-visible]="selectedCard?.url"
-    [style.background-image]="selectedCard ? 'url(' + selectedCard.url + ')' : undefined"
+    [style.background-image]="'url(' + selectedCard?.url + ')'"
     [class.preview-rotate]="rotateActive"
   ></div>
 </div>
