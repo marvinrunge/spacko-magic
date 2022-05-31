@@ -22,6 +22,7 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
   deckstats-proxy:
     image: node:latest
+    working_dir: /deckstats
     restart: unless-stopped
     volumes:
       - ./ops/deckstats:/deckstats
