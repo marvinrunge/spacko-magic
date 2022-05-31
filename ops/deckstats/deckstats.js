@@ -1,5 +1,5 @@
-const fetch = require("node-fetch");
-const http = require("http");
+import fetch from 'node-fetch';
+import http from 'http';
 
 const host = '0.0.0.0';
 const port = 8000;
