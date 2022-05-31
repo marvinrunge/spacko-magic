@@ -8,6 +8,7 @@
 
 # dependencies
 /node_modules
+/ops/deckstats/node_modules
 
 # IDEs and editors
 /.idea
