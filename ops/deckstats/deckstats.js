@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const http = require("http");
 
-const host = 'localhost';
+const host = '0.0.0.0';
 const port = 8000;
 
 var url = "https://deckstats.net/"
