@@ -28,4 +28,4 @@ services:
       - ./ops/deckstats:/deckstats
     ports:
       - "8000:8000"
-    command: "npm i node-fetch && node ./deckstats.js"
+    command: bash -c "npm i node-fetch && node ./deckstats.js"
