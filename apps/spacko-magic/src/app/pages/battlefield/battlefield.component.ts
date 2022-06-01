@@ -37,7 +37,6 @@ function isTouchScreendevice() {
 export class BattlefieldComponent implements OnInit {
   @ViewChild('handScroll') handScroll: ElementRef;
 
-  title = 'spacko-magic';
   deck: Card[] = [];
   hand: Card[] = [];
   graveyard: Card[] = [];
@@ -305,7 +304,7 @@ export class BattlefieldComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    this.cardHeight = Math.trunc((this.innerHeight - 158) / 4);
+    this.cardHeight = Math.trunc((this.innerHeight - 174) / 4);
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
     this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }
@@ -392,6 +391,10 @@ export class BattlefieldComponent implements OnInit {
         }
         case 'search': {
           this.search(card);
+          break;
+        }
+        case 'flip': {
+          this.flip(card);
           break;
         }
       }
@@ -487,6 +490,14 @@ export class BattlefieldComponent implements OnInit {
     if (card.counter > 0) {
       const counter = card.counter - 1;
       this.updateCard({ ...card, counter });
+    }
+  }
+
+  private flip(card: Card) {
+    if (card.url === card.cardFaces?.frontUrl) {
+      this.updateCard({ ...card, url: card.cardFaces?.backUrl });
+    } else if (card.url === card.cardFaces?.backUrl) {
+      this.updateCard({ ...card, url: card.cardFaces?.frontUrl });
     }
   }
 

@@ -1,4 +1,4 @@
-<spacko-magic-header></spacko-magic-header>
+<spacko-magic-header [isActive]="false"></spacko-magic-header>
 <div class="battlefield-container" fxLayout="row" fxLayoutAlign="center start">
   <div fxLayout="column" fxLayoutGap="4px" fxFlex="grow">
     <spacko-magic-enemy-stats
@@ -62,7 +62,7 @@
 <div
   class="player-lane"
   fxLayout="row"
-  [style.height.px]="cardHeight*1.5"
+  [style.height.px]="cardHeight * 1.5"
   [style.z-index]="4"
 >
   <spacko-magic-player-stats
@@ -75,7 +75,7 @@
     class="hand-container"
     fxLayout="row"
     fxLayoutAlign="center center"
-    [style.height.px]="cardHeight*1.5"
+    [style.height.px]="cardHeight * 1.5"
   >
     <div
       class="arrow left"
@@ -86,8 +86,8 @@
       #handScroll
       class="scroll-container"
       fxLayout="row"
-      [style.height.px]="cardHeight*1.5"
-      [style.paddingTop.px]="cardHeight*1.5-110"
+      [style.height.px]="cardHeight * 1.5"
+      [style.paddingTop.px]="cardHeight * 1.5 - 110"
     >
       <div fxFlex="50px"></div>
       <div
@@ -127,15 +127,15 @@
       sync
     </mat-icon>
     <a [href]="selectedCard?.scryfall_uri" target="_blank">
-      <mat-icon class="rotate" title="info">
-        open_in_new
-      </mat-icon>
+      <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
     </a>
   </div>
   <div
     class="preview"
     [class.preview-visible]="selectedCard?.url"
-    [style.background-image]="'url(' + selectedCard?.url + ')'"
+    [style.background-image]="
+      selectedCard ? 'url(' + selectedCard.url + ')' : undefined
+    "
     [class.preview-rotate]="rotateActive"
   ></div>
 </div>

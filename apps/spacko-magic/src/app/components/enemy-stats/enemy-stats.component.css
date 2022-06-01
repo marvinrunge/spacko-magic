@@ -9,7 +9,7 @@
   background-color: #000;
   color: white;
   font-size: 1.5rem;
-  height: 32px;
+  height: 48px;
 }
 
 .player-stats-content {
@@ -22,7 +22,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   border-left: 1px solid rgba(255, 255, 255, 0.18);
   width: 200px;
-  top: 32;
+  top: 48px;
   right: 0;
   position: absolute;
   height: 77px;
@@ -34,7 +34,7 @@ span {
 }
 
 .player-name {
-  padding: 8px 2rem 1px 2rem;
+  padding: 15px 2rem 10px 2rem;
   border-bottom: #0000 solid 3px;
 }
 
@@ -56,6 +56,12 @@ span {
 
 .add-player {
   position: absolute;
-  padding: 4px 1rem 0px 1rem;
   right: 0;
+}
+
+.add-player mat-icon {
+  height: 34px;
+  width: 34px;
+  padding: 0.5rem 1rem;
+  font-size: 34px;
 }

@@ -1,0 +1,41 @@
+<spacko-magic-header></spacko-magic-header>
+<div class="settings">
+  <h3 class="heading">Decks</h3>
+  <div class="form">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Options
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Deckstats ID</mat-label>
+      <input
+        [(ngModel)]="id"
+        type="text"
+        placeholder="4260"
+        aria-label="Number"
+        matInput
+      />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="addDeckstatsUserId(id)"
+      mat-button
+    >
+      LOAD
+    </button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="deck-container">
+    <div *ngFor="let deck of selectedPlayer?.decks">
+      <spacko-magic-deck [deck]="deck" (deckClicked)="loadDeck(deck)">
+      </spacko-magic-deck>
+    </div>
+  </div>
+</div>

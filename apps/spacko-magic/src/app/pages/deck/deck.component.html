@@ -2,9 +2,9 @@
 <div class="settings">
   <div fxLayout="column" fxLayoutAlign="center stretch">
     <mat-form-field appearance="fill" *ngIf="edit">
-      <mat-label>Decklist</mat-label>
+      <mat-label>Card List</mat-label>
       <textarea
-        [(ngModel)]="deckList"
+        [(ngModel)]="activeDeck.cardList"
         class="deck-list"
         placeholder="Example&#10;4 Spore Frog&#10;4 Haze Frog&#10;20 Forest&#10;- - - - - - - - - - - - - - - - - - - -&#10;Simply add the count and the name of the cards"
         matInput
@@ -21,7 +21,7 @@
   </div>
 </div>
 <div [hidden]="edit">
-  <h3 class="heading" [hidden]="1 > deck.length">Creatures</h3>
+  <h3 class="heading" [hidden]="1 > deck.length">{{ (deck | deckPreview: 'creature').length }} Creatures</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'creature'"
     [isEnemyLane]="true"
@@ -31,7 +31,7 @@
     (actionTriggered)="triggerAction($event)"
   ></spacko-magic-lane>
 
-  <h3 class="heading" [hidden]="1 > deck.length">Other</h3>
+  <h3 class="heading" [hidden]="1 > deck.length">{{ (deck | deckPreview: 'other').length }} Other</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'other'"
     [isEnemyLane]="true"
@@ -41,7 +41,7 @@
     (actionTriggered)="triggerAction($event)"
   ></spacko-magic-lane>
 
-  <h3 class="heading" [hidden]="1 > deck.length">Lands</h3>
+  <h3 class="heading" [hidden]="1 > deck.length">{{ (deck | deckPreview: 'land').length }} Lands</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'land'"
     [isEnemyLane]="true"
@@ -71,7 +71,7 @@
   <div
     class="preview"
     [class.preview-visible]="selectedCard?.url"
-    [style.background-image]="'url(' + selectedCard?.url + ')'"
+    [style.background-image]="selectedCard ? 'url(' + selectedCard?.url + ')' : undefined"
     [class.preview-rotate]="rotateActive"
   ></div>
 </div>

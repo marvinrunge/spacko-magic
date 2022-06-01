@@ -1,0 +1,90 @@
+h2 {
+  font-family: 'Beleren2016';
+  color: white;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0 0 3px black;
+  padding: 0 0 0 0;
+  margin: 1rem 0 2rem 0;
+}
+
+h3 {
+  font-family: 'Beleren2016';
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  text-shadow: 0 0 3px black;
+  padding: 0 0 0 0;
+  margin: 1rem 0 1rem 0;
+}
+
+.settings {
+  margin: auto;
+  padding: 18px;
+  overflow: auto;
+  max-height: 100vh;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.deck-list-item {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: start;
+  font-family: 'Beleren2016';
+  color: white;
+  font-size: 1.2rem;
+  background-color: #0009;
+  margin-bottom: 0.5rem;
+  border: 2px solid black;
+}
+
+.deck-image {
+  border-right: 2px solid black;
+  width: 60px;
+  height: 45px;
+}
+
+.deck-name {
+  flex: 1;
+  padding: 0 0.5rem;
+}
+
+.deck-link-wrapper {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.deck-link {
+  color: white;
+  height: 24px;
+}
+
+.deck-link:hover {
+  color: lightgray;
+}
+
+button {
+  width: 100%;
+}
+
+.deck-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1280px;
+  margin: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.form {
+  max-width: 400px;
+  margin: auto;
+}

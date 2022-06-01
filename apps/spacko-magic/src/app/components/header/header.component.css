@@ -9,6 +9,14 @@ header {
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
   z-index: 9999;
+  width: 220px;
+  background: #000000;
+  left: -230px;
+  transition: 0.2s ease left;
+}
+
+.in {
+  left: 0px;
 }
 
 .menu-button {
@@ -19,12 +27,11 @@ header {
 }
 
 mat-icon {
-  height: 24px;
-  width: 24px;
-  padding: 4px;
-  padding-left: 1rem;
+  height: 33px;
+  width: 33px;
+  padding: 7px 1rem;
   filter: drop-shadow(0px 0px 3px black);
-  font-size: 24;
+  font-size: 33px;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -35,7 +42,7 @@ mat-icon:active {
 
 .nav-item {
   padding: 1rem;
-  padding-right: 3rem;
+  padding-right: 2rem;
   font-family: 'Beleren2016';
   height: max-content;
   color: #fffa;
@@ -44,29 +51,44 @@ mat-icon:active {
   text-align: center;
   cursor: pointer;
   text-shadow: 0 0 3px black;
-  transition: filter 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  transition: filter 0.2s ease, transform 0.2s ease, color 0.2s ease, background-color ease 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: start;
 }
 
 .nav-item:hover {
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
   color: #fff;
+  background-color: #673ab7;
 }
 
 .nav-item:active {
-  transform: scale(0.9);
+  background-color: black;
 }
 
 .active {
   color: #fff;
+  background-color: #3e256a;
 }
 
 .logout {
   bottom: 0;
-  position: fixed;
+  position: absolute;
+  max-width: 300px;
 }
 
 .backdrop {
   position: fixed;
   width: 100vw;
   height: 100vh;
+  background-color: #0000;
+  z-index: 9998;
+  transition: 0.2s background-color;
+  pointer-events: none;
+}
+
+.show {
+  background-color: #0006;
+  pointer-events: all;
 }

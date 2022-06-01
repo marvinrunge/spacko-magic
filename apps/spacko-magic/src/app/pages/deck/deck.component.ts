@@ -1,18 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { GameService } from '../../game.service';
+import { ActiveDeck } from '../../interfaces/activeDeck';
 import { Card } from '../../interfaces/card';
-import { CardSelectors, RootStoreState } from '../../root-store';
+import { Player } from '../../interfaces/player';
+import {
+  CardSelectors,
+  PlayerSelectors,
+  RootStoreState,
+} from '../../root-store';
+import { updatePlayerRequest } from '../../root-store/player-store/actions';
 
 @Component({
   templateUrl: './deck.component.html',
-  styleUrls: ['./deck.component.css']
+  styleUrls: ['./deck.component.css'],
 })
-export class DeckComponent implements OnInit {
+export class ActiveDeckComponent implements OnInit {
   username = '';
-  deckList = '';
+  activeDeck: ActiveDeck = {
+    id: -1,
+    name: "Unsaved",
+    cardList: ""
+  };
+  cardList: string;
   enemyUsername = '';
   userIsReady = false;
   edit = false;
@@ -25,6 +36,7 @@ export class DeckComponent implements OnInit {
   cardHeight: number;
   innerHeight: number;
   cardBorderRadius: number;
+  selectedPlayer: Player;
 
   rotateActive = false;
 
@@ -39,21 +51,25 @@ export class DeckComponent implements OnInit {
 
   constructor(
     private game: GameService,
-    private router: Router,
-    private store$: Store<RootStoreState.State>,
+    private store$: Store<RootStoreState.State>
   ) {
     this.store$
       .pipe(select(CardSelectors.selectAllCards))
       .subscribe((cards) => (this.deck = cards));
-    this.loadingRequests = game.loadingRequests;
+    this.store$
+      .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
+      .subscribe((player) => {
+        this.selectedPlayer = player;
+        this.activeDeck = { ...player?.activeDeck };
+      });
   }
 
   initDeck() {
     if (this.edit) {
-      localStorage.setItem('decklist', this.deckList);
-      this.game.initDeck(this.deckList, this.username);
-    } else {
-      this.deckList = localStorage.getItem('decklist') ?? '';
+      const playerToUpdate = { ...this.selectedPlayer };
+      playerToUpdate.activeDeck = this.activeDeck;
+      this.game.initDeck(playerToUpdate.activeDeck.cardList, this.username);
+      this.store$.dispatch(updatePlayerRequest({ player: playerToUpdate }));
     }
     this.edit = !this.edit;
   }

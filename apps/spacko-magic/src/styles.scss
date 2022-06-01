@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 @font-face {
-  font-family: "Beleren2016";
-  src: url("/assets/fonts/BELEREN.TTF") format("truetype");
+  font-family: 'Beleren2016';
+  src: url('/assets/fonts/BELEREN.TTF') format('truetype');
 }
 
 html,
@@ -15,7 +15,8 @@ html {
 body {
   margin: 0;
   font-family: 'Ramaraja', serif;
-  background: url(https://miro.medium.com/max/3840/1*_HhnCWCrqDSt__s5wFrKqQ.jpeg);
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url(https://i.imgur.com/hSd11Pa.jpeg);
   background-position: center;
   background-size: cover;
   overflow: hidden;
@@ -39,12 +40,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #777;
+  background-color: #3e256a;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #999;
+  background-color: #673ab7;
 }
 
 .actions {
@@ -118,6 +119,11 @@ body {
 .attach {
   background-image: url(/assets/layers_black.svg);
   background-position-y: 62%;
+  background-size: 80%;
+}
+
+.flip {
+  background-image: url(/assets/flip_black.svg);
   background-size: 80%;
 }
 

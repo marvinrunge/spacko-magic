@@ -4,7 +4,7 @@ var users = [
   "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius", "Bastian", "Felix"
 ];
 
-var url = "http://admin:5trengGehe!m@spacko-magic.de:5984/"
+var url = "http://admin:couchdb@localhost:5984/"
 
 var addPlayerDB = function() {
   var requestOptions = {

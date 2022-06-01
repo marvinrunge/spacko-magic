@@ -20,3 +20,12 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  deckstats-proxy:
+    image: node:latest
+    working_dir: /deckstats
+    restart: unless-stopped
+    volumes:
+      - ./ops/deckstats:/deckstats
+    ports:
+      - "8000:8000"
+    command: bash -c "npm i && node ./deckstats.js"
