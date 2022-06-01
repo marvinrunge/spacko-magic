@@ -104,8 +104,8 @@ export class GameService {
     });
   }
 
-  async loadDeckstatsDeck(url: string) {
-    url = url.replace('//deckstats.net/', environment.deckstats);
+  async loadDeckstatsDeck(deck: DeckstatsDeck) {
+    const url = deck.url_neutral.replace('//deckstats.net/', environment.deckstats);
     const respone = await this.http
       .get<string>(
         `${url}?include_comments=1&do_not_include_printings=0&export_txt=1`,
@@ -114,7 +114,11 @@ export class GameService {
       .toPromise();
     this.router.navigate(['deck']);
     const playerToUpdate = { ...this.selectedPlayer };
-    playerToUpdate.activeDeck = respone;
+    playerToUpdate.activeDeck = {
+      id: deck.saved_id,
+      name: deck.name,
+      cardList: respone
+    };
     this.store$.dispatch(updatePlayerRequest({ player: playerToUpdate }));
     this.initDeck(respone, this.authService.username);
   }

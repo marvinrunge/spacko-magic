@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { GameService } from '../../game.service';
+import { ActiveDeck } from '../../interfaces/activeDeck';
 import { Card } from '../../interfaces/card';
 import { Player } from '../../interfaces/player';
 import {
@@ -18,7 +18,12 @@ import { updatePlayerRequest } from '../../root-store/player-store/actions';
 })
 export class ActiveDeckComponent implements OnInit {
   username = '';
-  deckList = '';
+  activeDeck: ActiveDeck = {
+    id: -1,
+    name: "Unsaved",
+    cardList: ""
+  };
+  cardList: string;
   enemyUsername = '';
   userIsReady = false;
   edit = false;
@@ -55,17 +60,15 @@ export class ActiveDeckComponent implements OnInit {
       .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
       .subscribe((player) => {
         this.selectedPlayer = player;
-        if (player?.activeDeck && player.activeDeck !== this.deckList) {
-          this.game.initDeck(player.activeDeck, this.username);
-          this.deckList = player.activeDeck;
-        }
+        this.activeDeck = { ...player?.activeDeck };
       });
   }
 
   initDeck() {
     if (this.edit) {
       const playerToUpdate = { ...this.selectedPlayer };
-      playerToUpdate.activeDeck = this.deckList;
+      playerToUpdate.activeDeck = this.activeDeck;
+      this.game.initDeck(playerToUpdate.activeDeck.cardList, this.username);
       this.store$.dispatch(updatePlayerRequest({ player: playerToUpdate }));
     }
     this.edit = !this.edit;

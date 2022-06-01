@@ -34,7 +34,7 @@
   </div>
   <div class="deck-container">
     <div *ngFor="let deck of selectedPlayer?.decks">
-      <spacko-magic-deck [deck]="deck" (deckClicked)="loadDeck(deck.url_neutral)">
+      <spacko-magic-deck [deck]="deck" (deckClicked)="loadDeck(deck)">
       </spacko-magic-deck>
     </div>
   </div>

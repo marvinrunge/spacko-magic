@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { GameService } from '../../game.service';
+import { DeckstatsDeck } from '../../interfaces/deckstats/types';
 import { Player } from '../../interfaces/player';
 import { PlayerSelectors, RootStoreState } from '../../root-store';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
@@ -26,8 +27,8 @@ export class SettingsComponent {
       });
   }
 
-  loadDeck(url: string) {
-    this.gameService.loadDeckstatsDeck(url);
+  loadDeck(deck: DeckstatsDeck) {
+    this.gameService.loadDeckstatsDeck(deck);
   }
 
   async addDeckstatsUserId(id: string) {
