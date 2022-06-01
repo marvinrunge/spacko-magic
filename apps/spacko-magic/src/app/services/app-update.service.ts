@@ -6,7 +6,7 @@ import { SwUpdate } from '@angular/service-worker';
 })
 export class AppUpdateService {
   constructor(private readonly updates: SwUpdate) {
-    this.updates.available.subscribe((event) => {
+    this.updates.available.subscribe(() => {
       this.showAppUpdateAlert();
     });
   }
