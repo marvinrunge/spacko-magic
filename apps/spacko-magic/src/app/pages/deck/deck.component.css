@@ -15,7 +15,12 @@ h2 {
   text-align: center;
   text-shadow: 0 0 3px black;
   padding: 0 0 0 0;
-  margin: 1rem 0 2rem 0;
+  margin: 2rem 0 2rem 0;
+}
+
+h2 mat-icon {
+  cursor: pointer;
+  font-size: 2rem;
 }
 
 h3 {

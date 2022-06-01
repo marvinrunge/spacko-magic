@@ -1,7 +1,10 @@
 <spacko-magic-header></spacko-magic-header>
 <div class="settings">
-  <div fxLayout="column" fxLayoutAlign="center stretch">
-    <mat-form-field appearance="fill" *ngIf="edit">
+  <h2>
+    {{ activeDeck?.name }} <mat-icon *ngIf="!edit" (click)="initDeck()">edit_node</mat-icon>
+  </h2>
+  <div *ngIf="edit" fxLayout="column" fxLayoutAlign="center stretch">
+    <mat-form-field appearance="fill">
       <mat-label>Card List</mat-label>
       <textarea
         [(ngModel)]="activeDeck.cardList"
@@ -16,12 +19,12 @@
       (click)="initDeck()"
       color="primary"
     >
-      {{ edit ? 'SAVE' : 'EDIT' }}
+      SAVE
     </button>
   </div>
 </div>
 <div [hidden]="edit">
-  <h3 class="heading" [hidden]="1 > deck.length">{{ (deck | deckPreview: 'creature').length }} Creatures</h3>
+  <h3 class="heading" [hidden]="1 > deck.length">Creatures</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'creature'"
     [isEnemyLane]="true"
@@ -31,7 +34,7 @@
     (actionTriggered)="triggerAction($event)"
   ></spacko-magic-lane>
 
-  <h3 class="heading" [hidden]="1 > deck.length">{{ (deck | deckPreview: 'other').length }} Other</h3>
+  <h3 class="heading" [hidden]="1 > deck.length">Other</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'other'"
     [isEnemyLane]="true"
@@ -41,7 +44,7 @@
     (actionTriggered)="triggerAction($event)"
   ></spacko-magic-lane>
 
-  <h3 class="heading" [hidden]="1 > deck.length">{{ (deck | deckPreview: 'land').length }} Lands</h3>
+  <h3 class="heading" [hidden]="1 > deck.length">Lands</h3>
   <spacko-magic-lane
     [cards]="deck | deckPreview: 'land'"
     [isEnemyLane]="true"
@@ -63,15 +66,15 @@
       sync
     </mat-icon>
     <a [href]="selectedCard?.scryfall_uri" target="_blank">
-      <mat-icon class="rotate" title="info">
-        open_in_new
-      </mat-icon>
+      <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
     </a>
   </div>
   <div
     class="preview"
     [class.preview-visible]="selectedCard?.url"
-    [style.background-image]="selectedCard ? 'url(' + selectedCard?.url + ')' : undefined"
+    [style.background-image]="
+      selectedCard ? 'url(' + selectedCard?.url + ')' : undefined
+    "
     [class.preview-rotate]="rotateActive"
   ></div>
 </div>
