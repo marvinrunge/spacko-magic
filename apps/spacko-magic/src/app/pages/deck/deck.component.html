@@ -1,80 +1,83 @@
 <spacko-magic-header></spacko-magic-header>
-<div class="settings">
-  <h2>
-    {{ activeDeck?.name }} <mat-icon *ngIf="!edit" (click)="initDeck()">edit_node</mat-icon>
-  </h2>
-  <div *ngIf="edit" fxLayout="column" fxLayoutAlign="center stretch">
-    <mat-form-field appearance="fill">
-      <mat-label>Card List</mat-label>
-      <textarea
-        [(ngModel)]="activeDeck.cardList"
-        class="deck-list"
-        placeholder="Example&#10;4 Spore Frog&#10;4 Haze Frog&#10;20 Forest&#10;- - - - - - - - - - - - - - - - - - - -&#10;Simply add the count and the name of the cards"
-        matInput
-      ></textarea>
-    </mat-form-field>
-    <button
-      mat-raised-button
-      [disabled]="!userIsReady"
-      (click)="initDeck()"
-      color="primary"
-    >
-      SAVE
-    </button>
+<div class="content">
+  <div class="settings">
+    <h2>
+      {{ activeDeck?.name }}
+      <mat-icon *ngIf="!edit" (click)="initDeck()">edit_node</mat-icon>
+    </h2>
+    <div class="edit" *ngIf="edit"><div>
+      <mat-form-field appearance="fill">
+        <mat-label>Card List</mat-label>
+        <textarea
+          [(ngModel)]="activeDeck.cardList"
+          class="deck-list"
+          placeholder="Example&#10;4 Spore Frog&#10;4 Haze Frog&#10;20 Forest&#10;- - - - - - - - - - - - - - - - - - - -&#10;Simply add the count and the name of the cards"
+          matInput
+        ></textarea>
+      </mat-form-field></div>
+      <button
+        mat-raised-button
+        [disabled]="!userIsReady"
+        (click)="initDeck()"
+        color="primary"
+      >
+        SAVE
+      </button>
+    </div>
   </div>
-</div>
-<div [hidden]="edit">
-  <h3 class="heading" [hidden]="1 > deck.length">Creatures</h3>
-  <spacko-magic-lane
-    [cards]="deck | deckPreview: 'creature'"
-    [isEnemyLane]="true"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
-    [cardBorderRadius]="cardBorderRadius"
-    (actionTriggered)="triggerAction($event)"
-  ></spacko-magic-lane>
+  <div [hidden]="edit">
+    <h3 class="heading" [hidden]="1 > deck.length">Creatures</h3>
+    <spacko-magic-lane
+      [cards]="deck | deckPreview: 'creature'"
+      [isEnemyLane]="true"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      (actionTriggered)="triggerAction($event)"
+    ></spacko-magic-lane>
 
-  <h3 class="heading" [hidden]="1 > deck.length">Other</h3>
-  <spacko-magic-lane
-    [cards]="deck | deckPreview: 'other'"
-    [isEnemyLane]="true"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
-    [cardBorderRadius]="cardBorderRadius"
-    (actionTriggered)="triggerAction($event)"
-  ></spacko-magic-lane>
+    <h3 class="heading" [hidden]="1 > deck.length">Other</h3>
+    <spacko-magic-lane
+      [cards]="deck | deckPreview: 'other'"
+      [isEnemyLane]="true"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      (actionTriggered)="triggerAction($event)"
+    ></spacko-magic-lane>
 
-  <h3 class="heading" [hidden]="1 > deck.length">Lands</h3>
-  <spacko-magic-lane
-    [cards]="deck | deckPreview: 'land'"
-    [isEnemyLane]="true"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
-    [cardBorderRadius]="cardBorderRadius"
-    (actionTriggered)="triggerAction($event)"
-  ></spacko-magic-lane>
-</div>
-
-<div
-  class="inspect"
-  [class.inspect-visible]="selectedCard?.url"
-  (wheel)="deselectCard()"
-  (click)="deselectCard()"
->
-  <div class="preview-actions">
-    <mat-icon class="rotate" title="rotate" (click)="rotate($event)">
-      sync
-    </mat-icon>
-    <a [href]="selectedCard?.scryfall_uri" target="_blank">
-      <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
-    </a>
+    <h3 class="heading" [hidden]="1 > deck.length">Lands</h3>
+    <spacko-magic-lane
+      [cards]="deck | deckPreview: 'land'"
+      [isEnemyLane]="true"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      (actionTriggered)="triggerAction($event)"
+    ></spacko-magic-lane>
   </div>
+
   <div
-    class="preview"
-    [class.preview-visible]="selectedCard?.url"
-    [style.background-image]="
-      selectedCard ? 'url(' + selectedCard?.url + ')' : undefined
-    "
-    [class.preview-rotate]="rotateActive"
-  ></div>
+    class="inspect"
+    [class.inspect-visible]="selectedCard?.url"
+    (wheel)="deselectCard()"
+    (click)="deselectCard()"
+  >
+    <div class="preview-actions">
+      <mat-icon class="rotate" title="rotate" (click)="rotate($event)">
+        sync
+      </mat-icon>
+      <a [href]="selectedCard?.scryfall_uri" target="_blank">
+        <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
+      </a>
+    </div>
+    <div
+      class="preview"
+      [class.preview-visible]="selectedCard?.url"
+      [style.background-image]="
+        selectedCard ? 'url(' + selectedCard?.url + ')' : undefined
+      "
+      [class.preview-rotate]="rotateActive"
+    ></div>
+  </div>
 </div>

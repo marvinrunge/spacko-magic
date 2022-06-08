@@ -2,25 +2,35 @@
   height: 300px;
 }
 
-.settings {
-  max-width: 400px;
+.edit mat-form-field {
+  width: 100%;
+}
+
+.edit button {
+  width: 100%;
+}
+
+.edit {
+  max-width: 500px;
   margin: auto;
-  padding: 18px;
 }
 
 h2 {
   font-family: 'Beleren2016';
   color: white;
   font-size: 3rem;
+  line-height: 3rem;
   text-align: center;
   text-shadow: 0 0 3px black;
-  padding: 0 0 0 0;
-  margin: 2rem 0 2rem 0;
+  padding: 2rem 4rem;
 }
 
 h2 mat-icon {
+  position: absolute;
   cursor: pointer;
   font-size: 2rem;
+  font-size: 2.5rem;
+  padding: 0 1rem
 }
 
 h3 {
@@ -96,4 +106,10 @@ h3 {
 
 a {
   all: unset;
+}
+
+.content {
+  margin: auto;
+  overflow-y: auto;
+  max-height: 100vh;
 }
