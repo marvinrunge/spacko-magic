@@ -55,6 +55,9 @@ export class CustomHammerConfig extends HammerGestureConfig {
       enable: true,
     },
   };
+  options = {
+    touchAction: 'pan-x'
+  };
 }
 
 const routes: Routes = [
