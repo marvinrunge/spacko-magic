@@ -15,8 +15,7 @@ html {
 body {
   margin: 0;
   font-family: 'Ramaraja', serif;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(https://i.imgur.com/hSd11Pa.jpeg);
+  background: url('/assets/background.jpg');
   background-position: center;
   background-size: cover;
   overflow: hidden;
