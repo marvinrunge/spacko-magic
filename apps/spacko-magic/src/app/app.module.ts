@@ -48,6 +48,8 @@ import { LandsPipe } from './pipes/lands.pipe';
 import { RootStoreModule } from './root-store';
 import { DeckComponent } from './components/deck/deck.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DragfieldComponent } from './pages/dragfield/dragfield.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   overrides = {
@@ -64,6 +66,7 @@ const routes: Routes = [
   { path: 'deck', component: ActiveDeckComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'battlefield', component: BattlefieldComponent },
+  { path: 'dragfield', component: DragfieldComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'login',
@@ -96,6 +99,7 @@ const routes: Routes = [
     HeaderComponent,
     AddEnemyModalComponent,
     SettingsComponent,
+    DragfieldComponent,
   ],
   imports: [
     CommonModule,
@@ -114,6 +118,7 @@ const routes: Routes = [
     MatExpansionModule,
     HttpClientModule,
     RootStoreModule,
+    DragDropModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

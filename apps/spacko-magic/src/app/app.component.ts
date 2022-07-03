@@ -11,5 +11,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.checkSession();
+
+    this.setBackgroundPosition();
+  }
+
+  async setBackgroundPosition() {
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    document.body.style.backgroundPosition = x + "% " + y + "%";
+    setTimeout(() => this.setBackgroundPosition(), 20000);
   }
 }

@@ -69,6 +69,12 @@ export const selectByPlace = (place: string) =>
     cards.filter((card) => card.place === place)
   );
 
+export const selectByPlaceAndTypes = (place: string, types: string[]) =>
+  createSelector(selectAllCards, (cards) =>
+    cards.filter((card) => card.place === place && types.includes(card.type))
+  );
+
+
 export const selectTopByPlace = (place: string) =>
   createSelector(selectByPlace(place), (cards) =>
     cards[0]
@@ -95,3 +101,13 @@ export const selectByPlaceAndNotTypes = (
       (card) => !card.type.toLowerCase().includes(type1.toLowerCase()) && !card.type.toLowerCase().includes(type2.toLowerCase())
     )
   );
+
+  export const selectByPlaceAndNotType = (
+    place: string,
+    type1: string
+  ) =>
+    createSelector(selectByPlace(place), (cards) =>
+      cards.filter(
+        (card) => !card.type.toLowerCase().includes(type1.toLowerCase())
+      )
+    );
