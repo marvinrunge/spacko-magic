@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.authService.checkSession();
 
-    this.setBackgroundPosition();
+    // this.setBackgroundPosition();
   }
 
   async setBackgroundPosition() {

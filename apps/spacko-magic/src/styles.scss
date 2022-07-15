@@ -20,13 +20,14 @@ body {
   margin: 0;
   font-family: 'Ramaraja', serif;
   background: url('/assets/background.jpg');
-  background-position: 50% 50%;
-  background-size: 120%;
+  background-size: cover;
+  // background-position: 50% 50%;
+  // background-size: 120%;
   overflow: hidden;
-  -webkit-transition: background-position 2s ease;
-  -moz-transition: background-position 2s ease;
-  -o-transition: background-position 2s ease;
-  transition: background-position 20s cubic-bezier(0.5, 0.07, 0.39, 0.85);
+  // -webkit-transition: background-position 2s ease;
+  // -moz-transition: background-position 2s ease;
+  // -o-transition: background-position 2s ease;
+  // transition: background-position 20s cubic-bezier(0.5, 0.07, 0.39, 0.85);
 }
 
 .mat-form-field-appearance-fill .mat-form-field-flex {
