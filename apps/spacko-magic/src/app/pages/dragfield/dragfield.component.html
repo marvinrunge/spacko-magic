@@ -1,0 +1,84 @@
+<spacko-magic-header [isActive]="false"></spacko-magic-header>
+<div class="enemy"></div>
+<div cdkDropListGroup>
+  <div
+    cdkDropList
+    [cdkDropListData]="cardsTop"
+    cdkDropListOrientation="horizontal"
+    class="example-list"
+    [style.min-width.px]="cardWidth"
+    [style.height.px]="cardHeight"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div *ngFor="let card of cardsTop" class="example-box" cdkDrag>
+      <spacko-magic-card
+        [card]="card"
+        [borderRadius]="cardBorderRadius"
+        [height]="cardHeight"
+        [width]="cardWidth"
+      ></spacko-magic-card>
+    </div>
+  </div>
+  <div
+    cdkDropList
+    [cdkDropListData]="cardsBottom"
+    cdkDropListOrientation="horizontal"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+    [style.min-width.px]="cardWidth"
+    [style.height.px]="cardHeight"
+  >
+    <div class="example-box">
+      <spacko-magic-graveyard
+        *ngIf="exile && exile.length > 0"
+        [cards]="exile"
+        [height]="cardHeight"
+        [width]="cardWidth"
+        [borderRadius]="cardBorderRadius"
+        [type]="'exile'"
+        [mode]="mode"
+        [touch]="touch"
+        [style.min-width.px]="cardWidth"
+        [style.height.px]="cardHeight"
+      >
+      </spacko-magic-graveyard>
+    </div>
+    <div class="example-box">
+      <spacko-magic-graveyard
+        *ngIf="graveyard && graveyard.length > 0"
+        [cards]="graveyard"
+        [height]="cardHeight"
+        [width]="cardWidth"
+        [borderRadius]="cardBorderRadius"
+        [type]="'graveyard'"
+        [mode]="mode"
+        [touch]="touch"
+        [style.min-width.px]="cardWidth"
+        [style.height.px]="cardHeight"
+      >
+      </spacko-magic-graveyard>
+    </div>
+    <div class="example-box">
+      <spacko-magic-library
+        *ngIf="library"
+        [cards]="library"
+        [height]="cardHeight"
+        [width]="cardWidth"
+        [borderRadius]="cardBorderRadius"
+        [mode]="mode"
+        [touch]="touch"
+        [style.min-width.px]="cardWidth"
+        [style.height.px]="cardHeight"
+      >
+      </spacko-magic-library>
+    </div>
+    <div *ngFor="let card of cardsBottom" class="example-box" cdkDrag>
+      <spacko-magic-card
+        [card]="card"
+        [borderRadius]="cardBorderRadius"
+        [height]="cardHeight"
+        [width]="cardWidth"
+      ></spacko-magic-card>
+    </div>
+  </div>
+</div>
