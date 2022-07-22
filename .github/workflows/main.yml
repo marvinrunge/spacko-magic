@@ -1,2 +1,13 @@
-- name: Dependencies Autoupdate
-  uses: romoh/dependencies-autoupdate@v1.2
+on:
+  push:
+    branches:
+    - master
+    
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+    - name: npm install, build and deploy
+      run: |
+        cd projects/spacko-magic
+        sh build-and-start-frontend.sh
