@@ -1,0 +1,2 @@
+- name: Dependencies Autoupdate
+  uses: romoh/dependencies-autoupdate@v1.2
