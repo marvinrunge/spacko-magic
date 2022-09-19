@@ -50,6 +50,7 @@ import { DeckComponent } from './components/deck/deck.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DragfieldComponent } from './pages/dragfield/dragfield.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BattlefieldContainerComponent } from './pages/battlefield/container/container.component';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   overrides = {
@@ -65,7 +66,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
 const routes: Routes = [
   { path: 'deck', component: ActiveDeckComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'battlefield', component: BattlefieldComponent },
+  { path: 'battlefield', component: BattlefieldContainerComponent },
   { path: 'dragfield', component: DragfieldComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -100,6 +101,7 @@ const routes: Routes = [
     AddEnemyModalComponent,
     SettingsComponent,
     DragfieldComponent,
+    BattlefieldContainerComponent,
   ],
   imports: [
     CommonModule,

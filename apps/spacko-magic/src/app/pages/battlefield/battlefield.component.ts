@@ -1,71 +1,63 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store } from '@ngrx/store';
+
+import { AddEnemyModalComponent } from '../../components/add-enemy-modal/add-enemy-modal.component';
+import { GameService } from '../../game.service';
 import { Card } from '../../interfaces/card';
 import { Player } from '../../interfaces/player';
-import {
-  CardSelectors,
-  PlayerSelectors,
-  RootStoreState,
-} from '../../root-store';
+import { RootStoreState } from '../../root-store';
 import {
   deleteCardRequest,
   setActiveAttachCardId,
   updateCardRequest,
   updateManyCardsRequest,
 } from '../../root-store/card-store/actions';
-import { EnemyCardSelectors } from '../../root-store/enemy-card-store';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
-import { MatDialog } from '@angular/material/dialog';
-import { AddEnemyModalComponent } from '../../components/add-enemy-modal/add-enemy-modal.component';
-import { GameService } from '../../game.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 function isTouchScreendevice() {
   return 'ontouchstart' in window || navigator.maxTouchPoints;
 }
 
 @Component({
+  selector: 'spacko-magic-battlefield',
   templateUrl: './battlefield.component.html',
   styleUrls: ['./battlefield.component.css'],
 })
 export class BattlefieldComponent implements OnInit {
   @ViewChild('handScroll') handScroll: ElementRef;
 
-  deck: Card[] = [];
-  hand: Card[] = [];
-  graveyard: Card[] = [];
-  exile: Card[] = [];
-  creatures: Card[] = [];
-  lands: Card[] = [];
-  other: Card[] = [];
+  @Input() deck: Card[] = [];
+  @Input() hand: Card[] = [];
+  @Input() graveyard: Card[] = [];
+  @Input() exile: Card[] = [];
+  @Input() creatures: Card[] = [];
+  @Input() lands: Card[] = [];
+  @Input() other: Card[] = [];
+
+  @Input() enemyDeck: Card[] = [];
+  @Input() enemyHand: Card[] = [];
+  @Input() enemyGraveyard: Card[] = [];
+  @Input() enemyExile: Card[] = [];
+  @Input() enemyCreatures: Card[] = [];
+  @Input() enemyLands: Card[] = [];
+  @Input() enemyOther: Card[] = [];
+  @Input() selectedEnemyPlayer: Player;
+
+  @Input() minPositionDeck?: number = 0;
+  @Input() maxPositionDeck?: number = 0;
+  @Input() minPositionGraveyard?: number = 0;
+  @Input() maxPositionGraveyard?: number = 0;
+  @Input() minPositionExile?: number = 0;
+  @Input() maxPositionExile?: number = 0;
+
+  @Input() players: Player[];
+  @Input() selectedPlayer: Player;
+  @Input() selectedCard?: Card;
+  @Input() activeAttachCard: Card;
+
   enemies: string[] = [];
-
-  enemyDeck: Card[] = [];
-  enemyHand: Card[] = [];
-  enemyGraveyard: Card[] = [];
-  enemyExile: Card[] = [];
-  enemyCreatures: Card[] = [];
-  enemyLands: Card[] = [];
-  enemyOther: Card[] = [];
-  selectedEnemyPlayer: Player;
-
-  minPositionDeck?: number = 0;
-  maxPositionDeck?: number = 0;
-  minPositionGraveyard?: number = 0;
-  maxPositionGraveyard?: number = 0;
-  minPositionExile?: number = 0;
-  maxPositionExile?: number = 0;
-
-  players: Player[];
-  selectedPlayer: Player;
-  selectedCard?: Card;
-  activeAttachCard: Card;
   settingsOpen = true;
   cardHeight = 160;
   cardWidth = 115;
@@ -94,123 +86,6 @@ export class BattlefieldComponent implements OnInit {
     } else {
       this.touch = false;
     }
-    this.store$
-      .pipe(select(PlayerSelectors.selectAllPlayers))
-      .subscribe((players) => (this.players = players));
-    this.store$
-      .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('deck')))
-      .subscribe((cards) => (this.deck = cards));
-    this.store$
-      .pipe(select(CardSelectors.selectByPlace('hand')))
-      .subscribe((cards) => (this.hand = cards));
-    this.store$
-      .pipe(
-        select(
-          CardSelectors.selectByPlaceAndTypeAndSortByPosition(
-            'battlefield',
-            'creature'
-          )
-        )
-      )
-      .subscribe((cards) => (this.creatures = cards));
-    this.store$
-      .pipe(
-        select(
-          CardSelectors.selectByPlaceAndTypeAndSortByPosition(
-            'battlefield',
-            'land'
-          )
-        )
-      )
-      .subscribe((cards) => (this.lands = cards));
-    this.store$
-      .pipe(
-        select(
-          CardSelectors.selectByPlaceAndNotTypes(
-            'battlefield',
-            'creature',
-            'land'
-          )
-        )
-      )
-      .subscribe((cards) => (this.other = cards));
-    this.store$
-      .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('graveyard')))
-      .subscribe((cards) => (this.graveyard = cards));
-    this.store$
-      .pipe(select(CardSelectors.selectByPlaceAndSortByPosition('exile')))
-      .subscribe((cards) => (this.exile = cards));
-    this.store$
-      .pipe(select(PlayerSelectors.selectPlayerBySelectedId))
-      .subscribe((player) => {
-        this.selectedPlayer = player;
-      });
-    this.store$
-      .pipe(select(CardSelectors.selectActiveAttachCardBySelectedId))
-      .subscribe((card) => {
-        this.activeAttachCard = card;
-      });
-
-    this.store$
-      .pipe(select(EnemyCardSelectors.selectByPlaceAndSortByPosition('deck')))
-      .subscribe((cards) => (this.enemyDeck = cards));
-    this.store$
-      .pipe(select(EnemyCardSelectors.selectByPlace('hand')))
-      .subscribe((cards) => (this.enemyHand = cards));
-    this.store$
-      .pipe(
-        select(
-          EnemyCardSelectors.selectByPlaceAndType('battlefield', 'creature')
-        )
-      )
-      .subscribe((cards) => (this.enemyCreatures = cards));
-    this.store$
-      .pipe(
-        select(EnemyCardSelectors.selectByPlaceAndType('battlefield', 'land'))
-      )
-      .subscribe((cards) => (this.enemyLands = cards));
-    this.store$
-      .pipe(
-        select(
-          EnemyCardSelectors.selectByPlaceAndNotTypes(
-            'battlefield',
-            'creature',
-            'land'
-          )
-        )
-      )
-      .subscribe((cards) => (this.enemyOther = cards));
-    this.store$
-      .pipe(
-        select(EnemyCardSelectors.selectByPlaceAndSortByPosition('graveyard'))
-      )
-      .subscribe((cards) => (this.enemyGraveyard = cards));
-    this.store$
-      .pipe(select(EnemyCardSelectors.selectByPlaceAndSortByPosition('exile')))
-      .subscribe((cards) => (this.enemyExile = cards));
-    this.store$
-      .pipe(select(PlayerSelectors.selectEnemyPlayerBySelectedId))
-      .subscribe((player) => {
-        this.selectedEnemyPlayer = player;
-      });
-    this.store$
-      .pipe(select(CardSelectors.selectMinMaxPosition('deck')))
-      .subscribe((result) => {
-        this.maxPositionDeck = result.max;
-        this.minPositionDeck = result.min;
-      });
-    this.store$
-      .pipe(select(CardSelectors.selectMinMaxPosition('graveyard')))
-      .subscribe((result) => {
-        this.maxPositionGraveyard = result.max;
-        this.minPositionGraveyard = result.min;
-      });
-    this.store$
-      .pipe(select(CardSelectors.selectMinMaxPosition('exile')))
-      .subscribe((result) => {
-        this.maxPositionExile = result.max;
-        this.minPositionExile = result.min;
-      });
   }
 
   ngOnInit() {
@@ -336,6 +211,23 @@ export class BattlefieldComponent implements OnInit {
     this.rotateActive = !this.rotateActive;
   }
 
+  restart() {
+    if (confirm("Are you sure to restart?")) {
+      console.log("Implement delete functionality here");
+      this.game.initDeck(this.selectedPlayer.activeDeck.cardList, this.selectedPlayer.name);
+    }
+  }
+
+  untapAll() {
+    const allTapped: Card[] = this.creatures.concat(this.other).concat(this.lands);
+    const allUntapped: Card[] = [];
+    allTapped.forEach((card) =>
+    allUntapped.push({ ...card, tapped: false })
+    );
+    console.log(allUntapped);
+    this.store$.dispatch(updateManyCardsRequest({ cards: allUntapped }));
+  }
+
   triggerAction(event: { card?: Card; actionType: string }) {
     const card = event.card;
     const actionType = event.actionType;
@@ -406,6 +298,14 @@ export class BattlefieldComponent implements OnInit {
       }
       case 'shuffle': {
         this.shuffle();
+        break;
+      }
+      case 'restart': {
+        this.restart();
+        break;
+      }
+      case 'untapAll': {
+        this.untapAll();
         break;
       }
     }

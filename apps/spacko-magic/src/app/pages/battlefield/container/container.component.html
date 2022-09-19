@@ -1,0 +1,30 @@
+<spacko-magic-battlefield
+  [deck]="(deck | async)!"
+  [hand]="(hand | async)!"
+  [graveyard]="(graveyard | async)!"
+  [exile]="(exile | async)!"
+  [creatures]="(creatures | async)!"
+  [lands]="(lands | async)!"
+  [other]="(other | async)!"
+
+  [enemyDeck]="(enemyDeck | async)!"
+  [enemyHand]="(enemyHand | async)!"
+  [enemyGraveyard]="(enemyGraveyard | async)!"
+  [enemyExile]="(enemyExile | async)!"
+  [enemyCreatures]="(enemyCreatures | async)!"
+  [enemyLands]="(enemyLands | async)!"
+  [enemyOther]="(enemyOther | async)!"
+
+  [selectedEnemyPlayer]="(selectedEnemyPlayer | async)!"
+  [players]="(players | async)!"
+  [selectedPlayer]="(selectedPlayer | async)!"
+  [selectedCard]="(selectedCard | async)!"
+  [activeAttachCard]="(activeAttachCard | async)!"
+
+  [minPositionDeck]="(minMaxPositionDeck | async)?.min"
+  [maxPositionDeck]="(minMaxPositionDeck | async)?.max"
+  [minPositionGraveyard]="(minMaxPositionGraveyard | async)?.min"
+  [maxPositionGraveyard]="(minMaxPositionGraveyard | async)?.max"
+  [minPositionExile]="(minMaxPositionExile | async)?.min"
+  [maxPositionExile]="(minMaxPositionExile | async)?.max"
+></spacko-magic-battlefield>
