@@ -117,10 +117,6 @@ export class ActiveDeckComponent implements OnInit {
     this.rotation += 90;
   }
 
-  updateCard(card: Card) {
-    this.store$.dispatch(updateCardRequest({ card }));
-  }
-
   flip(card: Card, event: any) {
     event.stopPropagation();
     if (card.url === card.cardFaces?.frontUrl) {
