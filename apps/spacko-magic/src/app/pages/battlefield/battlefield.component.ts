@@ -66,7 +66,7 @@ export class BattlefieldComponent implements OnInit {
   innerHeight: number;
   mode?: string;
   searchMode?: string;
-  rotateActive = false;
+  rotation = 0;
 
   touch = false;
   activeHandCard?: string;
@@ -209,7 +209,7 @@ export class BattlefieldComponent implements OnInit {
 
   rotate(event: any) {
     event.stopPropagation();
-    this.rotateActive = !this.rotateActive;
+    this.rotation += 90;
   }
 
   restart() {

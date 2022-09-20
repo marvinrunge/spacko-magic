@@ -136,7 +136,7 @@
     [style.background-image]="
       selectedCard ? 'url(' + selectedCard.url + ')' : undefined
     "
-    [class.preview-rotate]="rotateActive"
+    [style.transform]="'scale(1) rotate(' + rotation + 'deg)'"
   ></div>
 </div>
 
