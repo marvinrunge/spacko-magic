@@ -39,6 +39,8 @@ export class BattlefieldContainerComponent implements OnInit {
   minMaxPositionGraveyard: Observable<{ min: number, max: number }>;
   minMaxPositionExile: Observable<{ min: number, max: number }>;
 
+  isLoadingCards: Observable<boolean>;
+
   constructor(
     private store$: Store<RootStoreState.State>,
   ) {}
@@ -111,5 +113,6 @@ export class BattlefieldContainerComponent implements OnInit {
     this.minMaxPositionDeck = this.store$.pipe(select(CardSelectors.selectMinMaxPosition('deck')));
     this.minMaxPositionGraveyard = this.store$.pipe(select(CardSelectors.selectMinMaxPosition('graveyard')));
     this.minMaxPositionExile = this.store$.pipe(select(CardSelectors.selectMinMaxPosition('exile')));
+    this.isLoadingCards = this.store$.pipe(select(CardSelectors.selectCardIsLoading));
   }
 }

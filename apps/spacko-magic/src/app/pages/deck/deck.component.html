@@ -59,7 +59,7 @@
 
   <div
     class="inspect"
-    [class.inspect-visible]="selectedCard?.url"
+    [class.inspect-visible]="selectedCard"
     (wheel)="deselectCard()"
     (click)="deselectCard()"
   >
@@ -67,17 +67,20 @@
       <mat-icon class="rotate" title="rotate" (click)="rotate($event)">
         sync
       </mat-icon>
+      <mat-icon *ngIf="selectedCard?.cardFaces" class="flip" title="flip" (click)="flip(selectedCard!, $event)">
+        flip
+      </mat-icon>
       <a [href]="selectedCard?.scryfall_uri" target="_blank">
         <mat-icon class="rotate" title="info"> open_in_new </mat-icon>
       </a>
     </div>
     <div
       class="preview"
-      [class.preview-visible]="selectedCard?.url"
       [style.background-image]="
         selectedCard ? 'url(' + selectedCard?.url + ')' : undefined
       "
-      [class.preview-rotate]="rotateActive"
+      [style.transform]="'scale(1) rotate(' + rotation + 'deg)'"
     ></div>
   </div>
 </div>
+<div class="loader" [hidden]="!isLoading"></div>

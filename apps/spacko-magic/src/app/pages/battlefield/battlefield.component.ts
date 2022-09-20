@@ -56,6 +56,7 @@ export class BattlefieldComponent implements OnInit {
   @Input() selectedPlayer: Player;
   @Input() selectedCard?: Card;
   @Input() activeAttachCard: Card;
+  @Input() isLoading = false;
 
   enemies: string[] = [];
   settingsOpen = true;
@@ -213,7 +214,6 @@ export class BattlefieldComponent implements OnInit {
 
   restart() {
     if (confirm("Are you sure to restart?")) {
-      console.log("Implement delete functionality here");
       this.game.initDeck(this.selectedPlayer.activeDeck.cardList, this.selectedPlayer.name);
     }
   }
@@ -224,7 +224,6 @@ export class BattlefieldComponent implements OnInit {
     allTapped.forEach((card) =>
     allUntapped.push({ ...card, tapped: false })
     );
-    console.log(allUntapped);
     this.store$.dispatch(updateManyCardsRequest({ cards: allUntapped }));
   }
 

@@ -14,6 +14,7 @@ export class SettingsComponent {
   id: string;
   selectedPlayer: Player;
   panelOpenState = false;
+  isLoading = false;
 
   constructor(
     private store$: Store<RootStoreState.State>,
@@ -32,12 +33,14 @@ export class SettingsComponent {
   }
 
   async addDeckstatsUserId(id: string) {
+    this.isLoading = true;
     const playerToUpdate = { ...this.selectedPlayer };
     playerToUpdate.deckstatsUserId = id;
     playerToUpdate.decks = await this.gameService.getDeckstatsDecksFromId(
       this.id
     );
     this.updatePlayer(playerToUpdate);
+    this.isLoading = false;
   }
 
   updatePlayer(player: Player) {

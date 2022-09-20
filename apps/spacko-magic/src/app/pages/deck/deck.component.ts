@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { GameService } from '../../game.service';
@@ -10,6 +10,7 @@ import {
   PlayerSelectors,
   RootStoreState,
 } from '../../root-store';
+import { updateCardRequest } from '../../root-store/card-store/actions';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
 
 @Component({
@@ -29,6 +30,7 @@ export class ActiveDeckComponent implements OnInit {
   edit = false;
 
   loadingRequests: BehaviorSubject<number>;
+  isLoading = false;
 
   deck: Card[];
   selectedCard?: Card;
@@ -38,7 +40,12 @@ export class ActiveDeckComponent implements OnInit {
   cardBorderRadius: number;
   selectedPlayer: Player;
 
-  rotateActive = false;
+  rotation = 0;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.setCardHeight();
+  }
 
   ngOnInit() {
     const username = localStorage.getItem('current-user');
@@ -62,6 +69,9 @@ export class ActiveDeckComponent implements OnInit {
         this.selectedPlayer = player;
         this.activeDeck = { ...player?.activeDeck };
       });
+    this.store$
+      .pipe(select(CardSelectors.selectCardIsLoading))
+      .subscribe((loading) => (this.isLoading = loading));
   }
 
   initDeck() {
@@ -76,7 +86,7 @@ export class ActiveDeckComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    this.cardHeight = Math.trunc((this.innerHeight - 126) / 4);
+    this.cardHeight = Math.trunc((this.innerHeight - 300) / 3);
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
     this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }
@@ -104,6 +114,19 @@ export class ActiveDeckComponent implements OnInit {
 
   rotate(event: any) {
     event.stopPropagation();
-    this.rotateActive = !this.rotateActive;
+    this.rotation += 90;
+  }
+
+  updateCard(card: Card) {
+    this.store$.dispatch(updateCardRequest({ card }));
+  }
+
+  flip(card: Card, event: any) {
+    event.stopPropagation();
+    if (card.url === card.cardFaces?.frontUrl) {
+      card.url = card.cardFaces?.backUrl;
+    } else if (card.url === card.cardFaces?.backUrl) {
+      card.url = card.cardFaces?.frontUrl;
+    }
   }
 }

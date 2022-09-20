@@ -25,6 +25,7 @@
       mat-raised-button
       color="primary"
       (click)="addDeckstatsUserId(id)"
+      [disabled]="isLoading || !id"
       mat-button
     >
       LOAD
@@ -39,3 +40,4 @@
     </div>
   </div>
 </div>
+<div class="loader" [hidden]="!isLoading"></div>
