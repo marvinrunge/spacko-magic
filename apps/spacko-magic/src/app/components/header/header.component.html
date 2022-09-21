@@ -14,10 +14,15 @@
       Decks
     </div>
     <div class="nav-item" routerLink="/dragfield" routerLinkActive="active">
-      Dragfield (Demo)
+      Dragfield
     </div>
-    <div class="nav-item logout" (click)="onLogout()" routerLinkActive="active">
-      Logout
+    <div class="bottom-nav">
+      <div fxFill class="nav-item version" (click)="checkForUpdates()" routerLinkActive="active">
+        Version {{ version }}
+      </div>
+      <div fxFill class="nav-item logout" (click)="onLogout()" routerLinkActive="active">
+        Logout
+      </div>
     </div>
   </div>
 </header>

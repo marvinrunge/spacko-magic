@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppUpdateService } from './services/app-update.service';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -7,11 +8,11 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private updateService: AppUpdateService) {}
 
   ngOnInit() {
     this.authService.checkSession();
-
+    this.updateService.checkVersion();
     // this.setBackgroundPosition();
   }
 

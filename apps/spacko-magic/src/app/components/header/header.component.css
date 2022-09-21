@@ -9,9 +9,9 @@ header {
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
   z-index: 9999;
-  width: 220px;
+  width: 240px;
   background: #000000;
-  left: -230px;
+  left: -250px;
   transition: 0.2s ease left;
 }
 
@@ -72,10 +72,22 @@ mat-icon:active {
   background-color: #3e256a;
 }
 
-.logout {
-  bottom: 0;
+.bottom-nav {
+  width: 100%;
   position: absolute;
+  bottom: 0;
+}
+
+.logout {
+  width: 100%;
   max-width: 300px;
+}
+
+.version {
+  width: 100%;
+  max-width: 300px;
+  font-size: 120%;
+  line-height: 1.5rem;
 }
 
 .backdrop {
