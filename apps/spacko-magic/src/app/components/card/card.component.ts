@@ -67,7 +67,7 @@ export class CardComponent implements OnInit {
       if (this.mode === 'attach') {
         this.triggerAction('attach', event);
       } else {
-        this.toggleActions();
+        this.toggleActions(event);
       }
     } else {
       if (this.mode === 'attach') {
@@ -98,8 +98,10 @@ export class CardComponent implements OnInit {
     }
   }
 
-  toggleActions() {
+  toggleActions(event: Event) {
     this.showActions = !this.showActions;
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   triggerAction(type: string, event?: Event) {
