@@ -9,6 +9,7 @@ import { Card } from '../../interfaces/card';
 import { Player } from '../../interfaces/player';
 import { RootStoreState } from '../../root-store';
 import {
+  addCardRequest,
   deleteCardRequest,
   setActiveAttachCardId,
   updateCardRequest,
@@ -67,6 +68,8 @@ export class BattlefieldComponent implements OnInit {
   mode?: string;
   searchMode?: string;
   rotation = 0;
+  cardSearchName = "";
+  cardSearchResult: Card[] = [];
 
   touch = false;
   activeHandCard?: string;
@@ -104,6 +107,18 @@ export class BattlefieldComponent implements OnInit {
 
   changeEnemy(username: string) {
     this.game.changeEnemy(username);
+  }
+
+  toggleSearchToken() {
+    if (this.mode !== 'token') {
+      this.mode = 'token';
+    } else {
+      this.mode = undefined;
+    }
+  }
+
+  searchCards(cardSearchName: string) {
+    this.game.getCardsByName(cardSearchName).then(cards => this.cardSearchResult = cards);
   }
 
   openDialog(): void {
@@ -288,6 +303,10 @@ export class BattlefieldComponent implements OnInit {
           this.flip(card);
           break;
         }
+        case 'spawn-token': {
+          this.spawnToken(card);
+          break;
+        }
       }
     }
     switch (actionType) {
@@ -310,6 +329,12 @@ export class BattlefieldComponent implements OnInit {
     }
   }
 
+  spawnToken(card: Card) {
+    card.place = "battlefield";
+    card.isToken = true;
+    this.store$.dispatch(addCardRequest({ card }));
+  }
+
   private exileCard(card: Card) {
     this.updateCard({
       ...this.unattach({
@@ -329,18 +354,22 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private kill(card: Card) {
-    this.updateCard({
-      ...this.unattach({
-        ...card,
-        place: 'graveyard',
-        tapped: false,
-        position:
-          this.minPositionGraveyard &&
-          Number.isFinite(this.minPositionGraveyard)
-            ? this.minPositionGraveyard - 1
-            : card.position,
-      }),
-    });
+    if (card.isToken) {
+      this.store$.dispatch(deleteCardRequest({ card }))
+    } else {
+      this.updateCard({
+        ...this.unattach({
+          ...card,
+          place: 'graveyard',
+          tapped: false,
+          position:
+            this.minPositionGraveyard &&
+            Number.isFinite(this.minPositionGraveyard)
+              ? this.minPositionGraveyard - 1
+              : card.position,
+        }),
+      });
+    }
   }
 
   private putOnBottom(card: Card) {

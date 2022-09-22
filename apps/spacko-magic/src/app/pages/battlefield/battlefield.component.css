@@ -4,6 +4,16 @@ spacko-magic-header {
   z-index: 10;
 }
 
+h3 {
+  font-family: 'Beleren2016';
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  text-shadow: 0 0 3px black;
+  padding: 0 0 0 0;
+  margin: 1rem 0 1rem 0;
+}
+
 .card {
   background-size: contain;
   cursor: pointer;
@@ -189,4 +199,26 @@ spacko-magic-enemy-stats {
 .search-container spacko-magic-lane {
   margin: auto;
   width: 100%;
+}
+
+.creature-token-container {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #000b;
+  z-index: 4;
+  padding-top: 1rem;
+  overflow-y: auto;
+}
+
+.search {
+  margin: auto;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 1rem;
+}
+
+.search-galery {
+  margin: auto;
 }

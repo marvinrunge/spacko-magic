@@ -9,6 +9,7 @@ import { Player } from '../../interfaces/player';
 export class PlayerStatsComponent {
   @Input() player: Player;
   @Output() playerUpdated = new EventEmitter<Player>();
+  @Output() clicked = new EventEmitter<string>();
 
   changeLife(life: any) {
     const player = { ...this.player, life };
@@ -28,5 +29,9 @@ export class PlayerStatsComponent {
   changeOther(other: any) {
     const player = { ...this.player, other };
     this.playerUpdated.emit(player);
+  }
+
+  onClick(action: string) {
+    this.clicked.emit(action);
   }
 }

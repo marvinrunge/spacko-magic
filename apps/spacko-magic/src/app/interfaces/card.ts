@@ -20,4 +20,5 @@ export class Card implements Base {
   count: number;
   cmc: number;
   scryfall_uri: string;
+  isToken?: boolean;
 }

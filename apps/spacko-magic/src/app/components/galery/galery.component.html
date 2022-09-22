@@ -1,0 +1,11 @@
+<div class="galery-container">
+  <spacko-magic-card
+    *ngFor="let card of cards"
+    [card]="card"
+    [height]="cardHeight"
+    [width]="cardWidth"
+    [borderRadius]="cardBorderRadius"
+    [mode]="mode"
+    (actionTriggered)="triggerAction($event)"
+  ></spacko-magic-card>
+</div>

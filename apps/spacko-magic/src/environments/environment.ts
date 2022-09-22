@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   db: 'http://localhost:5984/',
   deckstats: 'http://localhost:8000/',
-  version: "0.1.1"
+  version: "0.1.2"
 };
 
 /*

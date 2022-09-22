@@ -1,7 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { delay, finalize } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
+
+import { environment } from '../environments/environment';
+import { Card } from './interfaces/card';
+import { DeckstatsDeck, DeckstatsResponse } from './interfaces/deckstats/types';
+import { Player } from './interfaces/player';
 import { PlayerSelectors, RootStoreState } from './root-store';
 import { addCardRequest } from './root-store/card-store/actions';
 import {
@@ -12,15 +20,9 @@ import {
   setSelectedEnemyPlayerId,
   updatePlayerRequest,
 } from './root-store/player-store/actions';
+import { AuthService } from './services/auth.service';
 import { CardService } from './services/card.service';
 import { EnemyCardService } from './services/enemy-card.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
-import { DeckstatsResponse, DeckstatsDeck } from './interfaces/deckstats/types';
-import { environment } from '../environments/environment';
-import { AuthService } from './services/auth.service';
-import { Router } from '@angular/router';
-import { Player } from './interfaces/player';
 
 @Injectable({
   providedIn: 'root',
@@ -77,12 +79,15 @@ export class GameService {
                         type: this.getType(card.type_line),
                         place: 'deck',
                         attachedCards: [],
-                        url: (card.card_faces?.length > 1 && !card.image_uris) ? card.card_faces[0].image_uris?.normal : String(card.image_uris?.normal),
+                        url:
+                          card.card_faces?.length > 1 && !card.image_uris
+                            ? card.card_faces[0].image_uris?.normal
+                            : String(card.image_uris?.normal),
                         count: 1,
                         cmc: card.cmc,
                         scryfall_uri: card.scryfall_uri,
                         cardFaces:
-                          (card.card_faces?.length > 1 && !card.image_uris)
+                          card.card_faces?.length > 1 && !card.image_uris
                             ? {
                                 frontUrl: card.card_faces[0].image_uris?.normal,
                                 backUrl: card.card_faces[1].image_uris?.normal,
@@ -105,7 +110,10 @@ export class GameService {
   }
 
   async loadDeckstatsDeck(deck: DeckstatsDeck) {
-    const url = deck.url_neutral.replace('//deckstats.net/', environment.deckstats);
+    const url = deck.url_neutral.replace(
+      '//deckstats.net/',
+      environment.deckstats
+    );
     const respone = await this.http
       .get<string>(
         `${url}?include_comments=1&do_not_include_printings=0&export_txt=1`,
@@ -117,7 +125,7 @@ export class GameService {
     playerToUpdate.activeDeck = {
       id: deck.saved_id,
       name: deck.name,
-      cardList: respone
+      cardList: respone,
     };
     this.store$.dispatch(updatePlayerRequest({ player: playerToUpdate }));
     this.initDeck(respone, this.authService.username);
@@ -163,6 +171,45 @@ export class GameService {
       page++;
     }
     return decks;
+  }
+
+  getCardsByName(name: string): Promise<Card[]> {
+    return this.http
+      .get('https://api.scryfall.com/cards/search?q=' + name + '+type%3Atoken')
+      .pipe(
+        map((result: any) => {
+          return result.data.map((card: any) => {
+            const c: Card = {
+              _id: String(card.name),
+              _deleted: false,
+              _rev: '',
+              counter: 0,
+              marked: false,
+              position: Math.random(),
+              tapped: false,
+              type: this.getType(card.type_line),
+              place: 'deck',
+              attachedCards: [],
+              url:
+                card.card_faces?.length > 1 && !card.image_uris
+                  ? card.card_faces[0].image_uris?.normal
+                  : String(card.image_uris?.normal),
+              count: 1,
+              cmc: card.cmc,
+              scryfall_uri: card.scryfall_uri,
+              cardFaces:
+                card.card_faces?.length > 1 && !card.image_uris
+                  ? {
+                      frontUrl: card.card_faces[0].image_uris?.normal,
+                      backUrl: card.card_faces[1].image_uris?.normal,
+                    }
+                  : undefined,
+            };
+            return c;
+          });
+        })
+      )
+      .toPromise();
   }
 
   getType(type: string): string {

@@ -62,6 +62,21 @@ body {
   min-height: 2.6rem;
 }
 
+.mat-raised-button {
+  font-size: 150%;
+  min-height: 2.6rem;
+}
+
+h2 {
+  font-family: 'Beleren2016';
+  color: white;
+  font-size: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  text-shadow: 0 0 3px black;
+  padding: 2rem 4rem;
+}
+
 .actions {
   position: relative;
   margin: auto;

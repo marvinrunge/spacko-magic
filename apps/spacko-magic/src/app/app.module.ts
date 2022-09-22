@@ -1,5 +1,6 @@
 import 'hammerjs';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -8,14 +9,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import {
-  MAT_SNACK_BAR_DATA,
-  MAT_SNACK_BAR_DEFAULT_OPTIONS,
-} from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {
   BrowserModule,
   HAMMER_GESTURE_CONFIG,
@@ -31,7 +31,9 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AddEnemyModalComponent } from './components/add-enemy-modal/add-enemy-modal.component';
 import { CardComponent } from './components/card/card.component';
+import { DeckComponent } from './components/deck/deck.component';
 import { EnemyStatsComponent } from './components/enemy-stats/enemy-stats.component';
+import { GaleryComponent } from './components/galery/galery.component';
 import { GraveyardComponent } from './components/graveyard/graveyard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LaneComponent } from './components/lane/lane.component';
@@ -39,18 +41,15 @@ import { LibraryComponent } from './components/library/library.component';
 import { PlayerStatsComponent } from './components/player-stats/player-stats.component';
 import { CreaturesPipe } from './creatures.pipe';
 import { BattlefieldComponent } from './pages/battlefield/battlefield.component';
+import { BattlefieldContainerComponent } from './pages/battlefield/container/container.component';
 import { ActiveDeckComponent } from './pages/deck/deck.component';
-import { SettingsComponent } from './pages/settings/settings.component';
+import { DragfieldComponent } from './pages/dragfield/dragfield.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
 import { LandsPipe } from './pipes/lands.pipe';
 import { RootStoreModule } from './root-store';
-import { DeckComponent } from './components/deck/deck.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { DragfieldComponent } from './pages/dragfield/dragfield.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { BattlefieldContainerComponent } from './pages/battlefield/container/container.component';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   overrides = {
@@ -59,7 +58,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
     },
   };
   options = {
-    touchAction: 'pan-x'
+    touchAction: 'pan-x',
   };
 }
 
@@ -102,6 +101,7 @@ const routes: Routes = [
     SettingsComponent,
     DragfieldComponent,
     BattlefieldContainerComponent,
+    GaleryComponent,
   ],
   imports: [
     CommonModule,
@@ -117,6 +117,7 @@ const routes: Routes = [
     MatButtonModule,
     MatListModule,
     MatIconModule,
+    MatMenuModule,
     MatExpansionModule,
     HttpClientModule,
     RootStoreModule,

@@ -12,8 +12,12 @@
   font-size: 1.5rem;
   border-top-right-radius: 20px;
   padding: 8px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   border-right: 1px solid rgba(255, 255, 255, 0.18);
+  justify-content: space-between;
+  display: flex;
 }
 
 .player-stats-content {
@@ -23,10 +27,6 @@
   padding: 8px;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   border-right: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-span {
-  padding-top: 8px;
 }
 
 input {
@@ -56,3 +56,7 @@ input::-webkit-inner-spin-button {
 .player-counter-button:hover {
   background-color: #777;
 }
+ .more {
+  cursor: pointer;
+  translate: 4px -12px;
+ }

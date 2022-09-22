@@ -69,7 +69,7 @@
     </div>
   </div>
   <div
-    *ngIf="!isEnemyCard"
+    *ngIf="!isEnemyCard && mode !== 'token'"
     [@showHide]="showActions ? 'show' : 'hide'"
     [style.width.px]="height * 0.5"
     [style.top.px]="-height * 0.65 - 8"
