@@ -12,6 +12,6 @@
   "type": "module",
   "dependencies": {
     "http": "0.0.1-security",
-    "node-fetch": "^3.2.4"
+    "node-fetch": "^3.2.10"
   }
 }
