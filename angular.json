@@ -1,37 +1,99 @@
 {
   "version": 1,
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
-  "defaultProject": "spacko-magic",
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
-    }
-  },
   "projects": {
+    "play-magic-together": {
+      "projectType": "application",
+      "root": "apps/play-magic-together",
+      "sourceRoot": "apps/play-magic-together/src",
+      "prefix": "spacko-magic",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/play-magic-together",
+            "index": "apps/play-magic-together/src/index.html",
+            "main": "apps/play-magic-together/src/main.ts",
+            "polyfills": "apps/play-magic-together/src/polyfills.ts",
+            "tsConfig": "apps/play-magic-together/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/play-magic-together/src/favicon.ico",
+              "apps/play-magic-together/src/assets"
+            ],
+            "styles": ["apps/play-magic-together/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/play-magic-together/src/environments/environment.ts",
+                  "with": "apps/play-magic-together/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "play-magic-together:build:production"
+            },
+            "development": {
+              "browserTarget": "play-magic-together:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "play-magic-together:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/play-magic-together/src/**/*.ts",
+              "apps/play-magic-together/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/play-magic-together"],
+          "options": {
+            "jestConfig": "apps/play-magic-together/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "spacko-magic": {
       "projectType": "application",
       "root": "apps/spacko-magic",
@@ -128,7 +190,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "spacko-magic-e2e": {
       "root": "apps/spacko-magic-e2e",
@@ -154,99 +217,9 @@
             "lintFilePatterns": ["apps/spacko-magic-e2e/**/*.{js,ts}"]
           }
         }
-      }
-    },
-    "play-magic-together": {
-      "projectType": "application",
-      "root": "apps/play-magic-together",
-      "sourceRoot": "apps/play-magic-together/src",
-      "prefix": "spacko-magic",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/play-magic-together",
-            "index": "apps/play-magic-together/src/index.html",
-            "main": "apps/play-magic-together/src/main.ts",
-            "polyfills": "apps/play-magic-together/src/polyfills.ts",
-            "tsConfig": "apps/play-magic-together/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "apps/play-magic-together/src/favicon.ico",
-              "apps/play-magic-together/src/assets"
-            ],
-            "styles": ["apps/play-magic-together/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "apps/play-magic-together/src/environments/environment.ts",
-                  "with": "apps/play-magic-together/src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "play-magic-together:build:production"
-            },
-            "development": {
-              "browserTarget": "play-magic-together:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "play-magic-together:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/play-magic-together/src/**/*.ts",
-              "apps/play-magic-together/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/play-magic-together"],
-          "options": {
-            "jestConfig": "apps/play-magic-together/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["spacko-magic"]
     }
   }
 }

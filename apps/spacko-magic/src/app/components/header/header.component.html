@@ -2,8 +2,8 @@
   <mat-icon>menu</mat-icon>
 </div>
 <div [class.show]="isActive" class="backdrop" (click)="toggleMenu()"></div>
-<header [class.in]="isActive" fxLayout="column" fxLayoutGap="8px" fxLayoutAlign="start start">
-  <div fxFill *ngIf="isActive" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="8px">
+<header [class.in]="isActive">
+  <nav *ngIf="isActive">
     <div class="nav-item" routerLink="/battlefield" routerLinkActive="active">
       Battlefield
     </div>
@@ -17,12 +17,12 @@
       Dragfield
     </div>
     <div class="bottom-nav">
-      <div fxFill class="nav-item version" (click)="checkForUpdates()" routerLinkActive="active">
+      <div class="nav-item version" (click)="checkForUpdates()" routerLinkActive="active">
         Version {{ version }}
       </div>
-      <div fxFill class="nav-item logout" (click)="onLogout()" routerLinkActive="active">
+      <div class="nav-item logout" (click)="onLogout()" routerLinkActive="active">
         Logout
       </div>
     </div>
-  </div>
+  </nav>
 </header>

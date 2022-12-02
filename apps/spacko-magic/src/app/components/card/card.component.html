@@ -3,6 +3,7 @@
   class="attached-card"
   style="position: relative; width: 0; height: 0"
 >
+
   <div
     class="card"
     style="position: absolute"
@@ -18,13 +19,15 @@
       }
     }"
   >
+
     <div
       class="inner-card"
       [style.border-radius.px]="borderRadius"
-      fxFill
       [style.background-image]="'url(' + card.url + ')'"
     ></div>
+
   </div>
+
 </div>
 
 <div
@@ -36,6 +39,7 @@
   (wheel)="triggerAction('zoom')"
   [style.maxHeight.px]="height"
 >
+
   <div
     class="card"
     [style.transform]="
@@ -44,9 +48,9 @@
     [style.height.px]="height"
     [style.min-width.px]="width"
   >
+
     <div
       class="inner-card"
-      fxFill
       [style.opacity]="card.place === 'exile' ? '0.5' : '1'"
       [style.filter]="
         card.place === 'exile' || card.place === 'graveyard'
@@ -60,14 +64,15 @@
         params: { inWidth: width + 'px', inHeight: height + 'px' }
       }"
     >
-      <div class="counter" *ngIf="card.counter > 0">
-        {{ card.counter }}
-      </div>
-      <div class="counter" *ngIf="card.count > 1">
-        x{{ card.count }}
-      </div>
+
+      <div class="counter" *ngIf="card.counter > 0"> {{ card.counter }} </div>
+
+      <div class="counter" *ngIf="card.count > 1"> x{{ card.count }} </div>
+
     </div>
+
   </div>
+
   <div
     *ngIf="!isEnemyCard && mode !== 'token'"
     [@showHide]="showActions ? 'show' : 'hide'"
@@ -75,105 +80,118 @@
     [style.top.px]="-height * 0.65 - 8"
     class="actions"
   >
-    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <div
-        *ngIf="card.cardFaces"
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="flip"
-        class="action flip"
-        (click)="onClickAction('flip', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="put on top of deck"
-        class="action put-on-top"
-        (click)="onClickAction('put-on-top', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="put on bottom of deck"
-        class="action put-on-bottom"
-        (click)="onClickAction('put-on-bottom', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="attach"
-        *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
-        class="action attach"
-        (click)="onClickAction('attach-to', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="unattach"
-        *ngIf="card.attachedCards.length > 0"
-        class="action unattach"
-        (click)="onClickAction('unattach', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="return to hand"
-        class="action return-to-hand"
-        (click)="onClickAction('return-to-hand', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="search"
-        class="action search"
-        *ngIf="
-          (card.place === 'graveyard' || card.place === 'exile') &&
-          mode !== 'search'
-        "
-        (click)="onClickAction('search', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="kill / sacrifice"
-        *ngIf="card.place === 'battlefield' || card.place === 'deck'"
-        class="action kill"
-        (click)="onClickAction('kill', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="exile"
-        *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
-        class="action exile"
-        (click)="onClickAction('exile', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="add a counter"
-        *ngIf="card.place === 'battlefield'"
-        class="action add-counter"
-        (click)="onClickAction('add-counter', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="remove a counter"
-        *ngIf="card.place === 'battlefield'"
-        class="action remove-counter"
-        (click)="onClickAction('remove-counter', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="tap / untap"
-        *ngIf="card.place === 'battlefield'"
-        class="action"
-        [class.tap]="!card.tapped"
-        [class.untap]="card.tapped"
-        (click)="onClickAction('toggle-tap', $event)"
-      ></div>
-    </div>
+
+    <div
+      *ngIf="card.cardFaces"
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="flip"
+      class="action flip"
+      (click)="onClickAction('flip', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="put on top of deck"
+      class="action put-on-top"
+      (click)="onClickAction('put-on-top', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="put on bottom of deck"
+      class="action put-on-bottom"
+      (click)="onClickAction('put-on-bottom', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="attach"
+      *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
+      class="action attach"
+      (click)="onClickAction('attach-to', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="unattach"
+      *ngIf="card.attachedCards.length > 0"
+      class="action unattach"
+      (click)="onClickAction('unattach', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="return to hand"
+      class="action return-to-hand"
+      (click)="onClickAction('return-to-hand', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="search"
+      class="action search"
+      *ngIf="
+        (card.place === 'graveyard' || card.place === 'exile') &&
+        mode !== 'search'
+      "
+      (click)="onClickAction('search', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="kill / sacrifice"
+      *ngIf="card.place === 'battlefield' || card.place === 'deck'"
+      class="action kill"
+      (click)="onClickAction('kill', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="exile"
+      *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
+      class="action exile"
+      (click)="onClickAction('exile', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="add a counter"
+      *ngIf="card.place === 'battlefield'"
+      class="action add-counter"
+      (click)="onClickAction('add-counter', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="remove a counter"
+      *ngIf="card.place === 'battlefield'"
+      class="action remove-counter"
+      (click)="onClickAction('remove-counter', $event)"
+    ></div>
+
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="tap / untap"
+      *ngIf="card.place === 'battlefield'"
+      class="action"
+      [class.tap]="!card.tapped"
+      [class.untap]="card.tapped"
+      (click)="onClickAction('toggle-tap', $event)"
+    ></div>
+
   </div>
+
 </div>
+

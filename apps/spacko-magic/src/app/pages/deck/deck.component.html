@@ -2,7 +2,7 @@
 <div class="content">
   <div class="settings">
     <h2>
-      {{ activeDeck?.name }}
+      {{ activeDeck.name }}
       <mat-icon *ngIf="!edit" (click)="initDeck()">edit_node</mat-icon>
     </h2>
     <div class="edit" *ngIf="edit"><div>
@@ -77,7 +77,7 @@
     <div
       class="preview"
       [style.background-image]="
-        selectedCard ? 'url(' + selectedCard?.url + ')' : undefined
+        selectedCard ? 'url(' + selectedCard.url + ')' : undefined
       "
       [style.transform]="'scale(1) rotate(' + rotation + 'deg)'"
     ></div>

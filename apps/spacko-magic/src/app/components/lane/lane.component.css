@@ -1,11 +1,27 @@
 .scroll-container {
   overflow-y: hidden;
   overflow-x: auto;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  gap: 4px;
 }
 
 .card-container {
   width: 100%;
   max-width: 100vw;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
+
+.arrow-padding {
+  flex: 1 1 50px;
+  box-sizing: border-box;
+  max-width: 50px;
+  min-width: 50px;
 }
 
 .arrow {

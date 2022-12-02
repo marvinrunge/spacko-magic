@@ -4,6 +4,23 @@ spacko-magic-header {
   z-index: 10;
 }
 
+.battlefield-container {
+  height: 100vh;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: flex-start center;
+  align-items: flex-start;
+}
+
+.enemy-container {
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 100%;
+  max-width: 100%;
+}
+
 h3 {
   font-family: 'Beleren2016';
   color: white;
@@ -35,10 +52,6 @@ spacko-magic-card {
   scroll-snap-align: center;
 }
 
-.battlefield-container {
-  height: 100vh;
-}
-
 .scroll-container {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -46,6 +59,10 @@ spacko-magic-card {
   overflow-y: visible;
   pointer-events: none;
   scroll-behavior: smooth;
+  padding-top: 175px;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
 }
 
 .scroll-container::-webkit-scrollbar {
@@ -56,10 +73,25 @@ spacko-magic-card {
   width: 100%;
   max-width: calc(100vw - 210px);
   pointer-events: none;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
+
+.arrow-padding {
+  flex: 1 1 50px;
+  box-sizing: border-box;
+  max-width: 50px;
+  min-width: 50px;
 }
 
 .player-lane {
   pointer-events: none;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
 }
 
 .hand-container .card {

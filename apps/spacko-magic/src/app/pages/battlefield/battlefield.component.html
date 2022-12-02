@@ -1,6 +1,6 @@
 <spacko-magic-header [isActive]="false"></spacko-magic-header>
-<div class="battlefield-container" fxLayout="row" fxLayoutAlign="center start">
-  <div fxLayout="column" fxLayoutGap="4px" fxFlex="grow">
+<div class="battlefield-container">
+  <div class="enemy-container">
     <spacko-magic-enemy-stats
       [players]="enemies"
       [selectedPlayer]="selectedEnemyPlayer"
@@ -61,7 +61,6 @@
 
 <div
   class="player-lane"
-  fxLayout="row"
   [style.height.px]="cardHeight * 1.5"
   [style.z-index]="4"
 >
@@ -74,8 +73,6 @@
   </spacko-magic-player-stats>
   <div
     class="hand-container"
-    fxLayout="row"
-    fxLayoutAlign="center center"
     [style.height.px]="cardHeight * 1.5"
   >
     <div
@@ -86,11 +83,10 @@
     <div
       #handScroll
       class="scroll-container"
-      fxLayout="row"
       [style.height.px]="cardHeight * 1.5"
       [style.paddingTop.px]="cardHeight * 1.5 - 110"
     >
-      <div fxFlex="50px"></div>
+      <div class="arrow-padding"></div>
       <div
         class="card"
         *ngFor="let card of hand; index as i"
@@ -103,11 +99,10 @@
           (click)="play(card)"
           [style.height.px]="cardHeight"
           [style.width.px]="cardWidth"
-          fxFill
           [style.background-image]="'url(' + card.url + ')'"
         ></div>
       </div>
-      <div fxFlex="50px"></div>
+      <div class="arrow-padding"></div>
     </div>
     <div
       class="arrow right"
@@ -145,7 +140,7 @@
   <div class="search" (click)="$event.stopPropagation()">
     <h3>Token Search</h3>
       <div>
-        <mat-form-field fxFill appearance="fill">
+        <mat-form-field appearance="fill">
           <mat-label>Card Name</mat-label>
           <input
             [(ngModel)]="cardSearchName"
@@ -159,7 +154,6 @@
       <button
         mat-raised-button
         color="primary"
-        fxFill
         (click)="searchCards(cardSearchName); $event.stopPropagation()"
       >
         Search

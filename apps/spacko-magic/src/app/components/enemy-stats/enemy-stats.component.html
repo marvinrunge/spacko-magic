@@ -1,91 +1,73 @@
-<div fxLayout="column" class="player-stats-container">
+<div class="player-stats-container">
   <div class="player-stats-header">
       <div class="entry add-player" (click)="onClickAdd()">
         <mat-icon>group_add</mat-icon>
       </div>
-      <div class="player-names" fxLayout="row" fxLayoutAlign="center center">
+      <div class="player-names">
         <div
           *ngFor="let player of players"
           class="player-name entry"
-          [class.selected]="player === selectedPlayer?.name"
+          [class.selected]="player === selectedPlayer.name"
           (click)="onClickUsername(player)"
         >
           <span>{{ player }}</span>
         </div>
       </div>
   </div>
-  <div fxLayout="column" *ngIf="selectedPlayer" fxFill>
+  <div class="enemy-stats" *ngIf="selectedPlayer">
     <div
       class="player-stats-content"
-      fxFlex
-      fxLayout="row"
-      fxLayoutAlign="space-around"
     >
       <div
-        class="life-counter"
-        fxLayout="column"
-        fxLayoutAlign="start center"
-        fxLayoutGap="4px"
+        class="life-counter stat-column"
       >
-        <div fxFlex fxLayoutAlign="center center">
+        <div class="icon">
           <img src="/assets/life.svg" width="30px" height="30px" />
         </div>
-        <div fxFlex fxLayoutAlign="center center">
-          {{ selectedPlayer ? selectedPlayer?.life : 0 }}
+        <div class="number">
+          {{ selectedPlayer ? selectedPlayer.life : 0 }}
         </div>
       </div>
 
       <div
-        class="cards"
-        fxLayout="column"
-        fxLayoutAlign="start center"
-        fxLayoutGap="4px"
+        class="cards stat-column"
       >
-        <div fxFlex fxLayoutAlign="center center">
+        <div class="icon">
           <img src="/assets/cards_white.svg" width="30px" height="30px" />
         </div>
-        <div fxFlex fxLayoutAlign="center center">{{ cards }}</div>
+        <div class="number">{{ cards }}</div>
       </div>
       <div
-        class="poison-counter"
-        fxLayout="column"
-        fxLayoutAlign="start center"
-        fxLayoutGap="4px"
+        class="poison-counter stat-column"
         *ngIf="selectedPlayer?.poison !== 0"
       >
-        <div fxFlex fxLayoutAlign="center center">
+        <div class="icon">
           <img src="/assets/poison_counter.svg" width="30px" height="30px" />
         </div>
-        <div fxFlex fxLayoutAlign="center center">
+        <div class="number">
           {{ selectedPlayer ? selectedPlayer.poison : 0 }}
         </div>
       </div>
       <div
-        class="energy-counter"
-        fxLayout="column"
-        fxLayoutAlign="start center"
-        fxLayoutGap="4px"
+        class="energy-counter stat-column"
         *ngIf="selectedPlayer?.energy !== 0"
       >
-        <div fxFlex fxLayoutAlign="center center">
+        <div class="icon">
           <img src="/assets/energy_counter.svg" width="30px" height="30px" />
         </div>
-        <div fxFlex fxLayoutAlign="center center">
-          {{ selectedPlayer ? selectedPlayer?.energy : 0 }}
+        <div class="number">
+          {{ selectedPlayer ? selectedPlayer.energy : 0 }}
         </div>
       </div>
       <div
-        class="other-counter"
-        fxLayout="column"
-        fxLayoutAlign="start center"
-        fxLayoutGap="4px"
+        class="other-counter stat-column"
         *ngIf="selectedPlayer?.other !== 0"
       >
-        <div fxFlex fxLayoutAlign="center center">
+        <div class="icon">
           <img src="/assets/other_counter.svg" width="30px" height="30px" />
         </div>
-        <div fxFlex fxLayoutAlign="center center">
-          {{ selectedPlayer ? selectedPlayer?.other : 0 }}
+        <div class="number">
+          {{ selectedPlayer ? selectedPlayer.other : 0 }}
         </div>
       </div>
     </div>

@@ -2,6 +2,17 @@
   filter: drop-shadow(0px 0px 5px #000);
   backdrop-filter: blur(5px);
   font-family: 'Beleren2016';
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.player-names {
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center;
+  align-items: center;
 }
 
 .player-stats-header {
@@ -10,6 +21,16 @@
   color: white;
   font-size: 1.5rem;
   height: 48px;
+}
+
+.enemy-stats {
+  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
 }
 
 .player-stats-content {
@@ -27,6 +48,39 @@
   position: absolute;
   height: 77px;
   z-index: 1;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: stretch space-around;
+  align-items: stretch;
+  flex: 1 1 1e-9px;
+}
+
+.stat-column {
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center flex-start;
+  align-items: center;
+}
+
+.stat-column .icon {
+  margin-bottom: 4px;
+  place-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 1e-9px;
+}
+
+.stat-column .number {
+  place-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 1e-9px;
 }
 
 span {

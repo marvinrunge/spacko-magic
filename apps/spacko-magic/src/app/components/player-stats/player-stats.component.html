@@ -1,10 +1,6 @@
-<div fxLayout="column" class="player-stats-container" fxFill>
+<div class="player-stats-container">
   <div
     class="player-stats-header"
-    fxLayoutAlign="center center"
-    fxFlex="30"
-    fxLayout="row"
-    fxLayoutAlign="space-between"
   >
     <span>{{ player.name }}</span>
     <button class="more" mat-icon-button [matMenuTriggerFor]="menu">
@@ -19,76 +15,53 @@
   </div>
   <div
     class="player-stats-content"
-    fxFlex
-    fxLayout="row"
-    fxLayoutAlign="space-between"
   >
     <div
-      class="life-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
+      class="life-counter stat-column"
     >
-      <div fxFlex fxLayoutAlign="center center" title="Life">
+      <div class="icon" title="Life">
         <img src="/assets/life.svg" width="30px" height="30px" />
       </div>
       <input
         type="number"
-        id="life"
-        fxFlex
-        fxLayoutAlign="center center"
+        id="life" class="number"
         [ngModel]="player.life"
         (ngModelChange)="changeLife($event)"
       />
     </div>
     <div
-      class="poison-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
+      class="poison-counter stat-column"
     >
-      <div fxFlex fxLayoutAlign="center center" title="Poison Counter">
+      <div class="icon" title="Poison Counter">
         <img src="/assets/poison_counter.svg" width="30px" height="30px" />
       </div>
       <input
         type="number"
-        (ngModelChange)="changePoison($event)"
-        fxFlex
-        fxLayoutAlign="center center"
+        (ngModelChange)="changePoison($event)" class="number"
         [ngModel]="player.poison"
       />
     </div>
     <div
-      class="energy-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
+      class="energy-counter stat-column"
     >
-      <div fxFlex fxLayoutAlign="center center" title="Energy Counter">
+      <div class="icon" title="Energy Counter">
         <img src="/assets/energy_counter.svg" width="30px" height="30px" />
       </div>
       <input
         type="number"
-        (ngModelChange)="changeEnergy($event)"
-        fxFlex
-        fxLayoutAlign="center center"
+        (ngModelChange)="changeEnergy($event)" class="number"
         [ngModel]="player.energy"
       />
     </div>
     <div
-      class="other-counter"
-      fxLayout="column"
-      fxLayoutAlign="start center"
-      fxLayoutGap="4px"
+      class="other-counter stat-column"
     >
-      <div fxFlex fxLayoutAlign="center center" title="Other Counter">
+      <div class="icon" title="Other Counter">
         <img src="/assets/other_counter.svg" width="30px" height="30px" />
       </div>
       <input
         type="number"
-        (ngModelChange)="changeOther($event)"
-        fxFlex
-        fxLayoutAlign="center center"
+        (ngModelChange)="changeOther($event)" class="number"
         [ngModel]="player.other"
       />
     </div>

@@ -9,7 +9,6 @@
     class="inner-card"
     [hidden]="cards.length === 0"
     (click)="onClick()"
-    fxFill
     [style.height.px]="height"
     [style.width.px]="width"
     [style.border-radius.px]="borderRadius"
@@ -26,42 +25,40 @@
     [style.top.px]="-height * 0.5"
     class="actions"
   >
-    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="shuffle"
-        class="action shuffle"
-        (click)="onClickAction('shuffle', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="draw"
-        class="action draw"
-        (click)="onClickAction('draw', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="search"
-        class="action search"
-        (click)="onClickAction('search', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="restart"
-        class="action restart"
-        (click)="onClickAction('restart', $event)"
-      ></div>
-      <div
-        [style.width.px]="height * 0.15"
-        [style.height.px]="height * 0.15"
-        title="untap all"
-        class="action untap"
-        (click)="onClickAction('untapAll', $event)"
-      ></div>
-    </div>
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="shuffle"
+      class="action shuffle"
+      (click)="onClickAction('shuffle', $event)"
+    ></div>
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="draw"
+      class="action draw"
+      (click)="onClickAction('draw', $event)"
+    ></div>
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="search"
+      class="action search"
+      (click)="onClickAction('search', $event)"
+    ></div>
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="restart"
+      class="action restart"
+      (click)="onClickAction('restart', $event)"
+    ></div>
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
+      title="untap all"
+      class="action untap"
+      (click)="onClickAction('untapAll', $event)"
+    ></div>
   </div>
 </div>

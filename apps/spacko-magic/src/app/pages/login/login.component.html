@@ -1,10 +1,10 @@
 <div>
-  <div class="logo" fxLayoutAlign="center center">
+  <div class="logo">
     <img class="img" alt="spackomagic icon" src="assets/logo.svg" width="500"/>
   </div>
   <div class="wrapper">
     <div class="login-container">
-      <form fxLayout="column" fxLayoutAlign="center stretch">
+      <form>
         <mat-form-field appearance="fill" class="input">
           <mat-label>Username</mat-label>
           <mat-icon matSuffix>person</mat-icon>
@@ -16,11 +16,8 @@
           <mat-icon matSuffix>lock</mat-icon>
           <input matInput [(ngModel)]="password" [ngModelOptions]="{standalone: true}" autocomplete="off" type="password">
         </mat-form-field>
-
-        <div fxLayout="column" fxLayoutGap="1rem">
-          <button class="login-button" mat-flat-button color="primary" (click)="login()">Login</button>
-          <!-- <button class="register-button" mat-flat-button color="secondary" (click)="launchRegister()">Register</button> -->
-        </div>
+        <button class="login-button" mat-flat-button color="primary" (click)="login()">Login</button>
+        <!-- <button class="register-button" mat-flat-button color="secondary" (click)="launchRegister()">Register</button> -->
       </form>
     </div>
   </div>

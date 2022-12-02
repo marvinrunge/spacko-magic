@@ -3,6 +3,13 @@
   backdrop-filter: blur(5px);
   border-top-right-radius: 20px;
   font-family: 'Beleren2016';
+  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
 }
 
 .player-stats-header {
@@ -17,7 +24,13 @@
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   border-right: 1px solid rgba(255, 255, 255, 0.18);
   justify-content: space-between;
+  flex-direction: row;
+  box-sizing: border-box;
   display: flex;
+  place-content: stretch space-between;
+  align-items: stretch;
+  flex: 1 1 100%;
+  max-height: 30%;
 }
 
 .player-stats-content {
@@ -27,6 +40,12 @@
   padding: 8px;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   border-right: 1px solid rgba(255, 255, 255, 0.18);
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: stretch space-between;
+  align-items: stretch;
+  flex: 1 1 1e-9px;
 }
 
 input {
@@ -56,7 +75,35 @@ input::-webkit-inner-spin-button {
 .player-counter-button:hover {
   background-color: #777;
 }
- .more {
+
+.more {
   cursor: pointer;
   translate: 4px -12px;
- }
+}
+
+.stat-column {
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center flex-start;
+  align-items: center;
+}
+
+.stat-column .icon {
+  margin-bottom: 4px;
+  place-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 1e-9px;
+}
+
+.stat-column .number {
+  place-content: center;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 1e-9px;
+}

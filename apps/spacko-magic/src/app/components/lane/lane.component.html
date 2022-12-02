@@ -1,4 +1,4 @@
-<div class="card-container" fxLayout="row" fxLayoutAlign="center center">
+<div class="card-container">
   <div
     class="arrow left"
     [style.height.px]="cardHeight"
@@ -9,11 +9,8 @@
   <div
     #scroll
     class="scroll-container"
-    fxLayout="row"
-    fxLayoutGap="4px"
-    [style.height.px]="cardHeight"
   >
-    <div fxFlex="50px"></div>
+    <div class="arrow-padding"></div>
     <spacko-magic-card
       *ngFor="let card of lands"
       [isEnemyCard]="isEnemyLane"
@@ -74,7 +71,7 @@
       [touch]="touch"
       (actionTriggered)="triggerAction($event)"
     ></spacko-magic-card>
-    <div fxFlex="50px"></div>
+    <div class="arrow-padding"></div>
   </div>
   <div
     class="arrow right"
