@@ -8,7 +8,7 @@ import { AppUpdateService } from '../../services/app-update.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  @Input() isActive = true;
+  @Input() isActive = false;
   version = environment.version;
 
   constructor(private authService: AuthService, private updateService: AppUpdateService) {}

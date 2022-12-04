@@ -3,7 +3,7 @@ import 'hammerjs';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -50,6 +50,7 @@ import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
 import { LandsPipe } from './pipes/lands.pipe';
 import { RootStoreModule } from './root-store';
 
+@Injectable()
 export class CustomHammerConfig extends HammerGestureConfig {
   overrides = {
     tap: {

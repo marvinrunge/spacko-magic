@@ -8,7 +8,7 @@ import { Player } from '../../interfaces/player';
 })
 export class EnemyStatsComponent {
   @Input() players: string[];
-  @Input() selectedPlayer: Player;
+  @Input() selectedPlayer: Player | undefined;
   @Input() cards = 0;
   @Output() addEnemy = new EventEmitter();
   @Output() changeEnemy = new EventEmitter<string>();

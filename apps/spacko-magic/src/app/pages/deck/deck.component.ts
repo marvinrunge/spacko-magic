@@ -1,16 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
+
 import { GameService } from '../../game.service';
 import { ActiveDeck } from '../../interfaces/activeDeck';
 import { Card } from '../../interfaces/card';
 import { Player } from '../../interfaces/player';
-import {
-  CardSelectors,
-  PlayerSelectors,
-  RootStoreState,
-} from '../../root-store';
-import { updateCardRequest } from '../../root-store/card-store/actions';
+import { CardSelectors, PlayerSelectors, RootStoreState } from '../../root-store';
 import { updatePlayerRequest } from '../../root-store/player-store/actions';
 
 @Component({

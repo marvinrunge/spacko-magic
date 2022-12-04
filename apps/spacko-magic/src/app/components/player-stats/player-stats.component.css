@@ -78,7 +78,7 @@ input::-webkit-inner-spin-button {
 
 .more {
   cursor: pointer;
-  translate: 4px -12px;
+  translate: 10px -15px;
 }
 
 .stat-column {

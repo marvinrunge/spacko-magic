@@ -195,7 +195,7 @@ export class BattlefieldComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    this.cardHeight = Math.trunc((this.innerHeight - 174) / 4);
+    this.cardHeight = Math.trunc((this.innerHeight - 190) / 4);
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
     this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }

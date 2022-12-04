@@ -22,7 +22,7 @@
 .counter {
   font-family: 'Beleren2016';
   position: relative;
-  top: -3rem;
+  translate: 0 -3rem;
   left: calc(50% - 1.5rem);
   z-index: 1;
   color: white;

@@ -7,7 +7,7 @@
         <div
           *ngFor="let player of players"
           class="player-name entry"
-          [class.selected]="player === selectedPlayer.name"
+          [class.selected]="player === selectedPlayer?.name"
           (click)="onClickUsername(player)"
         >
           <span>{{ player }}</span>

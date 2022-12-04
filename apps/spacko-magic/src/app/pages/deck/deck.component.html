@@ -3,12 +3,13 @@
   <div class="settings">
     <h2>
       {{ activeDeck.name }}
-      <mat-icon *ngIf="!edit" (click)="initDeck()">edit_node</mat-icon>
+      <mat-icon class="edit-button" *ngIf="!edit" (click)="initDeck()">edit_node</mat-icon>
     </h2>
     <div class="edit" *ngIf="edit"><div>
-      <mat-form-field appearance="fill">
+      <mat-form-field class="deck-list-field" appearance="fill">
         <mat-label>Card List</mat-label>
         <textarea
+          cdkTextareaAutosize
           [(ngModel)]="activeDeck.cardList"
           class="deck-list"
           placeholder="Example&#10;4 Spore Frog&#10;4 Haze Frog&#10;20 Forest&#10;- - - - - - - - - - - - - - - - - - - -&#10;Simply add the count and the name of the cards"

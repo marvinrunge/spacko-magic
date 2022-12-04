@@ -9,9 +9,13 @@ import { Version } from '../interfaces/version';
 export class AppUpdateService {
   private remoteVersionDb: PouchDB.Database;
   newVersion: string;
+  updateAvailable = false;
+
+  constructor() {
+    this.initDb();
+  }
 
   checkVersion() {
-    this.initDb();
     this.remoteVersionDb.get<Version>("version").then(result => {
       this.newVersion = result.version;
       if (result.version && result.version !== environment.version) {
@@ -34,7 +38,7 @@ export class AppUpdateService {
   initDb() {
     this.remoteVersionDb = new PouchDB(environment.db + 'version', {
       skip_setup: true,
-    })
+    });
   }
 
   showAppUpdateAlert() {
