@@ -4,6 +4,7 @@
   "theme_color": "#db212c",
   "background_color": "#fafafa",
   "display": "standalone",
+  "orientation": "landscape",
   "scope": "./",
   "start_url": "./",
   "icons": [
