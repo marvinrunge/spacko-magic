@@ -1,4 +1,4 @@
-hooon:
+on:
   push:
     branches:
     - master
