@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: npm install, build and deploy
       run: |
-        ssh-keygen -R <hostname>
+        ssh-keygen -R spacko-magic.de
         ssh ${{ secrets.SSH }} -tt
         cd projects/spacko-magic
         sh build-and-start-frontend.sh
