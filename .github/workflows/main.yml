@@ -4,12 +4,10 @@ on:
     - master
     
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - name: npm install, build and deploy
+    - name: npm install & build
       run: |
-        ssh-keygen -R spacko-magic.de
-        ssh ${{ secrets.SSH }} -tt
-        cd projects/spacko-magic
-        sh build-and-start-frontend.sh
+        npm i
+        npm run build
