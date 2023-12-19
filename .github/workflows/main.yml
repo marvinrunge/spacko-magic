@@ -1,4 +1,4 @@
-on:
+hooon:
   push:
     branches:
     - master
@@ -10,6 +10,6 @@ jobs:
     - name: npm install & build
       run: |
         node -v
-        ls
+        echo ls
         npm i
         npm run build
