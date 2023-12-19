@@ -5,9 +5,10 @@ on:
     
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - name: npm install, build and deploy
       run: |
+        ssh ${{ secrets.SSH }}
         cd projects/spacko-magic
         sh build-and-start-frontend.sh
