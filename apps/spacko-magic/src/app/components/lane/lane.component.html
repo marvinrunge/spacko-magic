@@ -70,7 +70,7 @@
       [borderRadius]="cardBorderRadius"
       [mode]="mode"
       [touch]="touch"
-      [faceDown]="openCardAmount ? i >= openCardAmount : false"
+      [faceDown]="openCardAmount != null ? i >= openCardAmount : false"
       (actionTriggered)="triggerAction($event)"
     ></spacko-magic-card>
     <div class="arrow-padding"></div>

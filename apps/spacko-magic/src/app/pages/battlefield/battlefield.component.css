@@ -109,7 +109,7 @@ spacko-magic-card {
   bottom: calc(50% + 3rem);
   width: 100vw;
   display: flex;
-  z-index: 11;
+  z-index: 1;
   position: fixed;
   margin: auto;
   align-items: center;
@@ -120,7 +120,7 @@ spacko-magic-card {
   top: calc(50% - 3rem);
   width: 100vw;
   display: flex;
-  z-index: 11;
+  z-index: 1;
   position: fixed;
   margin: auto;
   align-items: center;

@@ -344,6 +344,7 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private exileCard(card: Card) {
+    this.reduceOpenCardAmount();
     this.updateCard({
       ...this.unattach({
         ...card,
@@ -358,10 +359,12 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private returnToHand(card: Card) {
+    this.reduceOpenCardAmount();
     this.updateCard({ ...this.unattach(card), place: 'hand', tapped: false });
   }
 
   private kill(card: Card) {
+    this.reduceOpenCardAmount();
     if (card.isToken) {
       this.store$.dispatch(deleteCardRequest({ card }))
     } else {
@@ -381,6 +384,7 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private putOnBottom(card: Card) {
+    this.reduceOpenCardAmount();
     const place = 'deck';
     const position =
       this.maxPositionDeck !== undefined ? this.maxPositionDeck + 1 : 0;
@@ -390,6 +394,7 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private putOnTop(card: Card) {
+    this.reduceOpenCardAmount();
     const place = 'deck';
     const position =
       this.minPositionDeck !== undefined ? this.minPositionDeck - 1 : 0;
@@ -477,5 +482,11 @@ export class BattlefieldComponent implements OnInit {
       attachedCards: [],
     };
     return updatedCard;
+  }
+
+  private reduceOpenCardAmount() {
+    if (this.searchOptions && this.searchOptions.openCardAmount !== undefined) {
+      this.searchOptions.openCardAmount -= 1;
+    }
   }
 }
