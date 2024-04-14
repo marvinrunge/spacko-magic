@@ -1,4 +1,4 @@
-npx nx build --prod --output-path www
+npx nx build spacko-magic --prod --output-path www
 
 docker-compose down
 
