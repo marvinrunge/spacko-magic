@@ -42,6 +42,7 @@ export class CardComponent implements OnInit {
   @Input() mode?: string;
   @Input() isEnemyCard = false;
   @Input() touch: boolean;
+  @Input() faceDown = false;
   @Output() actionTriggered = new EventEmitter<{
     card?: Card;
     actionType: string;

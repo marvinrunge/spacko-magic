@@ -71,10 +71,7 @@
     (clicked)="toggleSearchToken()"
   >
   </spacko-magic-player-stats>
-  <div
-    class="hand-container"
-    [style.height.px]="cardHeight * 1.5"
-  >
+  <div class="hand-container" [style.height.px]="cardHeight * 1.5">
     <div
       class="arrow left"
       [style.height.px]="110"
@@ -136,32 +133,45 @@
   ></div>
 </div>
 
-<div class="creature-token-container" *ngIf="mode === 'token'" (click)="toggleSearchToken()">
+<div
+  class="creature-token-container"
+  *ngIf="mode === 'token'"
+  (click)="toggleSearchToken()"
+>
   <div class="search" (click)="$event.stopPropagation()">
     <h3>Token Search</h3>
-      <div>
-        <mat-form-field appearance="fill">
-          <mat-label>Card Name</mat-label>
-          <input
-            [(ngModel)]="cardSearchName"
-            placeholder="Any words in the tokens name, 'e.g. Soldier'"
-            matInput
-            [ngModelOptions]="{standalone: true}"
-            (keyup.enter)="searchCards(cardSearchName)"
-          />
-        </mat-form-field>
-      </div>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="searchCards(cardSearchName); $event.stopPropagation()"
-      >
-        Search
-      </button>
+    <mat-form-field appearance="fill">
+      <mat-label>Card Name</mat-label>
+      <input
+        [(ngModel)]="tokenOptions.searchName"
+        placeholder="Any words in the tokens name, 'e.g. Soldier'"
+        matInput
+        [ngModelOptions]="{ standalone: true }"
+        (keyup.enter)="
+          searchCards(tokenOptions.searchName, tokenOptions.isTokenFilterActive)
+        "
+      />
+    </mat-form-field>
+    <mat-checkbox
+      [(ngModel)]="tokenOptions.isTokenFilterActive"
+      color="primary"
+    >
+      <span class="token-filter-text">Tokens Only</span>
+    </mat-checkbox>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="
+        searchCards(tokenOptions.searchName, tokenOptions.isTokenFilterActive);
+        $event.stopPropagation()
+      "
+    >
+      Search
+    </button>
   </div>
   <spacko-magic-galery
     class="search-galery"
-    [cards]="cardSearchResult"
+    [cards]="tokenOptions.searchResult"
     [cardHeight]="cardHeight * 1.5"
     [cardWidth]="cardWidth * 1.5"
     [cardBorderRadius]="cardBorderRadius * 1.5"
@@ -176,44 +186,58 @@
   *ngIf="mode === 'search'"
   (click)="toggleSearchMode()"
 >
-  <spacko-magic-lane
-    *ngIf="searchMode === 'deck'"
-    [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + cardHeight / 2 + 'px)'"
-    [cards]="deck"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
-    [cardBorderRadius]="cardBorderRadius"
-    [mode]="mode"
-    [touch]="touch"
-    (actionTriggered)="triggerAction($event)"
-  >
-  </spacko-magic-lane>
-  <spacko-magic-lane
-    *ngIf="searchMode === 'graveyard'"
-    [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + cardHeight / 2 + 'px)'"
-    [cards]="graveyard"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
-    [cardBorderRadius]="cardBorderRadius"
-    [mode]="mode"
-    [touch]="touch"
-    (actionTriggered)="triggerAction($event)"
-  >
-  </spacko-magic-lane>
-  <spacko-magic-lane
-    *ngIf="searchMode === 'exile'"
-    [style.position]="'absolute'"
-    [style.top]="'calc(50% - ' + cardHeight / 2 + 'px)'"
-    [cards]="exile"
-    [cardHeight]="cardHeight"
-    [cardWidth]="cardWidth"
-    [cardBorderRadius]="cardBorderRadius"
-    [mode]="mode"
-    [touch]="touch"
-    (actionTriggered)="triggerAction($event)"
-  >
-  </spacko-magic-lane>
+  <div class="search-content">
+    <mat-form-field
+      appearance="fill"
+      class="amount-input"
+      (click)="$event.stopPropagation()"
+    >
+      <mat-label>Amount of open cards</mat-label>
+      <input
+        type="number"
+        [(ngModel)]="searchOptions!.openCardAmount"
+        placeholder="The amount of top cards visible"
+        matInput
+        [min]="1"
+        [step]="1"
+        oninput="this.value = Math.round(this.value);"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+    <spacko-magic-lane
+      *ngIf="searchOptions?.location === 'deck'"
+      [cards]="deck"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      [touch]="touch"
+      [openCardAmount]="searchOptions?.openCardAmount"
+      (actionTriggered)="triggerAction($event)"
+    >
+    </spacko-magic-lane>
+    <spacko-magic-lane
+      *ngIf="searchOptions?.location === 'graveyard'"
+      [cards]="graveyard"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      [touch]="touch"
+      (actionTriggered)="triggerAction($event)"
+    >
+    </spacko-magic-lane>
+    <spacko-magic-lane
+      *ngIf="searchOptions?.location === 'exile'"
+      [cards]="exile"
+      [cardHeight]="cardHeight"
+      [cardWidth]="cardWidth"
+      [cardBorderRadius]="cardBorderRadius"
+      [mode]="mode"
+      [touch]="touch"
+      (actionTriggered)="triggerAction($event)"
+    >
+    </spacko-magic-lane>
+  </div>
 </div>
 <div class="loader" [hidden]="!isLoading"></div>

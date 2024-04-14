@@ -56,6 +56,13 @@
     <div
       [style.width.px]="height * 0.15"
       [style.height.px]="height * 0.15"
+      title="look at top cards"
+      class="action put-on-top"
+      (click)="onClickAction('look-at-top', $event)"
+    ></div>
+    <div
+      [style.width.px]="height * 0.15"
+      [style.height.px]="height * 0.15"
       title="untap all"
       class="action untap"
       (click)="onClickAction('untapAll', $event)"

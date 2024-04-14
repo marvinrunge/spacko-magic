@@ -66,10 +66,13 @@ export class BattlefieldComponent implements OnInit {
   cardBorderRadius = 10;
   innerHeight: number;
   mode?: string;
-  searchMode?: string;
+  searchOptions?: { location: string, openCardAmount?: number };
   rotation = 0;
-  cardSearchName = "";
-  cardSearchResult: Card[] = [];
+  tokenOptions: {
+    searchName: string,
+    searchResult: Card[],
+    isTokenFilterActive: boolean
+  } =  { searchName: "", searchResult: [], isTokenFilterActive: true };
 
   touch = false;
   activeHandCard?: string;
@@ -117,8 +120,8 @@ export class BattlefieldComponent implements OnInit {
     }
   }
 
-  searchCards(cardSearchName: string) {
-    this.game.getCardsByName(cardSearchName).then(cards => this.cardSearchResult = cards);
+  searchCards(cardSearchName: string, onlyTokens: boolean) {
+    this.game.getCardsByName(cardSearchName, onlyTokens).then(cards => this.tokenOptions.searchResult = cards);
   }
 
   openDialog(): void {
@@ -299,6 +302,10 @@ export class BattlefieldComponent implements OnInit {
           this.search(card);
           break;
         }
+        case 'look-at-top': {
+          this.search(card, 1);
+          break;
+        }
         case 'flip': {
           this.flip(card);
           break;
@@ -390,13 +397,21 @@ export class BattlefieldComponent implements OnInit {
     });
   }
 
-  private search(card: Card) {
+  private search(card: Card, openCardAmount?: number) {
+    this.searchOptions
     if (card.place === 'deck') {
-      this.searchMode = 'deck';
+      this.searchOptions = {
+        location: 'deck',
+        openCardAmount
+      };
     } else if (card.place === 'graveyard') {
-      this.searchMode = 'graveyard';
+      this.searchOptions = {
+        location: 'graveyard'
+      };
     } else if (card.place === 'exile') {
-      this.searchMode = 'exile';
+      this.searchOptions = {
+        location: 'exile'
+      };
     }
     this.toggleSearchMode();
   }

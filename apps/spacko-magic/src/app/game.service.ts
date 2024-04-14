@@ -173,9 +173,9 @@ export class GameService {
     return decks;
   }
 
-  getCardsByName(name: string): Promise<Card[]> {
+  getCardsByName(name: string, onlyTokens: boolean): Promise<Card[]> {
     return this.http
-      .get('https://api.scryfall.com/cards/search?q=' + name + '+type%3Atoken')
+      .get('https://api.scryfall.com/cards/search?q=' + name + (onlyTokens ? '+type%3Atoken' : ''))
       .pipe(
         map((result: any) => {
           return result.data.map((card: any) => {

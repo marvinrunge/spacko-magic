@@ -27,6 +27,7 @@ export class LaneComponent implements AfterContentChecked {
   @Input() lands?: Card[];
   @Input() mode?: string;
   @Input() touch: boolean;
+  @Input() openCardAmount?: number;
   @Output() actionTriggered = new EventEmitter<{
     card?: Card;
     actionType: string;
