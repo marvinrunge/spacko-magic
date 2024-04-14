@@ -1,4 +1,38 @@
 <spacko-magic-header></spacko-magic-header>
+
+<div
+  class="spell-stack"
+  *ngIf="stack.length > 0"
+>
+  <spacko-magic-spell-stack
+    [cards]="stack"
+    [height]="cardHeight * 1.6"
+    [width]="cardWidth * 1.6"
+    [borderRadius]="cardBorderRadius * 1.6"
+    [mode]="mode"
+    [touch]="touch"
+    (actionTriggered)="triggerAction($event)"
+  >
+  </spacko-magic-spell-stack>
+</div>
+
+<div
+  class="enemy-spell-stack"
+  *ngIf="enemyStack.length > 0"
+>
+  <spacko-magic-spell-stack
+    [cards]="enemyStack"
+    [height]="cardHeight * 1.6"
+    [width]="cardWidth * 1.6"
+    [borderRadius]="cardBorderRadius * 1.6"
+    [mode]="mode"
+    [touch]="touch"
+    [isEnemyCard]="true"
+    (actionTriggered)="triggerAction($event)"
+  >
+  </spacko-magic-spell-stack>
+</div>
+
 <div class="battlefield-container">
   <div class="enemy-container">
     <spacko-magic-enemy-stats

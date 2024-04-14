@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Card } from '../../../interfaces/card';
 import { Player } from '../../../interfaces/player';
-import { CardSelectors, PlayerSelectors, RootStoreState } from '../../../root-store';
+import {
+  CardSelectors,
+  PlayerSelectors,
+  RootStoreState,
+} from '../../../root-store';
 import { EnemyCardSelectors } from '../../../root-store/enemy-card-store';
 
 @Component({
@@ -19,7 +23,7 @@ export class BattlefieldContainerComponent implements OnInit {
   creatures: Observable<Card[]>;
   lands: Observable<Card[]>;
   other: Observable<Card[]>;
-  enemies: string[] = [];
+  stack: Observable<Card[]>;
 
   enemyDeck: Observable<Card[]>;
   enemyHand: Observable<Card[]>;
@@ -28,6 +32,9 @@ export class BattlefieldContainerComponent implements OnInit {
   enemyCreatures: Observable<Card[]>;
   enemyLands: Observable<Card[]>;
   enemyOther: Observable<Card[]>;
+  enemyStack: Observable<Card[]>;
+
+  enemies: string[] = [];
   selectedEnemyPlayer: Observable<Player>;
 
   players: Observable<Player[]>;
@@ -35,15 +42,13 @@ export class BattlefieldContainerComponent implements OnInit {
   selectedCard?: Observable<Card>;
   activeAttachCard: Observable<Card>;
 
-  minMaxPositionDeck: Observable<{ min: number, max: number }>;
-  minMaxPositionGraveyard: Observable<{ min: number, max: number }>;
-  minMaxPositionExile: Observable<{ min: number, max: number }>;
+  minMaxPositionDeck: Observable<{ min: number; max: number }>;
+  minMaxPositionGraveyard: Observable<{ min: number; max: number }>;
+  minMaxPositionExile: Observable<{ min: number; max: number }>;
 
   isLoadingCards: Observable<boolean>;
 
-  constructor(
-    private store$: Store<RootStoreState.State>,
-  ) {}
+  constructor(private store$: Store<RootStoreState.State>) {}
 
   ngOnInit(): void {
     this.players = this.store$.pipe(select(PlayerSelectors.selectAllPlayers));
@@ -61,19 +66,17 @@ export class BattlefieldContainerComponent implements OnInit {
     );
     this.lands = this.store$.pipe(
       select(
-        CardSelectors.selectByPlaceAndTypeAndSortByPosition(
-          'battlefield',
-          'land'
-        )
+        CardSelectors.selectByPlaceAndTypeAndSortById('battlefield', 'land')
       )
     );
     this.other = this.store$.pipe(
       select(
-        CardSelectors.selectByPlaceAndNotTypes(
-          'battlefield',
+        CardSelectors.selectByPlaceAndNotTypes('battlefield', [
           'creature',
-          'land'
-        )
+          'land',
+          'instant',
+          'sorcery',
+        ])
       )
     );
     this.graveyard = this.store$.pipe(
@@ -82,17 +85,31 @@ export class BattlefieldContainerComponent implements OnInit {
     this.exile = this.store$.pipe(
       select(CardSelectors.selectByPlaceAndSortByPosition('exile'))
     );
-    this.selectedPlayer = this.store$.pipe(select(PlayerSelectors.selectPlayerBySelectedId));
-    this.activeAttachCard = this.store$.pipe(select(CardSelectors.selectActiveAttachCardBySelectedId));
+    this.stack = this.store$.pipe(
+      select(CardSelectors.selectByPlaceAndSortByPosition('stack'))
+    );
+    this.selectedPlayer = this.store$.pipe(
+      select(PlayerSelectors.selectPlayerBySelectedId)
+    );
+    this.activeAttachCard = this.store$.pipe(
+      select(CardSelectors.selectActiveAttachCardBySelectedId)
+    );
     this.enemyDeck = this.store$.pipe(
       select(EnemyCardSelectors.selectByPlaceAndSortByPosition('deck'))
     );
-    this.enemyHand = this.store$.pipe(select(EnemyCardSelectors.selectByPlace('hand')));
+    this.enemyHand = this.store$.pipe(
+      select(EnemyCardSelectors.selectByPlace('hand'))
+    );
     this.enemyCreatures = this.store$.pipe(
       select(EnemyCardSelectors.selectByPlaceAndType('battlefield', 'creature'))
     );
     this.enemyLands = this.store$.pipe(
-      select(EnemyCardSelectors.selectByPlaceAndType('battlefield', 'land'))
+      select(
+        EnemyCardSelectors.selectByPlaceAndTypeAndSortById(
+          'battlefield',
+          'land'
+        )
+      )
     );
     this.enemyOther = this.store$.pipe(
       select(
@@ -109,10 +126,23 @@ export class BattlefieldContainerComponent implements OnInit {
     this.enemyExile = this.store$.pipe(
       select(EnemyCardSelectors.selectByPlaceAndSortByPosition('exile'))
     );
-    this.selectedEnemyPlayer = this.store$.pipe(select(PlayerSelectors.selectEnemyPlayerBySelectedId));
-    this.minMaxPositionDeck = this.store$.pipe(select(CardSelectors.selectMinMaxPosition('deck')));
-    this.minMaxPositionGraveyard = this.store$.pipe(select(CardSelectors.selectMinMaxPosition('graveyard')));
-    this.minMaxPositionExile = this.store$.pipe(select(CardSelectors.selectMinMaxPosition('exile')));
-    this.isLoadingCards = this.store$.pipe(select(CardSelectors.selectCardIsLoading));
+    this.enemyStack = this.store$.pipe(
+      select(EnemyCardSelectors.selectByPlaceAndSortByPosition('stack'))
+    );
+    this.selectedEnemyPlayer = this.store$.pipe(
+      select(PlayerSelectors.selectEnemyPlayerBySelectedId)
+    );
+    this.minMaxPositionDeck = this.store$.pipe(
+      select(CardSelectors.selectMinMaxPosition('deck'))
+    );
+    this.minMaxPositionGraveyard = this.store$.pipe(
+      select(CardSelectors.selectMinMaxPosition('graveyard'))
+    );
+    this.minMaxPositionExile = this.store$.pipe(
+      select(CardSelectors.selectMinMaxPosition('exile'))
+    );
+    this.isLoadingCards = this.store$.pipe(
+      select(CardSelectors.selectCardIsLoading)
+    );
   }
 }

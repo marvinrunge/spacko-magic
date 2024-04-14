@@ -15,9 +15,8 @@ export const reducers: ActionReducerMap<State> = {
   cards: cardreducer,
 };
 
-export const selectCardState = createFeatureSelector<fromCards.EnemyCardState>(
-  'enemy-cards'
-);
+export const selectCardState =
+  createFeatureSelector<fromCards.EnemyCardState>('enemy-cards');
 
 export const selectAllCards = createSelector(
   selectCardState,
@@ -62,19 +61,23 @@ export const selectByPlace = (place: string) =>
   );
 
 export const selectTopByPlace = (place: string) =>
-  createSelector(selectByPlace(place), (cards) =>
-    cards[0]
-  );
+  createSelector(selectByPlace(place), (cards) => cards[0]);
 
 export const selectByPlaceAndType = (place: string, type: string) =>
   createSelector(selectByPlace(place), (cards) =>
     cards.filter((card) => card.type.toLowerCase().includes(type.toLowerCase()))
   );
 
-export const selectByPlaceAndSortByPosition = (place: string) =>
+export const selectByPlaceAndTypeAndSortById = (place: string, type: string) =>
   createSelector(selectByPlace(place), (cards) =>
     cards
-      .sort((a, b) => a.position - b.position)
+      .filter((card) => card.type.toLowerCase().includes(type.toLowerCase()))
+      .sort((a, b) => a._id.localeCompare(b._id))
+  );
+
+export const selectByPlaceAndSortByPosition = (place: string) =>
+  createSelector(selectByPlace(place), (cards) =>
+    cards.sort((a, b) => a.position - b.position)
   );
 
 export const selectByPlaceAndNotTypes = (
@@ -84,6 +87,8 @@ export const selectByPlaceAndNotTypes = (
 ) =>
   createSelector(selectByPlace(place), (cards) =>
     cards.filter(
-      (card) => !card.type.toLowerCase().includes(type1.toLowerCase()) && !card.type.toLowerCase().includes(type2.toLowerCase())
+      (card) =>
+        !card.type.toLowerCase().includes(type1.toLowerCase()) &&
+        !card.type.toLowerCase().includes(type2.toLowerCase())
     )
   );

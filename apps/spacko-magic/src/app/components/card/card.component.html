@@ -100,7 +100,7 @@
       [style.width.px]="height * 0.15"
       [style.height.px]="height * 0.15"
       title="attach"
-      *ngIf="card.place === 'battlefield' && card.attachedCards.length === 0"
+      *ngIf="card.type !== 'stack' && card.place === 'battlefield' && card.attachedCards.length === 0"
       class="action attach"
       (click)="onClickAction('attach-to', $event)"
     ></div>
@@ -138,7 +138,7 @@
       [style.width.px]="height * 0.15"
       [style.height.px]="height * 0.15"
       title="kill / sacrifice"
-      *ngIf="card.place === 'battlefield' || card.place === 'deck'"
+      *ngIf="card.place === 'battlefield' || card.place === 'deck' || 'stack'"
       class="action kill"
       (click)="onClickAction('kill', $event)"
     ></div>
@@ -147,7 +147,7 @@
       [style.width.px]="height * 0.15"
       [style.height.px]="height * 0.15"
       title="exile"
-      *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand'"
+      *ngIf="card.place === 'battlefield' || 'graveyard' || 'hand' || 'stack'"
       class="action exile"
       (click)="onClickAction('exile', $event)"
     ></div>

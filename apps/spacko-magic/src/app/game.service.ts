@@ -217,6 +217,10 @@ export class GameService {
       return 'creature';
     } else if (type.toLocaleLowerCase().includes('land')) {
       return 'land';
+    } if (type.toLocaleLowerCase().includes('instant')) {
+      return 'instant';
+    } if (type.toLocaleLowerCase().includes('sorcery')) {
+      return 'sorcery';
     } else {
       return 'other';
     }

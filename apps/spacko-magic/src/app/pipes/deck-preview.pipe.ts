@@ -5,9 +5,9 @@ import { Card } from '../interfaces/card';
   name: 'deckPreview'
 })
 export class DeckPreviewPipe implements PipeTransform {
-  transform(cards: Card[], type: string): Card[] {
+  transform(cards: Card[], types: string[]): Card[] {
     const uniqueCards: Card[] = [];
-    cards.filter(card => card.type === type).forEach(card => {
+    cards.filter(card => types.includes(card.type)).forEach(card => {
       const uniqueCardIndex = uniqueCards.findIndex(uniqueCard => card.url === uniqueCard.url);
       if (uniqueCardIndex > -1) {
         uniqueCards[uniqueCardIndex].count = uniqueCards[uniqueCardIndex].count + 1;

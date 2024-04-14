@@ -36,6 +36,7 @@ export class BattlefieldComponent implements OnInit {
   @Input() creatures: Card[] = [];
   @Input() lands: Card[] = [];
   @Input() other: Card[] = [];
+  @Input() stack: Card[] = [];
 
   @Input() enemyDeck: Card[] = [];
   @Input() enemyHand: Card[] = [];
@@ -44,6 +45,7 @@ export class BattlefieldComponent implements OnInit {
   @Input() enemyCreatures: Card[] = [];
   @Input() enemyLands: Card[] = [];
   @Input() enemyOther: Card[] = [];
+  @Input() enemyStack: Card[] = [];
   @Input() selectedEnemyPlayer: Player;
 
   @Input() minPositionDeck?: number = 0;
@@ -151,12 +153,11 @@ export class BattlefieldComponent implements OnInit {
   }
 
   play(card: Card) {
+    const playedCard: Card = { ...card, place: ['instant', 'sorcery'].includes(card.type) ? 'stack' : 'battlefield' };
     if (!this.touch) {
-      const playedCard: Card = { ...card, place: 'battlefield' };
       this.store$.dispatch(updateCardRequest({ card: playedCard }));
     } else {
       if (this.activeHandCard === card._id) {
-        const playedCard: Card = { ...card, place: 'battlefield' };
         this.store$.dispatch(updateCardRequest({ card: playedCard }));
       }
       this.activeHandCard = this.activeHandCard ? undefined : card._id;

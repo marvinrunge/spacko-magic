@@ -105,6 +105,28 @@ spacko-magic-card {
   transform: translateY(calc(-125% + 110px)) scale(1.5);
 }
 
+.enemy-spell-stack {
+  bottom: calc(50% + 3rem);
+  width: 100vw;
+  display: flex;
+  z-index: 11;
+  position: fixed;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.spell-stack {
+  top: calc(50% - 3rem);
+  width: 100vw;
+  display: flex;
+  z-index: 11;
+  position: fixed;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
 .inspect {
   background-color: #000a;
   width: 100vw;

@@ -50,6 +50,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { DeckPreviewPipe } from './pipes/deck-preview.pipe';
 import { LandsPipe } from './pipes/lands.pipe';
 import { RootStoreModule } from './root-store';
+import { SpellStackComponent } from './components/spell-stack/spell-stack.component';
 
 @Injectable()
 export class CustomHammerConfig extends HammerGestureConfig {
@@ -103,6 +104,7 @@ const routes: Routes = [
     DragfieldComponent,
     BattlefieldContainerComponent,
     GaleryComponent,
+    SpellStackComponent,
   ],
   imports: [
     CommonModule,

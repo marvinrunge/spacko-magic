@@ -73,6 +73,8 @@ export class CardComponent implements OnInit {
     } else {
       if (this.mode === 'attach') {
         this.triggerAction('attach', event);
+      } else if (this.card.place === 'stack') {
+        this.triggerAction('kill', event);
       } else {
         this.triggerAction('toggle-tap', event);
       }

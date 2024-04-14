@@ -1,0 +1,9 @@
+spacko-magic-card:not(:last-child) {
+    position: absolute;
+    pointer-events: none;
+}
+
+spacko-magic-card {
+    position: absolute;
+    filter: drop-shadow(0 0 1rem #000000);
+}
