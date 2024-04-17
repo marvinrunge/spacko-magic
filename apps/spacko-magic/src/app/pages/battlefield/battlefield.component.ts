@@ -78,6 +78,11 @@ export class BattlefieldComponent implements OnInit {
 
   touch = false;
   activeHandCard?: string;
+  isStackOpen = true;
+
+  get stackWidth() {
+    return (this.cardWidth * 1.6) + (Math.max(this.stack.length, this.enemyStack.length) - 1) * (this.cardWidth * 1.6) / 3;
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -199,7 +204,7 @@ export class BattlefieldComponent implements OnInit {
 
   setCardHeight() {
     this.innerHeight = window.innerHeight;
-    this.cardHeight = Math.trunc((this.innerHeight - 190) / 4);
+    this.cardHeight = Math.trunc((this.innerHeight - 158) / 4);
     this.cardWidth = Math.trunc(this.cardHeight * 0.7159);
     this.cardBorderRadius = Math.trunc(this.cardHeight * 0.06);
   }
@@ -341,6 +346,10 @@ export class BattlefieldComponent implements OnInit {
     card.place = "battlefield";
     card.isToken = true;
     this.store$.dispatch(addCardRequest({ card }));
+  }
+
+  toggleStack() {
+    this.isStackOpen = !this.isStackOpen;
   }
 
   private exileCard(card: Card) {

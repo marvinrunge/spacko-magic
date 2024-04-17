@@ -19,16 +19,10 @@ html {
 body {
   margin: 0;
   font-family: 'Ramaraja', serif;
-  background: url('/assets/WallpaperSPM.jpg');
+  background: url('https://media.wizards.com/images/magic/daily/wallpapers/Golgari_Wallpaper_1920x1080.jpg');
   background-size: cover;
   background-position: center center;
-  // background-position: 50% 50%;
-  // background-size: 120%;
   overflow: hidden;
-  // -webkit-transition: background-position 2s ease;
-  // -moz-transition: background-position 2s ease;
-  // -o-transition: background-position 2s ease;
-  // transition: background-position 20s cubic-bezier(0.5, 0.07, 0.39, 0.85);
 }
 
 .mat-form-field-appearance-fill .mat-form-field-flex {
@@ -86,14 +80,11 @@ h2 {
 .action {
   background-position-x: 53%;
   background-position-y: 53%;
-  border-radius: 50%;
-  background-color: rgb(223, 214, 211);
+  background-color: rgba(0, 0, 0, 0.6);
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
-  margin-bottom: 4px;
   box-sizing: border-box;
-  box-shadow: 0px 0px 5px #00000088;
   transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -109,6 +100,7 @@ h2 {
 .tap {
   background-image: url(/assets/tap.svg);
   background-size: 60%;
+  background-color: #adadad;
 }
 
 .untap {
@@ -195,8 +187,9 @@ h2 {
 }
 
 .restart {
-  background-image: url(/assets/restart.svg);
-  background-size: 80%;
+  background-image: url(/assets/restart_white.svg);
+  background-size: 60%;
+  color: white;
 }
 
 .loader {

@@ -15,7 +15,7 @@
   flex-flow: row wrap;
   box-sizing: border-box;
   display: flex;
-  place-content: center space-between;
+  place-content: center center;
   align-items: center;
 }
 

@@ -1,38 +1,5 @@
 <spacko-magic-header></spacko-magic-header>
 
-<div
-  class="spell-stack"
-  *ngIf="stack.length > 0"
->
-  <spacko-magic-spell-stack
-    [cards]="stack"
-    [height]="cardHeight * 1.6"
-    [width]="cardWidth * 1.6"
-    [borderRadius]="cardBorderRadius * 1.6"
-    [mode]="mode"
-    [touch]="touch"
-    (actionTriggered)="triggerAction($event)"
-  >
-  </spacko-magic-spell-stack>
-</div>
-
-<div
-  class="enemy-spell-stack"
-  *ngIf="enemyStack.length > 0"
->
-  <spacko-magic-spell-stack
-    [cards]="enemyStack"
-    [height]="cardHeight * 1.6"
-    [width]="cardWidth * 1.6"
-    [borderRadius]="cardBorderRadius * 1.6"
-    [mode]="mode"
-    [touch]="touch"
-    [isEnemyCard]="true"
-    (actionTriggered)="triggerAction($event)"
-  >
-  </spacko-magic-spell-stack>
-</div>
-
 <div class="battlefield-container">
   <div class="enemy-container">
     <spacko-magic-enemy-stats
@@ -67,6 +34,8 @@
       [touch]="touch"
       (actionTriggered)="triggerAction($event)"
     ></spacko-magic-lane>
+  </div>
+  <div class="player-container">
     <spacko-magic-lane
       [cards]="creatures"
       [cardHeight]="cardHeight"
@@ -140,6 +109,41 @@
       [style.height.px]="110"
       (click)="scrollRight()"
     ></div>
+  </div>
+</div>
+
+<div class="stack-container" [style.left.px]="isStackOpen ? 0 : -(stackWidth + 33)">
+  <div class="stack-button" [style.left.px]="stackWidth + 33" (click)="toggleStack()">
+    <span>{{ isStackOpen ? 'CLOSE' : 'OPEN' }}</span>
+    <span>STACK</span>
+  </div>
+  <div class="stacks">
+    <div class="enemy-spell-stack">
+      <spacko-magic-spell-stack
+        [cards]="enemyStack"
+        [height]="cardHeight * 1.6"
+        [width]="cardWidth * 1.6"
+        [borderRadius]="cardBorderRadius * 1.6"
+        [mode]="mode"
+        [touch]="touch"
+        [isEnemyCard]="true"
+        (actionTriggered)="triggerAction($event)"
+      >
+      </spacko-magic-spell-stack>
+    </div>
+
+    <div class="spell-stack">
+      <spacko-magic-spell-stack
+        [cards]="stack"
+        [height]="cardHeight * 1.6"
+        [width]="cardWidth * 1.6"
+        [borderRadius]="cardBorderRadius * 1.6"
+        [mode]="mode"
+        [touch]="touch"
+        (actionTriggered)="triggerAction($event)"
+      >
+      </spacko-magic-spell-stack>
+    </div>
   </div>
 </div>
 

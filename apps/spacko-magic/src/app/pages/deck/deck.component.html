@@ -6,6 +6,16 @@
       <mat-icon class="edit-button" *ngIf="!edit" (click)="initDeck()">edit_node</mat-icon>
     </h2>
     <div class="edit" *ngIf="edit"><div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Title</mat-label>
+        <input
+          [(ngModel)]="activeDeck.name"
+          type="text"
+          placeholder="4260"
+          aria-label="Number"
+          matInput
+        />
+      </mat-form-field>
       <mat-form-field class="deck-list-field" appearance="fill">
         <mat-label>Card List</mat-label>
         <textarea

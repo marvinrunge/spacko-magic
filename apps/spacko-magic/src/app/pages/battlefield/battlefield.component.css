@@ -5,12 +5,12 @@ spacko-magic-header {
 }
 
 .battlefield-container {
-  height: 100vh;
-  flex-direction: row;
+  flex-direction: column;
   box-sizing: border-box;
   display: flex;
   place-content: flex-start center;
   align-items: flex-start;
+  width: 100%;
 }
 
 .enemy-container {
@@ -19,6 +19,16 @@ spacko-magic-header {
   display: flex;
   flex: 1 1 100%;
   max-width: 100%;
+  width: 100%;
+}
+
+.player-container {
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 100%;
+  max-width: 100%;
+  width: 100%;
 }
 
 h3 {
@@ -106,25 +116,62 @@ spacko-magic-card {
 }
 
 .enemy-spell-stack {
-  bottom: calc(50% + 3rem);
-  width: 100vw;
   display: flex;
-  z-index: 1;
-  position: fixed;
-  margin: auto;
-  align-items: center;
-  justify-content: center;
+  justify-content: right;
 }
 
 .spell-stack {
-  top: calc(50% - 3rem);
-  width: 100vw;
   display: flex;
-  z-index: 1;
-  position: fixed;
-  margin: auto;
-  align-items: center;
+  justify-content: right;
+}
+
+.stacks {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  filter: drop-shadow(0px 0px 5px #000);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+}
+
+.stack-container {
+  position: fixed;
+  height: calc(100vh - 3rem);
+  top: 3rem;
+  display: flex;
+  flex-direction: row;
+  transition: left 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 3;
+}
+
+.stack-button {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-self: top;
+  background: rgba(0, 0, 0, 0.6);
+  height: 20vh;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 50% 50% 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-left: none;
+  color: white;
+  margin: 2rem 0;
+  filter: drop-shadow(0px 0px 5px #000);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  transition: border-color 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.stack-button:hover {
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 1);
 }
 
 .inspect {
