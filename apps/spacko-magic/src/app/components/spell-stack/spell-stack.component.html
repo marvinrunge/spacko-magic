@@ -1,4 +1,4 @@
-<div class="stack" [style.width.px]="width + (width/3 * (cards.length - 1))" [style.height.px]="height">
+<div class="stack" [style.width.px]="stackWidth" [style.height.px]="height">
   <spacko-magic-card
     *ngFor="let card of cards; index as i"
     [card]="card"

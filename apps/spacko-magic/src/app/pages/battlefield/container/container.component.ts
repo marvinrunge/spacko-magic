@@ -86,7 +86,7 @@ export class BattlefieldContainerComponent implements OnInit {
       select(CardSelectors.selectByPlaceAndSortByPosition('exile'))
     );
     this.stack = this.store$.pipe(
-      select(CardSelectors.selectByPlaceAndSortByPosition('stack'))
+      select(CardSelectors.selectByPlaceAndSortByLastPlayedDate('stack'))
     );
     this.selectedPlayer = this.store$.pipe(
       select(PlayerSelectors.selectPlayerBySelectedId)

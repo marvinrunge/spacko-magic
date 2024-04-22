@@ -21,4 +21,5 @@ export class Card implements Base {
   cmc: number;
   scryfall_uri: string;
   isToken?: boolean;
+  lastPlayedDate?: string;
 }

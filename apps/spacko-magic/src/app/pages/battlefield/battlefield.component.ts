@@ -1,4 +1,11 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
@@ -36,8 +43,42 @@ export class BattlefieldComponent implements OnInit {
   @Input() creatures: Card[] = [];
   @Input() lands: Card[] = [];
   @Input() other: Card[] = [];
-  @Input() stack: Card[] = [];
+  private _stack: Card[] = [];
 
+  @Input() set stack(value: Card[]) {
+    this._stack = value;
+    if (value.length > 0 && !this.isStackOpen) {
+      this.isStackOpen = true;
+    } else if (
+      value.length === 0 &&
+      this._enemyStack.length === 0 &&
+      this.isStackOpen
+    ) {
+      this.isStackOpen = false;
+    }
+  }
+
+  get stack(): Card[] {
+    return this._stack;
+  }
+
+  private _enemyStack: Card[] = [];
+  @Input() set enemyStack(value: Card[]) {
+    this._enemyStack = value;
+    if (value.length > 0 && !this.isStackOpen) {
+      this.isStackOpen = true;
+    } else if (
+      value.length === 0 &&
+      this._stack.length === 0 &&
+      this.isStackOpen
+    ) {
+      this.isStackOpen = false;
+    }
+  }
+
+  get enemyStack(): Card[] {
+    return this._enemyStack;
+  }
   @Input() enemyDeck: Card[] = [];
   @Input() enemyHand: Card[] = [];
   @Input() enemyGraveyard: Card[] = [];
@@ -45,7 +86,6 @@ export class BattlefieldComponent implements OnInit {
   @Input() enemyCreatures: Card[] = [];
   @Input() enemyLands: Card[] = [];
   @Input() enemyOther: Card[] = [];
-  @Input() enemyStack: Card[] = [];
   @Input() selectedEnemyPlayer: Player;
 
   @Input() minPositionDeck?: number = 0;
@@ -68,20 +108,25 @@ export class BattlefieldComponent implements OnInit {
   cardBorderRadius = 10;
   innerHeight: number;
   mode?: string;
-  searchOptions?: { location: string, openCardAmount?: number };
+  searchOptions?: { location: string; openCardAmount?: number };
   rotation = 0;
   tokenOptions: {
-    searchName: string,
-    searchResult: Card[],
-    isTokenFilterActive: boolean
-  } =  { searchName: "", searchResult: [], isTokenFilterActive: true };
+    searchName: string;
+    searchResult: Card[];
+    isTokenFilterActive: boolean;
+  } = { searchName: '', searchResult: [], isTokenFilterActive: true };
 
   touch = false;
   activeHandCard?: string;
   isStackOpen = true;
 
   get stackWidth() {
-    return (this.cardWidth * 1.6) + (Math.max(this.stack.length, this.enemyStack.length) - 1) * (this.cardWidth * 1.6) / 3;
+    const maxStackLength = Math.max(this.stack.length, this.enemyStack.length);
+    const additionalStackWidth =
+      maxStackLength > 0
+        ? ((maxStackLength - 1) * (this.cardWidth * 1.6)) / 3
+        : 0;
+    return this.cardWidth * 1.6 + additionalStackWidth;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -128,7 +173,9 @@ export class BattlefieldComponent implements OnInit {
   }
 
   searchCards(cardSearchName: string, onlyTokens: boolean) {
-    this.game.getCardsByName(cardSearchName, onlyTokens).then(cards => this.tokenOptions.searchResult = cards);
+    this.game
+      .getCardsByName(cardSearchName, onlyTokens)
+      .then((cards) => (this.tokenOptions.searchResult = cards));
   }
 
   openDialog(): void {
@@ -158,7 +205,13 @@ export class BattlefieldComponent implements OnInit {
   }
 
   play(card: Card) {
-    const playedCard: Card = { ...card, place: ['instant', 'sorcery'].includes(card.type) ? 'stack' : 'battlefield' };
+    const playedCard: Card = {
+      ...card,
+      place: ['instant', 'sorcery'].includes(card.type)
+        ? 'stack'
+        : 'battlefield',
+      lastPlayedDate: new Date().toUTCString(),
+    };
     if (!this.touch) {
       this.store$.dispatch(updateCardRequest({ card: playedCard }));
     } else {
@@ -237,17 +290,20 @@ export class BattlefieldComponent implements OnInit {
   }
 
   restart() {
-    if (confirm("Are you sure to restart?")) {
-      this.game.initDeck(this.selectedPlayer.activeDeck.cardList, this.selectedPlayer.name);
+    if (confirm('Are you sure to restart?')) {
+      this.game.initDeck(
+        this.selectedPlayer.activeDeck.cardList,
+        this.selectedPlayer.name
+      );
     }
   }
 
   untapAll() {
-    const allTapped: Card[] = this.creatures.concat(this.other).concat(this.lands);
+    const allTapped: Card[] = this.creatures
+      .concat(this.other)
+      .concat(this.lands);
     const allUntapped: Card[] = [];
-    allTapped.forEach((card) =>
-    allUntapped.push({ ...card, tapped: false })
-    );
+    allTapped.forEach((card) => allUntapped.push({ ...card, tapped: false }));
     this.store$.dispatch(updateManyCardsRequest({ cards: allUntapped }));
   }
 
@@ -343,7 +399,7 @@ export class BattlefieldComponent implements OnInit {
   }
 
   spawnToken(card: Card) {
-    card.place = "battlefield";
+    card.place = 'battlefield';
     card.isToken = true;
     this.store$.dispatch(addCardRequest({ card }));
   }
@@ -375,7 +431,7 @@ export class BattlefieldComponent implements OnInit {
   private kill(card: Card) {
     this.reduceOpenCardAmount();
     if (card.isToken) {
-      this.store$.dispatch(deleteCardRequest({ card }))
+      this.store$.dispatch(deleteCardRequest({ card }));
     } else {
       this.updateCard({
         ...this.unattach({
@@ -413,19 +469,19 @@ export class BattlefieldComponent implements OnInit {
   }
 
   private search(card: Card, openCardAmount?: number) {
-    this.searchOptions
+    this.searchOptions;
     if (card.place === 'deck') {
       this.searchOptions = {
         location: 'deck',
-        openCardAmount
+        openCardAmount,
       };
     } else if (card.place === 'graveyard') {
       this.searchOptions = {
-        location: 'graveyard'
+        location: 'graveyard',
       };
     } else if (card.place === 'exile') {
       this.searchOptions = {
-        location: 'exile'
+        location: 'exile',
       };
     }
     this.toggleSearchMode();

@@ -18,11 +18,16 @@ export class SpellStackComponent {
     card?: Card;
     actionType: string;
   }>();
+  
+  get stackWidth() {
+    const additionalStackWidth = this.cards.length > 0 ? (this.cards.length - 1) * this.width / 3 : 0;
+    return this.width + additionalStackWidth;
+  }
 
   triggerAction(event: { card?: Card; actionType: string }) {
     if (!this.isEnemyCard) {
       this.actionTriggered.emit({
-        card: this.cards[0],
+        card: this.cards[this.cards.length - 1],
         actionType: event.actionType,
       });
     }

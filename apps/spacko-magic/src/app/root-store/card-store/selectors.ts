@@ -94,6 +94,16 @@ export const selectByPlaceAndSortByPosition = (place: string) =>
     cards.sort((a, b) => a.position - b.position)
   );
 
+export const selectByPlaceAndSortByLastPlayedDate = (place: string) =>
+  createSelector(selectByPlace(place), (cards) =>
+    cards.sort((a, b) => {
+      if (a.lastPlayedDate === undefined || b.lastPlayedDate === undefined) return 0;
+      const dateA = new Date(a.lastPlayedDate);
+      const dateB = new Date(b.lastPlayedDate);
+      return dateA.getTime() - dateB.getTime();
+    })
+  );
+  
 export const selectByPlaceAndNotTypes = (place: string, types: string[]) =>
   createSelector(selectByPlace(place), (cards) =>
     cards.filter(
