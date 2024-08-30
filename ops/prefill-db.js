@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 
 var users = [
-  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius", "Bastian", "Felix"
+  "Marvin", "Arthur", "Bernd", "Ole", "Marc", "Simon", "Lennard", "Steffen", "Robin", "Maik", "Timo", "Lukas", "Marius", "Bastian", "Felix", "Leon", "RobinP"
 ];
 
 var url = "http://admin:couchdb@localhost:5984/"
