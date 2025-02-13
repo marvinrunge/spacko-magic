@@ -29,16 +29,16 @@ services:
     ports:
       - "8000:8000"
     command: bash -c "npm i && node ./deckstats.js"
-  couchdb:
-    image: couchdb:latest
-    restart: unless-stopped
-    volumes:
-      - couchdb_data:/bitnami/couchdb/data
-    ports:
-      - "5984:5984"
-    environment:
-      COUCHDB_USER: admin
-      COUCHDB_PASSWORD: password
+#   couchdb:
+#     image: couchdb:latest
+#     restart: unless-stopped
+#     volumes:
+#       - couchdb_data:/bitnami/couchdb/data
+#     ports:
+#       - "5984:5984"
+#     environment:
+#       COUCHDB_USER: admin
+#       COUCHDB_PASSWORD: password
 
-volumes:
-  couchdb_data:
+# volumes:
+#   couchdb_data:
