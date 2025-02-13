@@ -36,6 +36,9 @@ services:
       - couchdb_data:/bitnami/couchdb/data
     ports:
       - "5984:5984"
+    environment:
+      COUCHDB_USER: ${COUCHDB_USER}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD}
 
 volumes:
   couchdb_data:
