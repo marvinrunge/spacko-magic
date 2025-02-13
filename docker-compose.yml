@@ -36,3 +36,6 @@ services:
       - couchdb_data:/bitnami/couchdb/data
     ports:
       - "5984:5984"
+
+volumes:
+  couchdb_data:
