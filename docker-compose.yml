@@ -29,3 +29,10 @@ services:
     ports:
       - "8000:8000"
     command: bash -c "npm i && node ./deckstats.js"
+  couchdb:
+    image: couchdb:latest
+    restart: unless-stopped
+    volumes:
+      - couchdb_data:/bitnami/couchdb/data
+    ports:
+      - "5984:5984"
