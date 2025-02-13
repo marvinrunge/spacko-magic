@@ -1,0 +1,12 @@
+[NX Daemon Server] - 2025-02-09T22:35:02.783Z - Started listening on: \\.\pipe\nx\C:\Users\marvi\AppData\Local\Temp\3eb33eb18052ac1a44f8\d.sock
+[NX Daemon Server] - 2025-02-09T22:35:02.787Z - [WATCHER]: Subscribed to changes within: C:\Users\marvi\Projekte\spacko-magic (native)
+[NX Daemon Server] - 2025-02-09T22:35:02.796Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-02-09T22:35:02.797Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2025-02-09T22:35:02.799Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2025-02-09T22:35:02.801Z - [REQUEST]: Responding to the client. Shutdown initiated
+[NX Daemon Server] - 2025-02-09T22:35:02.802Z - Done responding to the client Shutdown initiated
+[NX Daemon Server] - 2025-02-09T22:35:02.802Z - Handled FORCE_SHUTDOWN. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2025-02-09T22:35:02.803Z - [WATCHER]: Stopping the watcher for C:\Users\marvi\Projekte\spacko-magic (sources)
+[NX Daemon Server] - 2025-02-09T22:35:02.803Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2025-02-09T22:35:02.803Z - [WATCHER]: Stopping the watcher for C:\Users\marvi\Projekte\spacko-magic (outputs)
+[NX Daemon Server] - 2025-02-09T22:35:02.804Z - Server stopped because: "Request to shutdown"
